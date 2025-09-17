@@ -2,7 +2,11 @@
 export default {
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
-        extend: {},
+        extend: {
+            backgroundImage: {
+                "hero-banner": "url('/banner/banner.jpeg')",
+            },
+        },
     },
     plugins: [],
 };

@@ -1,6 +1,7 @@
 import { Search, RefreshCcw, Heart, UserRound, ShoppingBasket, TextAlignJustify, X } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import IconButton from "../ui/IconButton";
 
 function Header() {
     const [menu, setMenu] = useState(false);
@@ -34,11 +35,11 @@ function Header() {
     };
 
     return (
-        <header className="w-full py-[10px] px-[10px] max-lg:py-[5px] max-lg:px-[15px]">
-            <div className="max-w-[1600px] relative flex justify-between items-center mx-auto h-[55px]">
+        <header className="w-full py-[10px] px-[10px] max-lg:py-[5px] max-md:px-[15px]">
+            <div className="max-w-[1600px] mx-auto relative flex justify-between items-center h-[55px]">
                 {/* Menu */}
                 <button onClick={handleOpenMenu} className="lg:hidden">
-                    <TextAlignJustify className="w-[28px] h-[28px]" />
+                    <TextAlignJustify className="w-[24px] h-[24px]" />
                 </button>
 
                 {/* Logo */}
@@ -47,7 +48,7 @@ function Header() {
                 </div>
 
                 {/* Navigation */}
-                <nav className="max-lg:hidden flexCenter xl:ml-[60px]">
+                <nav className="max-lg:hidden flexCenter xl:ml-[120px]">
                     <ul className="flexCenter text-[#222] font-medium">
                         <li className="px-[8px]">
                             <a className="block px-[7px] py-[5px] hover:text-[#2A74ED]" href="">
@@ -100,10 +101,12 @@ function Header() {
                         <UserRound className="w-[20px] h-[20px]" />
                         <span className="text-[#000] ml-[7px] text-[15px] font-medium">Sign In</span>
                     </div>
-                    <button className="flexCenter min-w-[130px] bg-[#2A74ED] py-[10px] rounded-[99px] text-white">
-                        <ShoppingBasket className="w-[20px] h-[20px]" />
-                        <span className="ml-[7px] text-[15px]">Cart $0.00</span>
-                    </button>
+                    <IconButton
+                        icon={<ShoppingBasket className="w-[20px] h-[20px]" />}
+                        className={"flexCenter min-w-[130px] bg-[#2A74ED] py-[10px] rounded-[99px] text-white"}
+                        text={"Cart $0.00"}
+                        textClassName={"ml-[7px] text-[15px]"}
+                    />
                 </div>
 
                 {/* ShoppingCard Tablet */}
