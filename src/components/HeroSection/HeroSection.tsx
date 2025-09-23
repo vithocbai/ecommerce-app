@@ -5,9 +5,9 @@ import TypewriterLoop from "../TypewriterLoop/TypewriterLoop";
 
 function HeroSection() {
     return (
-        <div className="w-full px-[15px]">
+        <div className="w-full">
             <div
-                className="max-w-[1600px] max-lg:max-w-[940px] mx-auto min-h-[580px] bg-center bg-no-repeat bg-cover rounded-[20px] relative"
+                className="min-h-[580px] bg-center bg-no-repeat bg-cover rounded-[20px] relative"
                 style={{ backgroundImage: "url('banner/banner.jpeg')" }}
             >
                 <div className="max-w-[491px] max-lg:w-[330px] ml-[80px] mr-[40px] max-lg:mx-[15px] absolute top-[50%] translate-y-[-50%]">
@@ -26,7 +26,7 @@ function HeroSection() {
                     <IconButton
                         icon={<ShoppingCart className="w-[19px] h-[19px]" />}
                         className={
-                            "max-sm:mt-[10px] px-8 h-[56px] bg-[#2A74ED] flexCenter text-white rounded-[99px] hover:bg-[#000000] transition:colors duration-150 ease-linear"
+                            "max-sm:mt-[10px] px-8 h-[56px] bg-[#2A74ED] flexCenter text-white rounded-[99px] hover:bg-[#000000] transition:colors duration-150 ease-linear select-none"
                         }
                         text={"Buy Now - $320"}
                         textClassName="text-[18px] ml-[7px] font-semibold"
