@@ -42,7 +42,14 @@ const CategoriesSection: React.FC = () => {
     const loopCategories = [...categories, ...categories];
 
     return (
-        <section className="w-full mt-[30px]">
+        <section className="relative w-full mt-[30px]">
+            {/* Custom navigation buttons */}
+            <button className="swiper-button-prev absolute left-[-5px] z-10  text-[#DEDEDE] w-[40px] h-[40px] bg-white rounded-full border-[#DEDEDE] border-[1px] flex items-center justify-center">
+                <MoveLeft className="!w-[20px] !h-[20px]" />
+            </button>
+            <button className="swiper-button-next absolute right-[-5px] z-10  text-[#DEDEDE] w-[40px] h-[40px] bg-white rounded-full border-[#DEDEDE] border-[1px] flex items-center justify-center">
+                <MoveRight className="!w-[20px] !h-[20px]" />
+            </button>
             <Swiper
                 modules={[Navigation]}
                 spaceBetween={30}
@@ -85,14 +92,6 @@ const CategoriesSection: React.FC = () => {
                         </a>
                     </SwiperSlide>
                 ))}
-
-                {/* Custom navigation buttons */}
-                <button className="swiper-button-prev absolute left-0 z-10  text-[#DEDEDE] w-[40px] h-[40px] bg-white rounded-full border-[#DEDEDE] border-[1px] flex items-center justify-center">
-                    <MoveLeft className="!w-[20px] !h-[20px]" />
-                </button>
-                <button className="swiper-button-next absolute right-0 z-10  text-[#DEDEDE] w-[40px] h-[40px] bg-white rounded-full border-[#DEDEDE] border-[1px] flex items-center justify-center">
-                    <MoveRight className="!w-[20px] !h-[20px]" />
-                </button>
             </Swiper>
         </section>
     );
