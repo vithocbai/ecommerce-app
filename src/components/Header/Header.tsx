@@ -1,7 +1,7 @@
 import { Search, RefreshCcw, Heart, UserRound, ShoppingBasket, TextAlignJustify, X } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import IconButton from "../ui/IconButton";
+// import ActionButton from "../ui/ActionButton";
 
 function Header() {
     const [menu, setMenu] = useState(false);
@@ -101,12 +101,11 @@ function Header() {
                         <UserRound className="w-[20px] h-[20px]" />
                         <span className="text-[#000] ml-[7px] text-[15px] font-medium">Sign In</span>
                     </div>
-                    <IconButton
-                        icon={<ShoppingBasket className="w-[20px] h-[20px]" />}
-                        className={"flexCenter min-w-[130px] bg-[#2A74ED] py-[10px] rounded-[99px] text-white"}
-                        text={"Cart $0.00"}
-                        textClassName={"ml-[7px] text-[15px]"}
-                    />
+
+                    <button className="flexCenter gap-2 min-w-[130px] text-[15px] bg-[#2A74ED] py-[10px] rounded-[99px] text-white">
+                        <ShoppingBasket className="w-[20px] h-[20px]" />
+                        <span>Cart $0.00</span>
+                    </button>
                 </div>
 
                 {/* ShoppingCard Tablet */}

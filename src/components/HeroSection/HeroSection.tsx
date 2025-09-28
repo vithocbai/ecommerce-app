@@ -1,7 +1,5 @@
-import { useState } from "react";
-import IconButton from "../ui/IconButton";
-import { ShoppingCart } from "lucide-react";
 import TypewriterLoop from "../TypewriterLoop/TypewriterLoop";
+import { ShoppingCart } from "lucide-react";
 
 function HeroSection() {
     return (
@@ -23,14 +21,11 @@ function HeroSection() {
                     <p className="text-[18px] text-[#444] mt-[20px] mb-[40px] max-sm:hidden">
                         Get instant alerts for anyone who approaches, even if they don’t press the headphone.
                     </p>
-                    <IconButton
-                        icon={<ShoppingCart className="w-[19px] h-[19px]" />}
-                        className={
-                            "max-sm:mt-[10px] px-8 h-[56px] bg-[#2A74ED] flexCenter text-white rounded-[99px] hover:bg-[#000000] transition:colors duration-150 ease-linear select-none"
-                        }
-                        text={"Buy Now - $320"}
-                        textClassName="text-[18px] ml-[7px] font-semibold"
-                    />
+
+                    <button className="max-sm:mt-[10px] flexCenter gap-2 w-[219px] h-[56px] bg-[#2A74ED] text-[18px] font-semibold text-white rounded-[99px] transition-colors duration-300 ease-linear hover:bg-[#000]">
+                        <ShoppingCart className="w-[19px] h-[19px]" />
+                        <span>Buy Now - $320</span>
+                    </button>
                 </div>
             </div>
         </div>
