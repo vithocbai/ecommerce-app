@@ -7,7 +7,7 @@ const HomePage = () => {
     return (
         <ResponsiveWrapper className="w-full">
             <main className="w-full px-[15px] h-[10000px]">
-                <div className="max-w-[1600px] max-[1200px]:max-w-[940px] max-[990px]:max-w-[720px] mx-auto">
+                <div className="max-w-[1600px] max-[1200px]:max-w-[940px] max-[990px]:max-w-[736px] mx-auto">
                     <HeroSection />
                     <CategoriesSection />
                     <ProductHotspotSection />
