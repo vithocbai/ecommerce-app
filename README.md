@@ -96,6 +96,32 @@ autoprefixer
           },
       };
 
+    ===== Phân biệt cách tạo React:FC và Props ====
+        React:FC
+        const CategoriesSection: React.FC = () => {
+        return <div>Danh mục</div>;
+        };
+        export default CategoriesSection;
+        => Dùng React.FC khi:
+            Bạn muốn có type-check tự động cho children (React.FC mặc định có children).
+            Component đơn giản, không có props phức tạp.
+            Dự án nhỏ hoặc bạn muốn code ngắn gọn, nhất quán.
+        
+        Props
+        type CategoriesSectionProps = {};
+        const CategoriesSection = (props: CategoriesSectionProps) => {
+        return <div>Danh mục</div>;
+        };
+
+    ==== Mẫu khởi tạo component phổ biến trong TypeScript ===
+    | Trường hợp                          | Cách viết                                           Ghichú 
+        | ------------------------------- | ---------------------------------------------------------- | ------------------------ |
+        | Component đơn giản, không props | `const Comp = () => {}`                                    | Ngắn gọn, không cần kiểu |
+        | Component có props              | `type Props = {...}` + `const Comp = (props: Props) => {}` | Chuẩ nhất               |
+        | Component nhận `children`       | `const Layout: React.FC = ({ children }) => {}`            | Gọn khi cần `children`   |
+        | Component generic               | `function Comp<T>(props: MyProps<T>) {}`                   | Không dùng `React.FC`    |
+        | Component memo                  | `const Comp = React.memo((props: Props) => {})`            | Type tự suy luận         |
+
 
 
  -->

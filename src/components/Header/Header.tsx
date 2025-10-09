@@ -121,7 +121,7 @@ function Header() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={handleOpenMenu}
-                            className="fixed inset-0 bg-[rgba(0,0,0,0.4)]"
+                            className="fixed z-40 inset-0 bg-[rgba(0,0,0,0.4)]"
                         />
                     )}
                 </AnimatePresence>
@@ -134,7 +134,7 @@ function Header() {
                             animate={{ x: "-0%" }}
                             exit={{ x: "-100%" }}
                             transition={{ duration: 0.3, ease: "easeInOut" }}
-                            className="fixed top-0 left-0 bottom-0 w-[370px] bg-white px-[30px] py-5"
+                            className="fixed z-50 top-0 left-0 bottom-0 w-[370px] bg-white px-[30px] py-5"
                         >
                             {/* Close */}
                             <div

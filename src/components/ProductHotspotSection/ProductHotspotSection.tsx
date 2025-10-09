@@ -20,7 +20,7 @@ const ProductHotspotSection = () => {
             cardPosition: "top-left" as const,
             product: {
                 title: "Amazon Echo Dot (3rd Gen) Smart",
-                image: "producthots/hotspot1.jpeg",
+                image: "producthots/hotspot2.jpeg",
                 star: 5,
                 oldPrice: 805,
             },
@@ -31,7 +31,7 @@ const ProductHotspotSection = () => {
             cardPosition: "center-right" as const,
             product: {
                 title: "Google – Nest Hello Smart Wi-Fi Video Doorbell",
-                image: "producthots/hotspot1.jpeg",
+                image: "producthots/hotspot3.jpeg",
                 star: 5,
                 oldPrice: 1300,
             },
@@ -42,7 +42,7 @@ const ProductHotspotSection = () => {
             cardPosition: "bottom-right" as const,
             product: {
                 title: "Nest Mini Smart Speaker with Google Assistant",
-                image: "producthots/hotspot1.jpeg",
+                image: "producthots/hotspot4.jpeg",
                 star: 5,
                 oldPrice: 500.0,
                 newPrice: 435.5,

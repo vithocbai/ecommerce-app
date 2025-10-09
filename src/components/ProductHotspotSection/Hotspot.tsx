@@ -60,8 +60,8 @@ const Hotspot: React.FC<HotspotProps> = ({ top, left, cardPosition = "top-left",
                 };
             case "center-right":
                 return {
-                    cardClass: "top-[42px] -right-[132px]",
-                    arrowClass: "-top-[6px] left-[45%]",
+                    cardClass: "-top-[210px] right-[40px]",
+                    arrowClass: "top-[50%] -right-[6px]",
                 };
             default:
                 return {
@@ -74,16 +74,16 @@ const Hotspot: React.FC<HotspotProps> = ({ top, left, cardPosition = "top-left",
     const { cardClass, arrowClass } = getCardPosition();
     return (
         <section className="absolute" style={{ top, left }}>
-            <div className="relative  group">
+            <div className="relative group">
                 {/* Nút + */}
                 <button className="flexCenter w-[32px] h-[32px] bg-white rounded-full hover-bg-gray-100 shadow-md duration-500">
-                    <span className="absolute inline-flex h-full w-full rounded-full border-4 border-white opacity-50 animate-slow-ping"></span>
+                    <span className="absolute z-10 inline-flex h-full w-full rounded-full border-4 border-white opacity-50 animate-slow-ping"></span>
                     <Plus className="w-[12px] h-[12px]" />
                 </button>
 
                 {/* Card sản phẩm */}
                 <div
-                    className={`absolute opacity-0 invisible scale-75 group-hover:opacity-100 group-hover:visible group-hover:scale-100 transition-all duration-500 ease-in-out  ${cardClass} `}
+                    className={`absolute z-20 opacity-0 invisible scale-75 group-hover:opacity-100 group-hover:visible group-hover:scale-100 transition-all duration-500 ease-in-out  ${cardClass} `}
                 >
                     {/* Mũi tên */}
                     <div className={`absolute ${arrowClass}`}>
@@ -92,7 +92,7 @@ const Hotspot: React.FC<HotspotProps> = ({ top, left, cardPosition = "top-left",
 
                     {/* Nội dung card */}
                     <div
-                        className={`text-center min-w-[276px] max-lg:min-w-[200px] p-[20px] pb-[30px]  bg-white shadow-[0px_7px_14px_0px_rgba(0,0,0,0.1)] rounded-md`}
+                        className={`text-center min-w-[276px] max-lg:min-w-[200px] p-[20px] pb-[30px] bg-white shadow-[0px_7px_14px_0px_rgba(0,0,0,0.1)] rounded-md`}
                     >
                         <img className="w-full object-cover" src={product.image} alt="" />
                         <h2 className="mb-[7px] text-center text-[#222] font-[jost] font-medium cursor-pointer">
