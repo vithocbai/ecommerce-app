@@ -1,9 +1,68 @@
+import Hotspot from "./Hotspot";
+
 const ProductHotspotSection = () => {
+    const hotspots = [
+        {
+            top: "60%",
+            left: "13%",
+            cardPosition: "center-left" as const,
+            product: {
+                title: "Nest Mini Smart Speaker with Google Assistant",
+                image: "producthots/hotspot1.jpeg",
+                star: 5,
+                oldPrice: 300,
+                newPrice: 200,
+            },
+        },
+        {
+            top: "8%",
+            left: "35%",
+            cardPosition: "top-left" as const,
+            product: {
+                title: "Amazon Echo Dot (3rd Gen) Smart",
+                image: "producthots/hotspot1.jpeg",
+                star: 5,
+                oldPrice: 805,
+            },
+        },
+        {
+            top: "40%",
+            left: "70%",
+            cardPosition: "center-right" as const,
+            product: {
+                title: "Google – Nest Hello Smart Wi-Fi Video Doorbell",
+                image: "producthots/hotspot1.jpeg",
+                star: 5,
+                oldPrice: 1300,
+            },
+        },
+        {
+            top: "80%",
+            left: "78%",
+            cardPosition: "bottom-right" as const,
+            product: {
+                title: "Nest Mini Smart Speaker with Google Assistant",
+                image: "producthots/hotspot1.jpeg",
+                star: 5,
+                oldPrice: 500.0,
+                newPrice: 435.5,
+            },
+        },
+    ];
+
     return (
         <section className="max-md:block flexCenter max-md:mt-[60px] mt-[110px]">
-            <div className="max-md:w-full w-[50%] max-md:pr-0 pr-[15px]">
+            {/* Image */}
+            <div className="relative max-md:w-full w-[50%] max-md:pr-0 pr-[15px]">
                 <img className="w-full object-cover" src="/producthots/img1.jpeg" alt="" />
+
+                {/* Hotspot */}
+                {hotspots.map((hotspot, i) => {
+                    return <Hotspot key={i} {...hotspot} />;
+                })}
             </div>
+
+            {/* Content */}
             <div className="max-md:w-full max-md:mt-[50px] w-[50%]">
                 <div className="max-md:mx-0 mx-[15%] max-lg:mx-[5%] h-full my-auto ">
                     <h3 className="uppercase text-[12px] text-[#222] mb-[20px] tracking-[2px]">

@@ -2,12 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer {
+@layer utilities {
     .flexCenter {
         @apply flex justify-center items-center;
     }
 
     .flex-right-center {
         @apply flex justify-end items-center;
+    }
+
+    @keyframes slow-ping {
+        75%,
+        100% {
+            transform: scale(1.8);
+            opacity: 0;
+        }
+    }
+
+    .animate-slow-ping {
+        animation: slow-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
     }
 }
