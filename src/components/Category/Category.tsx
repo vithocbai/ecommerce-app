@@ -3,43 +3,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
+import { sampleCategory } from "../../data/sampleCategory";
 
-interface Category {
-    id: number;
-    name: string;
-    products: number;
-    image: string;
-}
 
-const categories: Category[] = [
-    {
-        id: 1,
-        name: "Computer & PC",
-        products: 6,
-        image: "/category/img1.jpeg",
-    },
-    {
-        id: 2,
-        name: "Smart Gadgets",
-        products: 2,
-        image: "/category/img2.jpeg",
-    },
-    {
-        id: 3,
-        name: "TV & Monitors",
-        products: 5,
-        image: "/category/img3.jpeg",
-    },
-    {
-        id: 4,
-        name: "Wearable Items",
-        products: 9,
-        image: "/category/img4.jpeg",
-    },
-];
-
-const CategoriesSection: React.FC = () => {
-    const loopCategories = [...categories, ...categories];
+const CategoriesSection = () => {
+    const loopCategories = [...sampleCategory, ...sampleCategory];
 
     return (
         <section className="relative w-full mt-[30px]">
