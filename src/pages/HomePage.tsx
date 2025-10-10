@@ -2,6 +2,8 @@ import HeroSection from "../components/HeroSection/HeroSection";
 import CategoriesSection from "../components/Category/Category";
 import ProductHotspotSection from "../components/ProductHotspotSection/ProductHotspotSection";
 import ResponsiveWrapper from "../components/ResponsiveWrapper/ResponsiveWrapper";
+import { ProductTrending } from "../components/ProductTrending/ProductTrending";
+import { sampleProducts } from "../data/sampleProducts";
 
 const HomePage = () => {
     return (
@@ -11,6 +13,7 @@ const HomePage = () => {
                     <HeroSection />
                     <CategoriesSection />
                     <ProductHotspotSection />
+                    <ProductTrending products={sampleProducts}/>
                 </div>
             </main>
         </ResponsiveWrapper>
