@@ -16,7 +16,7 @@ export const sampleProducts: Products[] = [
         descriptions: "Hi-Resolution Bluetooth 4.0 Wireless Speakers",
         image: "/productCard/img2.jpeg",
         oldPrice: 320.00,
-        rating: 5,
+        rating: 4,
     },
     {
         id: 3,
@@ -44,3 +44,5 @@ export const sampleProducts: Products[] = [
         rating: 5,
     },
 ];
+
+

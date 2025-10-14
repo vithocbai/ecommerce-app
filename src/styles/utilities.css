@@ -23,3 +23,13 @@
         animation: slow-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
     }
 }
+
+@layer components {
+    .swiper-pagination-bullet {
+        @apply bg-gray-400 w-4 h-4 rounded-full opacity-70 transition-all !important;
+    }
+
+    .swiper-pagination-bullet-active {
+        @apply bg-gray-600 opacity-100;
+    }
+}
