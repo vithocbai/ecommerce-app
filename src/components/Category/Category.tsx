@@ -43,7 +43,7 @@ const CategoriesSection = () => {
             >
                 {loopCategories.map((category, id) => (
                     <SwiperSlide key={id}>
-                        <a className="relative w-[100%] rounded-[20px] select-none hover:shadow-xl " href="#!">
+                        <a className="relative w-[100%] rounded-[20px] select-none hover:shadow-xl" href="#!">
                             <div className="absolute mx-auto top-0 px-[15px] py-[50px] w-full">
                                 <h2 className="text-center text-[26px] text-[#222] font-medium mb-[3px]">
                                     {category.name}
