@@ -1,4 +1,3 @@
-import { span } from "framer-motion/client";
 import { Plus } from "lucide-react";
 
 interface HotspotProps {

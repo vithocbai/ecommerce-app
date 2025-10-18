@@ -6,6 +6,7 @@ import { ProductTrending } from "../components/ProductTrending/ProductTrending";
 import { sampleProducts } from "../data/sampleProducts";
 import { sampleProductPromo } from "../data/sampleProductPromo";
 import { ProductPromoSection } from "../components/ProductPromoSection/ProductPromoSection";
+import { TestimonialsSection } from "../components/TestimonialsSection/TestimonialsSection";
 
 const HomePage = () => {
     return (
@@ -17,6 +18,7 @@ const HomePage = () => {
                     <ProductHotspotSection />
                     <ProductTrending products={sampleProducts}/>
                     <ProductPromoSection productPromos={sampleProductPromo} />
+                    <TestimonialsSection />
                 </div>
             </main>
         </ResponsiveWrapper>
