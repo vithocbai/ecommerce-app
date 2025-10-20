@@ -9,6 +9,7 @@ import { ProductPromoSection } from "../components/ProductPromoSection/ProductPr
 import { TestimonialsSection } from "../components/TestimonialsSection/TestimonialsSection";
 import { dataPopularArticle } from "../data/samplePupularArticle";
 import { PopularArticles } from "../components/PopularArticles/PopularArticles";
+import { BrandSection } from "../components/Brand/BrandSection";
 
 const HomePage = () => {
     return (
@@ -22,6 +23,7 @@ const HomePage = () => {
                     <ProductPromoSection productPromos={sampleProductPromo} />
                     <TestimonialsSection />
                     <PopularArticles poppularArticles={dataPopularArticle}/>
+                    <BrandSection />
                 </div>
             </main>
         </ResponsiveWrapper>
