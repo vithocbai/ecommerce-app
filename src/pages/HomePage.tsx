@@ -7,6 +7,8 @@ import { sampleProducts } from "../data/sampleProducts";
 import { sampleProductPromo } from "../data/sampleProductPromo";
 import { ProductPromoSection } from "../components/ProductPromoSection/ProductPromoSection";
 import { TestimonialsSection } from "../components/TestimonialsSection/TestimonialsSection";
+import { dataPopularArticle } from "../data/samplePupularArticle";
+import { PopularArticles } from "../components/PopularArticles/PopularArticles";
 
 const HomePage = () => {
     return (
@@ -19,6 +21,7 @@ const HomePage = () => {
                     <ProductTrending products={sampleProducts}/>
                     <ProductPromoSection productPromos={sampleProductPromo} />
                     <TestimonialsSection />
+                    <PopularArticles poppularArticles={dataPopularArticle}/>
                 </div>
             </main>
         </ResponsiveWrapper>

@@ -9,15 +9,17 @@ export const ProductPromoSection = ({ productPromos }: ProductPromoProps) => {
     return (
         <section className="mt-[65px] max-lg:mt-[20px]">
             <div className="flex items-center w-full gap-[30px] max-md:block">
-                {productPromos.map((productPromo) => {
+                {productPromos.map((productPromo, index) => {
                     return (
-                        <div className="relative w-[50%] max-md:mb-5 max-md:w-full h-[auto] !rounded-[12px] overflow-hidden cursor-pointer group">
+                        <div
+                            key={index}
+                            className="relative w-[50%] max-md:mb-5 max-md:w-full h-[auto] !rounded-[12px] overflow-hidden cursor-pointer group"
+                        >
                             {/* Lớp nền có hiệu ứng scale */}
                             <div
                                 className="absolute inset-0 bg-no-repeat bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                                 style={{ backgroundImage: `url('${productPromo.bgImage}')` }}
-                            >
-                            </div>
+                            ></div>
                             {/* Nội dung */}
                             <div className="relative top-0 px-[80px] max-sm:py-20 max-md:py-28 max-lg:px-[34px] max-lg:py-[40px] pt-[90px] pb-[70px] max-xl:pt-[20px] max-xl:pb-[10px]">
                                 <h4

@@ -13,8 +13,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         for (let i = 0; i < totalStar; i++) {
             let isFilter = i < product.rating;
             star.push(
-                <span className={`${isFilter ? "text-yellow-300" : "text-gray-400"}`}>
-                    <Star key={i} className="w-[16px]" fill={isFilter ? "#facc15" : "#9ca3af"} />
+                <span key={i} className={`${isFilter ? "text-yellow-300" : "text-gray-400"}`}>
+                    <Star className="w-[16px]" fill={isFilter ? "#facc15" : "#9ca3af"} />
                 </span>
             );
         }
