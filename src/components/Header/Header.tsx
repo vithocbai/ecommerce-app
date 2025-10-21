@@ -1,10 +1,12 @@
 import { Search, RefreshCcw, Heart, UserRound, ShoppingBasket, TextAlignJustify, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 // import ActionButton from "../ui/ActionButton";
 
 function Header() {
     const [menu, setMenu] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+
     const tabs = [
         {
             id: "menu",
@@ -34,8 +36,19 @@ function Header() {
         },
     };
 
+    useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 20);
+        window.addEventListener("scroll", onScroll);
+        return () => window.removeEventListener("scroll", onScroll);
+    }, [scrolled]);
+
     return (
-        <header className="w-full py-[10px] px-[10px] max-lg:py-[5px] max-md:px-[15px]">
+        <header
+            className={`sticky top-[0] left-0 right-0 z-50 w-full py-[10px] px-[10px] max-lg:py-[5px] max-md:px-[15px] 
+        ${
+            scrolled ? "bg-[#FFFFFFB3] shadow-[2px_0px_12px_rgba(0,0,0,0.15)]" : ""
+        } transition-all duration-100 ease-linear backdrop-blur-[5px]`}
+        >
             <div className="max-w-[1600px] mx-auto relative flex justify-between items-center h-[55px]">
                 {/* Menu */}
                 <button onClick={handleOpenMenu} className="lg:hidden">
@@ -121,7 +134,7 @@ function Header() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={handleOpenMenu}
-                            className="fixed z-40 inset-0 bg-[rgba(0,0,0,0.4)]"
+                            className="fixed z-[40] inset-0 h-[100vh] bg-[rgba(0,0,0,0.4)]"
                         />
                     )}
                 </AnimatePresence>
@@ -134,17 +147,17 @@ function Header() {
                             animate={{ x: "-0%" }}
                             exit={{ x: "-100%" }}
                             transition={{ duration: 0.3, ease: "easeInOut" }}
-                            className="fixed z-50 top-0 left-0 bottom-0 w-[370px] bg-white px-[30px] py-5"
+                            className="fixed z-50 top-0 left-0 bottom-0 h-[100vh] w-[370px] bg-white px-[30px] py-5"
                         >
                             {/* Close */}
                             <div
                                 onClick={handleOpenMenu}
-                                className="absolute right-[-50px] top-[20px] flexCenter w-[35px] h-[35px] bg-white rounded-[99px]"
+                                className="absolute z-10 right-[-50px] top-[20px] flexCenter w-[35px] h-[35px] bg-white rounded-[99px]"
                             >
                                 <X strokeWidth={0.6} />
                             </div>
 
-                            <div className="flex flex-col gap-y-[18px]">
+                            <div className="flex flex-col gap-y-[18px] bg-white">
                                 {/* Logo */}
                                 <div className="max-w-[160px] mx-auto">
                                     <img className="w-[100%]" src="/logo/Logo.png" alt="XSTORE" />

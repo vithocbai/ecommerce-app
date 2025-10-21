@@ -10,7 +10,6 @@ import { TestimonialsSection } from "../components/TestimonialsSection/Testimoni
 import { dataPopularArticle } from "../data/samplePupularArticle";
 import { PopularArticles } from "../components/PopularArticles/PopularArticles";
 import { BrandSection } from "../components/Brand/BrandSection";
-import { Footer } from "../components/Footer/Footer";
 
 const HomePage = () => {
     return (
@@ -27,7 +26,7 @@ const HomePage = () => {
                     <BrandSection />
                 </div>
             </main>
-            <Footer />
+            
         </ResponsiveWrapper>
     );
 };
