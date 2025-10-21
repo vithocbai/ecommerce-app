@@ -147,12 +147,12 @@ function Header() {
                             animate={{ x: "-0%" }}
                             exit={{ x: "-100%" }}
                             transition={{ duration: 0.3, ease: "easeInOut" }}
-                            className="fixed z-50 top-0 left-0 bottom-0 h-[100vh] w-[370px] bg-white px-[30px] py-5"
+                            className="fixed z-50 top-0 left-0 bottom-0 h-[100vh] w-[370px] max-sm:w-[85%] bg-white px-[30px] py-5"
                         >
                             {/* Close */}
                             <div
-                                onClick={handleOpenMenu}
-                                className="absolute z-10 right-[-50px] top-[20px] flexCenter w-[35px] h-[35px] bg-white rounded-[99px]"
+                                onClick={handleOpenMenu}    
+                                className="absolute z-10 right-[-50px] max-sm:right-[-40px] top-[20px] flexCenter max-sm:w-[30px] max-sm:h-[30px] w-[35px] h-[35px] bg-white rounded-[99px]"
                             >
                                 <X strokeWidth={0.6} />
                             </div>

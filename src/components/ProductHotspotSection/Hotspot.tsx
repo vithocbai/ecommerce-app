@@ -49,7 +49,7 @@ const Hotspot: React.FC<HotspotProps> = ({ top, left, cardPosition = "top-left",
                 };
             case "bottom-right":
                 return {
-                    cardClass: "bottom-[40px] -right-[124px]",
+                    cardClass: "bottom-[40px] -right-[124px] max-md:right-[-10px]",
                     arrowClass: "top-[98.2%] left-[47%]",
                 };
             case "center-left":
