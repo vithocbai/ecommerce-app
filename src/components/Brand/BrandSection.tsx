@@ -24,7 +24,7 @@ export function BrandSection() {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
     return (
-        <section className="mt-[60px]">
+        <section className="mt-[60px] pb-[100px] max-sm:pb-[46px]">
             {isTablet ? (
                 <Swiper
                     slidesPerView={4}

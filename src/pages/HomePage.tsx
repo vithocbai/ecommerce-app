@@ -10,22 +10,24 @@ import { TestimonialsSection } from "../components/TestimonialsSection/Testimoni
 import { dataPopularArticle } from "../data/samplePupularArticle";
 import { PopularArticles } from "../components/PopularArticles/PopularArticles";
 import { BrandSection } from "../components/Brand/BrandSection";
+import { Footer } from "../components/Footer/Footer";
 
 const HomePage = () => {
     return (
         <ResponsiveWrapper className="w-full">
-            <main className="w-full px-[15px] h-[10000px]">
+            <main className="w-full px-[15px]">
                 <div className="max-w-[1600px] max-[1200px]:max-w-[940px] max-[990px]:max-w-[736px] mx-auto">
                     <HeroSection />
                     <CategoriesSection />
                     <ProductHotspotSection />
-                    <ProductTrending products={sampleProducts}/>
+                    <ProductTrending products={sampleProducts} />
                     <ProductPromoSection productPromos={sampleProductPromo} />
                     <TestimonialsSection />
-                    <PopularArticles poppularArticles={dataPopularArticle}/>
+                    <PopularArticles poppularArticles={dataPopularArticle} />
                     <BrandSection />
                 </div>
             </main>
+            <Footer />
         </ResponsiveWrapper>
     );
 };
