@@ -181,27 +181,27 @@ export const Footer = () => {
                     <div className="w-[61%] max-md:w-full mx-5 max-md:mx-0 max-md:py-5">
                         {/* Info */}
                         <div className="flex flex-wrap mb-[15px]">
-                            <p className="text-white text-[15px] pr-[10px] first:pl-[0]">
+                            <div className="text-white text-[15px] pr-[10px] first:pl-[0]">
                                 <div>
                                     Phone: <span className="text-[#ccc]"> 888.312.2456.</span>
                                 </div>
                                 {/* <span className="text-[#ccc]"> 888.312.2456. </span> */}
-                            </p>
-                            <p className="text-white text-[15px] pr-[10px]">
+                            </div>
+                            <div className="text-white text-[15px] pr-[10px]">
                                 <div>
                                     Text: <span className="text-[#ccc]"> 200.490.1520 </span>
                                 </div>
-                            </p>
-                            <p className="text-white text-[15px] pr-[10px]">
+                            </div>
+                            <div className="text-white text-[15px] pr-[10px]">
                                 <div>
                                     Email: <span className="text-[#ccc]"> hoang15tq@gmail.com</span>
                                 </div>
-                            </p>
-                            <p className="flex  text-white text-[15px] pr-[10px]">
+                            </div>
+                            <div className="flex  text-white text-[15px] pr-[10px]">
                                 <div>
                                     Hours: <span className="text-[#ccc]"> Monday - Friday 8:30am - 4:45pm EST </span>
                                 </div>
-                            </p>
+                            </div>
                         </div>
                         {/* Copyright */}
                         <div className="flex-wrap text-[#ccc] text-[15px]">

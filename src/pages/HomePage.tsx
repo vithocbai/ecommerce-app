@@ -10,8 +10,11 @@ import { TestimonialsSection } from "../components/TestimonialsSection/Testimoni
 import { dataPopularArticle } from "../data/samplePupularArticle";
 import { PopularArticles } from "../components/PopularArticles/PopularArticles";
 import { BrandSection } from "../components/Brand/BrandSection";
+import { Sidebar } from "lucide-react";
+import { useState } from "react";
 
 const HomePage = () => {
+    
     return (
         <ResponsiveWrapper className="w-full">
             <main className="w-full px-[15px]">
@@ -26,7 +29,6 @@ const HomePage = () => {
                     <BrandSection />
                 </div>
             </main>
-            
         </ResponsiveWrapper>
     );
 };

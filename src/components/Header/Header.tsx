@@ -1,11 +1,21 @@
 import { Search, RefreshCcw, Heart, UserRound, ShoppingBasket, TextAlignJustify, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Sidebar } from "../Sidebar/Sidebar";
 // import ActionButton from "../ui/ActionButton";
 
 function Header() {
     const [menu, setMenu] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+
+    // Sidebar
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [sidebarType, setSidebarType] = useState<string>("");
+
+    const handleOpenSidebar = (type: string) => {
+        setSidebarOpen(true);
+        setSidebarType(type);
+    };
 
     const tabs = [
         {
@@ -104,13 +114,13 @@ function Header() {
 
                 {/* Action Right */}
                 <div className="max-lg:hidden flexCenter gap-4">
-                    <div>
+                    <div onClick={() => handleOpenSidebar("COMPARE")}>
                         <RefreshCcw className="w-[20px] h-[20px]" />
                     </div>
-                    <div>
+                    <div onClick={() => handleOpenSidebar("WISHLIST")}>
                         <Heart className="w-[20px] h-[20px]" />
                     </div>
-                    <div className="flexCenter">
+                    <div className="flexCenter" onClick={() => handleOpenSidebar("SIGNIN")}>
                         <UserRound className="w-[20px] h-[20px]" />
                         <span className="text-[#000] ml-[7px] text-[15px] font-medium">Sign In</span>
                     </div>
@@ -120,6 +130,9 @@ function Header() {
                         <span>Cart $0.00</span>
                     </button>
                 </div>
+
+                {/* Sidebar */}
+                <Sidebar open={sidebarOpen} close={() => setSidebarOpen(false)} type={sidebarType} />
 
                 {/* ShoppingCard Tablet */}
                 <button className="lg:hidden flexCenter rounded-[99px] text-white w-[40px] h-[40px] bg-[#2A74ED]">
@@ -151,7 +164,7 @@ function Header() {
                         >
                             {/* Close */}
                             <div
-                                onClick={handleOpenMenu}    
+                                onClick={handleOpenMenu}
                                 className="absolute z-10 right-[-50px] max-sm:right-[-40px] top-[20px] flexCenter max-sm:w-[30px] max-sm:h-[30px] w-[35px] h-[35px] bg-white rounded-[99px]"
                             >
                                 <X strokeWidth={0.6} />
