@@ -2,8 +2,8 @@ import { Facebook, Youtube, Instagram, Tv, Twitter } from "lucide-react";
 
 export const Footer = () => {
     return (
-        <section className="bg-[#32373C]">
-            <div className="w-full px-[15px]">
+        <section className=" bg-[#32373C]">
+            <div className="max-w-[1600px] mx-auto w-full px-[15px]">
                 {/* Footer Top */}
                 <ul className="grid grid-cols-4 max-lg:grid-cols-2 max-lg:grid-cols-1 gap-x-5 pt-5 pb-[15px] border-b-[1px] border-[#464D54]">
                     <li className="flex items-center max-lg:mb-6">
