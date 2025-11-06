@@ -2,6 +2,7 @@ import { Search, RefreshCcw, Heart, UserRound, ShoppingBasket, TextAlignJustify,
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sidebar } from "../Sidebar/Sidebar";
+import { Link } from "react-router-dom";
 // import ActionButton from "../ui/ActionButton";
 
 function Header() {
@@ -74,14 +75,14 @@ function Header() {
                 <nav className="max-lg:hidden flexCenter xl:ml-[120px]">
                     <ul className="flexCenter text-[#222] font-medium">
                         <li className="px-[8px]">
-                            <a className="block px-[7px] py-[5px] hover:text-[#2A74ED]" href="">
+                            <Link to='/elements' className="block px-[7px] py-[5px] hover:text-[#2A74ED]">
                                 Elements
-                            </a>
+                            </Link>
                         </li>
                         <li className="px-[8px]">
-                            <a className="block px-[7px] py-[5px] hover:text-[#2A74ED]" href="">
+                            <Link to='/shop' className="block px-[7px] py-[5px] hover:text-[#2A74ED]">
                                 Shop
-                            </a>
+                            </Link>
                         </li>
                         <li className="px-[8px]">
                             <a className="block px-[7px] py-[5px] hover:text-[#2A74ED]" href="block">
