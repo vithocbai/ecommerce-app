@@ -2,6 +2,8 @@ import { ChevronRight } from "lucide-react";
 import Header from "../components/Header/Header";
 import { Footer } from "../components/Footer/Footer";
 import { Link, useLocation } from "react-router-dom";
+import { FilterBar } from "../components/FilterBar/FilterBar";
+
 
 function Shop() {
     const location = useLocation();
@@ -47,6 +49,7 @@ function Shop() {
                 </p>
             </div>
 
+            <FilterBar />
             {/* Footer */}
             <Footer />
         </section>
