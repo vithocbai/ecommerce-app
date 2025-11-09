@@ -24,6 +24,7 @@ export const FilterBar: React.FC = () => {
 
     const [openDropdown, setOpenDropdown] = useState<string | null>(null);
     const [tempPriceRange, setTempPriceRange] = useState<[number, number]>([149, 1299]);
+    const [showCategory, setShowCategory] = useState(false);
     const [showPrice, setShowPrice] = useState(false);
     const minPrice = 149;
     const maxPrice = 1300;
@@ -91,7 +92,9 @@ export const FilterBar: React.FC = () => {
                             <div className="ml-auto">
                                 {filters.category.length > 0 && (
                                     <div
-                                        onClick={() => clearCategory()}
+                                        onClick={(e) => {
+                                            e.stopPropagation(), clearCategory();
+                                        }}
                                         className="group flex items-center gap-[2px] whitespace-nowrap text-[#555] rounded-sm text-[12px] bg-[#ddd] py-[5px] px-[7px]"
                                     >
                                         <span className="hidden group-hover:block">
@@ -103,9 +106,9 @@ export const FilterBar: React.FC = () => {
                             </div>
                             <div className="">
                                 {openDropdown ? (
-                                    <ChevronDown className="" size={16} />
-                                ) : (
                                     <ChevronUp className="" size={16} />
+                                ) : (
+                                    <ChevronDown className="" size={16} />
                                 )}
                             </div>
                         </button>
@@ -147,8 +150,12 @@ export const FilterBar: React.FC = () => {
                                         </span>
                                     </div>
                                 )}
-                                <div>
-                                    <ChevronDown className="" size={16} />
+                                <div className="">
+                                    {openDropdown ? (
+                                        <ChevronUp className="" size={16} />
+                                    ) : (
+                                        <ChevronDown className="" size={16} />
+                                    )}
                                 </div>
                             </button>
                             {openDropdown === "price" && (
