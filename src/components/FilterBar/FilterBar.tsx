@@ -1,15 +1,10 @@
+import { div } from "framer-motion/client";
 import { ChevronDown, ChevronUp, X } from "lucide-react";
 import { useState } from "react";
 
 interface FilterOption {
     value: string;
     label: string;
-}
-
-interface FilterBarProps {
-    onFilterChange?: (filters: FilterState) => void;
-    minPrice: number;
-    maxPrice: number;
 }
 
 interface FilterState {
@@ -19,7 +14,7 @@ interface FilterState {
     rating: number;
 }
 
-export const FilterBar = () => {
+export const FilterBar: React.FC = () => {
     const [filters, setFilters] = useState({
         category: "",
         priceRange: [149, 1299],
@@ -28,6 +23,11 @@ export const FilterBar = () => {
     });
 
     const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+    const [tempPriceRange, setTempPriceRange] = useState<[number, number]>([149, 1299]);
+    const [showPrice, setShowPrice] = useState(false);
+    const minPrice = 149;
+    const maxPrice = 1300;
+    const step = 1;
 
     const categories: FilterOption[] = [
         { value: "computer-pc", label: "Computer & PC" },
@@ -52,8 +52,23 @@ export const FilterBar = () => {
         setOpenDropdown(null);
     };
 
+    const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = Math.min(Number(e.target.value), tempPriceRange[1] - 1);
+        setTempPriceRange([value, tempPriceRange[1]]);
+    };
+
+    const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = Math.max(Number(e.target.value), tempPriceRange[0] + 1);
+        setTempPriceRange([tempPriceRange[0], value]);
+    };
+
     const clearCategory = () => {
         setFilters({ ...filters, category: "" });
+    };
+
+    const clearPrice = () => {
+        setShowPrice(false);
+        setTempPriceRange([149, 1299]);
     };
 
     return (
@@ -66,12 +81,14 @@ export const FilterBar = () => {
                             onClick={() => toggleDropdown("categories")}
                             className="flex items-center w-full gap-2 border-[1px] border-[#e1e1e1] rounded-full pl-4 pr-5 py-[6px] text-[#444]"
                         >
-                            <div className="flex items-center gap-2 text-sm uppercase mr-auto min-w-[25%]">
-                                <span
-                                    className={`${filters.category} ? 'max-w-[100px] truncate overflow-hidden': 'max-w-full'`}
+                            <div className="flex items-center gap-2 text-sm uppercase  min-w-[25%]">
+                                <div
+                                    className={`${filters.category} ? 'max-w-[100px] truncate overflow-hidden': 'max-w-full' `}
                                 >
                                     CATEGORIES
-                                </span>
+                                </div>
+                            </div>
+                            <div className="ml-auto">
                                 {filters.category.length > 0 && (
                                     <div
                                         onClick={() => clearCategory()}
@@ -84,7 +101,7 @@ export const FilterBar = () => {
                                     </div>
                                 )}
                             </div>
-                            <div>
+                            <div className="">
                                 {openDropdown ? (
                                     <ChevronDown className="" size={16} />
                                 ) : (
@@ -107,6 +124,91 @@ export const FilterBar = () => {
                                 ))}
                             </div>
                         )}
+                    </div>
+
+                    {/* Price */}
+                    <div>
+                        <div className="relative">
+                            <button
+                                onClick={() => toggleDropdown("price")}
+                                className="flex items-center justify-between w-full gap-2 border-[1px] border-[#e1e1e1] rounded-full pl-4 pr-5 py-[6px] text-[#444]"
+                            >
+                                <div className="min-w-[25%] truncate overflow-hidden text-[14px] uppercase">Price</div>
+                                {showPrice && (
+                                    <div
+                                        onClick={() => clearPrice()}
+                                        className="group flex items-center gap-[2px] ml-auto whitespace-nowrap text-[#555] rounded-sm text-[12px] bg-[#ddd] py-[5px] px-[7px]"
+                                    >
+                                        <span className="hidden group-hover:block">
+                                            <X size={12} />
+                                        </span>
+                                        <span>
+                                            ${tempPriceRange[0]} - ${tempPriceRange[1]}
+                                        </span>
+                                    </div>
+                                )}
+                                <div>
+                                    <ChevronDown className="" size={16} />
+                                </div>
+                            </button>
+                            {openDropdown === "price" && (
+                                <div>
+                                    <div className="absolute top-[100%] left-0 right-0 bg-white  border-[1px] border-[#e1e1e1] py-5 px-4  mt-[3px] mb-[10px]">
+                                        {/* Range Slider */}
+                                        <div className="relative ">
+                                            {/*Track background */}
+                                            <div className="absolute bg-gray-200 w-full h-[3px] rounded"></div>
+
+                                            {/* Active track */}
+                                            <div
+                                                className="absolute h-[3px] bg-blue-500 rounded"
+                                                style={{
+                                                    left: `${
+                                                        ((tempPriceRange[0] - minPrice) / (maxPrice - minPrice)) * 100
+                                                    }%`,
+                                                    right: `${
+                                                        100 -
+                                                        ((tempPriceRange[1] - minPrice) / (maxPrice - minPrice)) * 100
+                                                    }%`,
+                                                }}
+                                            ></div>
+
+                                            {/* Min slider */}
+                                            <input
+                                                type="range"
+                                                min={minPrice}
+                                                max={maxPrice}
+                                                step={step}
+                                                value={tempPriceRange[0]}
+                                                onChange={handleMinChange}
+                                                onMouseDown={() => setShowPrice(true)}
+                                                className="absolute w-full h-1 bg-transparent appearance-none pointer-events-none cursor-pointer [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-500 [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-blue-500 [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer"
+                                            />
+
+                                            {/* Max slider */}
+                                            <input
+                                                type="range"
+                                                min={minPrice}
+                                                max={maxPrice}
+                                                step={step}
+                                                value={tempPriceRange[1]}
+                                                onChange={handleMaxChange}
+                                                onMouseDown={() => setShowPrice(true)}
+                                                className="absolute w-full h-1 bg-transparent appearance-none pointer-events-none cursor-pointer [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-500 [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-blue-500 [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer"
+                                            />
+                                        </div>
+
+                                        {/* Price Display */}
+                                        <div className="text-[#444] mt-4">
+                                            Price:
+                                            <span className="text-[14px]">
+                                                ${tempPriceRange[0]} — ${tempPriceRange[1]}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
