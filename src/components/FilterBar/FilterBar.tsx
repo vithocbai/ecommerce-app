@@ -23,6 +23,12 @@ export const FilterBar: React.FC = () => {
     });
 
     const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+    const [dropdownState, setDropdownState] = useState({
+        categories: false,
+        price: false,
+        color: false,
+        rating: false,
+    });
 
     const [tempPriceRange, setTempPriceRange] = useState<[number, number]>([149, 1299]);
     const [showPrice, setShowPrice] = useState(false);
@@ -45,8 +51,8 @@ export const FilterBar: React.FC = () => {
         { value: "red", label: "#dd3333" },
     ];
 
-    const toggleDropdown = (dropdown: string) => {
-        setOpenDropdown(dropdown == openDropdown ? null : dropdown)
+    const toggleDropdown = (dropdown: keyof typeof dropdownState) => {
+        setDropdownState((prev) => ({ ...prev, [dropdown]: !prev[dropdown] }));
     };
 
     const handleCategoryChange = (category: string) => {
@@ -111,14 +117,14 @@ export const FilterBar: React.FC = () => {
                                 )}
                             </div>
                             <div className="">
-                                {openDropdown ? (
+                                {dropdownState.categories ? (
                                     <ChevronUp className="" size={16} />
                                 ) : (
                                     <ChevronDown className="" size={16} />
                                 )}
                             </div>
                         </button>
-                        {openDropdown === "categories" && (
+                        {dropdownState.categories && (
                             <div className="absolute top-[100%] left-0 right-0 bg-white  border-[1px] border-[#e1e1e1] py-5 mt-[3px] mb-[10px]">
                                 {categories.map((category) => (
                                     <span
@@ -157,14 +163,14 @@ export const FilterBar: React.FC = () => {
                                     </div>
                                 )}
                                 <div className="">
-                                    {openDropdown ? (
+                                    {dropdownState.price ? (
                                         <ChevronUp className="" size={16} />
                                     ) : (
                                         <ChevronDown className="" size={16} />
                                     )}
                                 </div>
                             </button>
-                            {openDropdown === "price" && (
+                            {dropdownState.price && (
                                 <div>
                                     <div className="absolute top-[100%] left-0 right-0 bg-white  border-[1px] border-[#e1e1e1] py-5 px-4  mt-[3px] mb-[10px]">
                                         {/* Range Slider */}
@@ -251,7 +257,7 @@ export const FilterBar: React.FC = () => {
                                     })}
                                 </div>
                                 <div className="">
-                                    {openDropdown ? (
+                                    {dropdownState.color ? (
                                         <ChevronUp className="" size={16} />
                                     ) : (
                                         <ChevronDown className="" size={16} />
@@ -259,7 +265,7 @@ export const FilterBar: React.FC = () => {
                                 </div>
                             </button>
                             {/* Color Display  */}
-                            {openDropdown === "color" && (
+                            {dropdownState.color && (
                                 <div className="absolute top-[100%] left-0 right-0 bg-white border-[1px] border-[#e1e1e1] py-5 px-4 mt-[3px] mb-[10px]">
                                     <div className="flex">
                                         {colors.map((color) => {
