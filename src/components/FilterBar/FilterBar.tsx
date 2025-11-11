@@ -1,4 +1,4 @@
-import { div } from "framer-motion/client";
+import { div, span } from "framer-motion/client";
 import { ChevronDown, ChevronUp, X } from "lucide-react";
 import { useState } from "react";
 
@@ -23,12 +23,14 @@ export const FilterBar: React.FC = () => {
     });
 
     const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
     const [tempPriceRange, setTempPriceRange] = useState<[number, number]>([149, 1299]);
-    const [showCategory, setShowCategory] = useState(false);
     const [showPrice, setShowPrice] = useState(false);
     const minPrice = 149;
     const maxPrice = 1300;
     const step = 1;
+
+    const [selectedColors, setSelectedColors] = useState<string[]>([]);
 
     const categories: FilterOption[] = [
         { value: "computer-pc", label: "Computer & PC" },
@@ -38,13 +40,13 @@ export const FilterBar: React.FC = () => {
     ];
 
     const colors: FilterOption[] = [
-        { value: "black", label: "black" },
-        { value: "blue", label: "blue" },
-        { value: "red", label: "red" },
+        { value: "black", label: "#000" },
+        { value: "blue", label: "#1e73be" },
+        { value: "red", label: "#dd3333" },
     ];
 
     const toggleDropdown = (dropdown: string) => {
-        setOpenDropdown(openDropdown == dropdown ? null : dropdown);
+        setOpenDropdown(dropdown == openDropdown ? null : dropdown)
     };
 
     const handleCategoryChange = (category: string) => {
@@ -61,6 +63,10 @@ export const FilterBar: React.FC = () => {
     const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Math.max(Number(e.target.value), tempPriceRange[0] + 1);
         setTempPriceRange([tempPriceRange[0], value]);
+    };
+
+    const handleColorClick = (value: string) => {
+        setSelectedColors((prev) => (prev.includes(value) ? prev.filter((e) => e !== value) : [...prev, value]));
     };
 
     const clearCategory = () => {
@@ -212,6 +218,60 @@ export const FilterBar: React.FC = () => {
                                                 ${tempPriceRange[0]} — ${tempPriceRange[1]}
                                             </span>
                                         </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Color */}
+                    <div>
+                        <div className="relative ">
+                            <button
+                                onClick={() => toggleDropdown("color")}
+                                className="overflow-hidden flex items-center justify-between w-full gap-2 border-[1px] border-[#e1e1e1] rounded-full pl-4 pr-5 py-[6px] text-[#444]"
+                            >
+                                <div>Color</div>
+                                <div className="ml-auto uppercase flex items-center gap-[4px] max-w-[140px] overflow-hidden">
+                                    {selectedColors.map((color) => {
+                                        return (
+                                            <div
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleColorClick(color);
+                                                }}
+                                                className="group flex items-center gap-[2px] whitespace-nowrap text-[#555] rounded-sm text-[12px] bg-[#ddd] py-[5px] px-[7px]"
+                                            >
+                                                <span key={color} className="hidden group-hover:block">
+                                                    <X size={12} />
+                                                </span>
+                                                {color}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                                <div className="">
+                                    {openDropdown ? (
+                                        <ChevronUp className="" size={16} />
+                                    ) : (
+                                        <ChevronDown className="" size={16} />
+                                    )}
+                                </div>
+                            </button>
+                            {/* Color Display  */}
+                            {openDropdown === "color" && (
+                                <div className="absolute top-[100%] left-0 right-0 bg-white border-[1px] border-[#e1e1e1] py-5 px-4 mt-[3px] mb-[10px]">
+                                    <div className="flex">
+                                        {colors.map((color) => {
+                                            return (
+                                                <div
+                                                    datatype=""
+                                                    onClick={() => handleColorClick(color.value)}
+                                                    className={`mx-[5px] mb-[14px] w-[24px] h-[24px] rounded-full py-[5px] border-[#e1e1e1] border-[1px] cursor-pointer`}
+                                                    style={{ background: `${color.label}` }}
+                                                ></div>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             )}
