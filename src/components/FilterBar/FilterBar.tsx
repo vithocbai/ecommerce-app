@@ -271,11 +271,14 @@ export const FilterBar: React.FC = () => {
                                         {colors.map((color) => {
                                             return (
                                                 <div
-                                                    datatype=""
                                                     onClick={() => handleColorClick(color.value)}
-                                                    className={`mx-[5px] mb-[14px] w-[24px] h-[24px] rounded-full py-[5px] border-[#e1e1e1] border-[1px] cursor-pointer`}
+                                                    className={`group relative mx-[5px] mb-[14px] w-[24px] h-[24px] rounded-full py-[5px] border-[#e1e1e1] border-[1px] cursor-pointer`}
                                                     style={{ background: `${color.label}` }}
-                                                ></div>
+                                                >
+                                                    <div className="absolute top-[110%] left-[-10px] text-[12px] text-[#555] border-[1px] border-[#e1e1e1] bg-white overflow-hidden py-[1] leading-5 px-[10px] capitalize h-0 opacity-0 invisible group-hover:h-full  group-hover:opacity-100 group-hover:visible duration-200 ease-linear">
+                                                        {color.value}
+                                                    </div>
+                                                </div>
                                             );
                                         })}
                                     </div>
