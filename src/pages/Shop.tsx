@@ -3,6 +3,7 @@ import Header from "../components/Header/Header";
 import { Footer } from "../components/Footer/Footer";
 import { Link, useLocation } from "react-router-dom";
 import { FilterBar } from "../components/FilterBar/FilterBar";
+import { HeroBannerShop } from "../components/HeroBannerShop/HeroBannerShop";
 
 
 function Shop() {
@@ -49,7 +50,12 @@ function Shop() {
                 </p>
             </div>
 
+            {/* FilterBar */}
             <FilterBar />
+
+            {/* HeroBannerShop */}
+            <HeroBannerShop />
+            
             {/* Footer */}
             <Footer />
         </section>

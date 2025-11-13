@@ -1,4 +1,3 @@
-import { button, div, span } from "framer-motion/client";
 import { ChevronDown, ChevronUp, X, Star, Search } from "lucide-react";
 import { useState } from "react";
 
