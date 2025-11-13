@@ -1,5 +1,5 @@
 import { button, div, span } from "framer-motion/client";
-import { ChevronDown, ChevronUp, X, Star } from "lucide-react";
+import { ChevronDown, ChevronUp, X, Star, Search } from "lucide-react";
 import { useState } from "react";
 
 interface FilterOption {
@@ -111,7 +111,7 @@ export const FilterBar: React.FC = () => {
 
     return (
         <section>
-            <div>
+            <div className="max-w-[1600px] mx-auto mb-[25px] px-[15px]">
                 <div className="grid grid-cols-5 gap-[25px]">
                     {/* Categories Dropdown */}
                     <div className="relative cursor-pointer">
@@ -352,7 +352,11 @@ export const FilterBar: React.FC = () => {
                                         onClick={() => handleStarClick(ratingOption.value)}
                                         className="flex items-center py-[9px] px-4 cursor-pointer hover:bg-[#f1f1f1]"
                                     >
-                                        <input className="mr-[8px]" type="checkbox" checked={selectedRatings.includes(ratingOption.value) }/>
+                                        <input
+                                            className="mr-[8px]"
+                                            type="checkbox"
+                                            checked={selectedRatings.includes(ratingOption.value)}
+                                        />
                                         <button className="flex items-center gap-[3px]">
                                             {renderStars(ratingOption.rating)}
                                         </button>
@@ -362,6 +366,12 @@ export const FilterBar: React.FC = () => {
                             </div>
                         )}
                     </div>
+
+                    {/* Search */}
+                    <button className="flexCenter gap-[5px] text-[16px] font-medium rounded-full text-white bg-[#2A74ED] hover:bg-[#222222] transition-all duration-200 ease-linear">
+                        <Search size={18} />
+                        <span> Search</span>
+                    </button>
                 </div>
             </div>
         </section>
