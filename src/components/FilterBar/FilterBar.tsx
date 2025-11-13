@@ -1,10 +1,16 @@
-import { div, span } from "framer-motion/client";
-import { ChevronDown, ChevronUp, X } from "lucide-react";
+import { button, div, span } from "framer-motion/client";
+import { ChevronDown, ChevronUp, X, Star } from "lucide-react";
 import { useState } from "react";
 
 interface FilterOption {
     value: string;
     label: string;
+}
+
+interface FilterRating {
+    rating: number;
+    label: string;
+    value: string;
 }
 
 interface FilterState {
@@ -22,7 +28,6 @@ export const FilterBar: React.FC = () => {
         rating: 0,
     });
 
-    const [openDropdown, setOpenDropdown] = useState<string | null>(null);
     const [dropdownState, setDropdownState] = useState({
         categories: false,
         price: false,
@@ -37,6 +42,7 @@ export const FilterBar: React.FC = () => {
     const step = 1;
 
     const [selectedColors, setSelectedColors] = useState<string[]>([]);
+    const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
 
     const categories: FilterOption[] = [
         { value: "computer-pc", label: "Computer & PC" },
@@ -51,6 +57,14 @@ export const FilterBar: React.FC = () => {
         { value: "red", label: "#dd3333" },
     ];
 
+    const ratings: FilterRating[] = [
+        { rating: 5, label: "5", value: "Rated 5 out of 5 5" },
+        { rating: 4, label: "4 & Up", value: "Rated 4 out of 5 4" },
+        { rating: 3, label: "3 & Up", value: "Rated 3 out of 5 3" },
+        { rating: 2, label: "2 & Up", value: "Rated 2 out of 5 2" },
+        { rating: 1, label: "1 & Up", value: "Rated 1 out of 5 1" },
+    ];
+
     const toggleDropdown = (dropdown: keyof typeof dropdownState) => {
         setDropdownState((prev) => ({ ...prev, [dropdown]: !prev[dropdown] }));
     };
@@ -58,7 +72,6 @@ export const FilterBar: React.FC = () => {
     const handleCategoryChange = (category: string) => {
         const newFilter = { ...filters, category };
         setFilters(newFilter);
-        setOpenDropdown(null);
     };
 
     const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,6 +86,18 @@ export const FilterBar: React.FC = () => {
 
     const handleColorClick = (value: string) => {
         setSelectedColors((prev) => (prev.includes(value) ? prev.filter((e) => e !== value) : [...prev, value]));
+    };
+
+    const renderStars = (count: number, total: number = 5) => {
+        return Array.from({ length: total }).map((_, index) => (
+            <span className={`${index < count ? "text-[#fdd835]" : "text-[#e1e1e1]"}`}>
+                <Star size={16} fill={index < count ? "#fdd835" : "#e1e1e1"} />
+            </span>
+        ));
+    };
+
+    const handleStarClick = (value: string) => {
+        setSelectedRatings((prev) => (prev.includes(value) ? prev.filter((e) => e !== value) : [...prev, value]));
     };
 
     const clearCategory = () => {
@@ -285,6 +310,57 @@ export const FilterBar: React.FC = () => {
                                 </div>
                             )}
                         </div>
+                    </div>
+
+                    {/* Rating */}
+                    <div className="relative">
+                        <button
+                            onClick={() => toggleDropdown("rating")}
+                            className="flex items-center justify-between w-full gap-2 border-[1px] border-[#e1e1e1] rounded-full pl-4 pr-5 py-[6px] text-[#444]"
+                        >
+                            <div className="min-w-[25%] truncate overflow-hidden text-[14px] uppercase">Rating</div>
+                            <div className="ml-auto uppercase flex items-center gap-[4px] max-w-[140px] overflow-hidden">
+                                {selectedRatings.map((rating) => {
+                                    return (
+                                        <div
+                                            onClick={(e) => {
+                                                e.stopPropagation(), handleStarClick(rating);
+                                            }}
+                                            className="group flex items-center gap-[2px] whitespace-nowrap text-[#555] rounded-sm text-[12px] bg-[#ddd] py-[5px] px-[7px]"
+                                        >
+                                            <span key={rating} className="hidden group-hover:block">
+                                                <X size={12} />
+                                            </span>
+                                            {rating}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                            <div className="">
+                                {dropdownState.rating ? (
+                                    <ChevronUp className="" size={16} />
+                                ) : (
+                                    <ChevronDown className="" size={16} />
+                                )}
+                            </div>
+                        </button>
+                        {/* Display Rating */}
+                        {dropdownState.rating && (
+                            <div className="absolute top-[100%] left-0 right-0 max-h-[200px] overflow-y-auto custom-scrollbar bg-white  border-[1px] border-[#e1e1e1] py-5 mt-[3px] mb-[10px]">
+                                {ratings.map((ratingOption) => (
+                                    <div
+                                        onClick={() => handleStarClick(ratingOption.value)}
+                                        className="flex items-center py-[9px] px-4 cursor-pointer hover:bg-[#f1f1f1]"
+                                    >
+                                        <input className="mr-[8px]" type="checkbox" checked={selectedRatings.includes(ratingOption.value) }/>
+                                        <button className="flex items-center gap-[3px]">
+                                            {renderStars(ratingOption.rating)}
+                                        </button>
+                                        <span className="text-[#444] text-[14px]">{ratingOption.label}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
