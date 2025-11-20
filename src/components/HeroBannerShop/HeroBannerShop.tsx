@@ -4,7 +4,7 @@ export const HeroBannerShop = () => {
     return (
         <section>
             <div
-                className="pt-[85px] pb-[65px] bg-cover bg-center"
+                className="pt-[85px] pb-[65px] bg-cover bg-center rounded-[20px]"
                 style={{ backgroundImage: "url('./heroBannerShop/banner.jpeg')" }}
             >
                 <div className="p-[15px] m-0 mr-[5%] ml-[15%] ">

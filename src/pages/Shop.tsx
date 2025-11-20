@@ -4,7 +4,7 @@ import { Footer } from "../components/Footer/Footer";
 import { Link, useLocation } from "react-router-dom";
 import { FilterBar } from "../components/FilterBar/FilterBar";
 import { HeroBannerShop } from "../components/HeroBannerShop/HeroBannerShop";
-
+import { ShopProduct } from "../components/Shop/ShopProduct";
 
 function Shop() {
     const location = useLocation();
@@ -55,7 +55,9 @@ function Shop() {
 
             {/* HeroBannerShop */}
             <HeroBannerShop />
-            
+
+            {/* Shop Product */}
+            <ShopProduct />
             {/* Footer */}
             <Footer />
         </section>
