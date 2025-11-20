@@ -1,0 +1,46 @@
+import { Grid3x3, List } from "lucide-react";
+
+export const ShopProduct = () => {
+    return (
+        <section>
+            <div className="max-w-[1600px] mx-auto p-[15px] flex items-center justify-between">
+                <div className="flex items-center">
+                    {/* Dropdown sort*/}
+                    <select
+                        name=""
+                        id=""
+                        className="text-[14px] max-w-[170px] px-[10px] cursor-pointer text-[#888] h-[38px] border-[1px] border-[#e1e1e1] bg-[#fff] outline-none rounded-full"
+                    >
+                        <option value="">Default sorting</option>
+                        <option value="">Sort by popularity</option>
+                        <option value="">Sort by average rating</option>
+                        <option value="">Sort by latest</option>
+                        <option value="">Sort by price: low to high</option>
+                        <option value="">Sort by price: high to low</option>
+                    </select>
+
+                    {/* Selected type */}
+                    <div className="flex items-center mx-[20px] h-full cursor-pointer">
+                        <span className="relative text-[#222] p-[10px] after:absolute after:w-[1px] after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-[50%] after:bg-[#ccc]">
+                            <Grid3x3 size={20} />
+                        </span>
+                        <span className="text-[#222] p-[10px]">
+                            <List size={20} />
+                        </span>
+                    </div>
+                </div>
+
+                {/* limit product  */}
+                <div className="flex items-center">
+                    <p className="text-[18px] text-[#444] mr-[10px]">Show</p>
+                    <select name="" id="" className="pl-[18px] pr-[42px] text-[#888] h-[39px] border-[1px] border-[#e1e1e1] max-w-[100%] rounded-[20px]">
+                        <option value="">12</option>
+                        <option value="">24</option>
+                        <option value="">36</option>
+                        <option value="">All</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+    );
+};
