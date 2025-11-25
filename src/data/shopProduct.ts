@@ -1,4 +1,15 @@
-export const shopProducts = [
+
+export type shopProductProps = {
+    id: number;
+    title: string;
+    image: string;
+    star: number;
+    brand?: string;
+    oldPrice?: number;
+    price: number;
+};
+
+export const shopProducts: shopProductProps[]= [
     {
         id: 1,
         image: "shopProduct/img1.jpeg",
