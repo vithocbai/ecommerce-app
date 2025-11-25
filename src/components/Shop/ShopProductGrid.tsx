@@ -10,7 +10,7 @@ type showProductGridProps = {
 export const ShopProductGrid = ({ products }: showProductGridProps) => {
     return (
         <section>
-            <div className="grid grid-cols-4 gap-[30px]">
+            <div className="grid grid-cols-4 max-lg:grid-cols-2 max-md:grid-cols-1 gap-[30px]">
                 {products.map((product) => (
                     <div className="group border-[1px] border-[#E5E5E5] p-[5px] pb-[25px] rounded-[20px] hover:cursor-pointer">
                         {/* Image */}
