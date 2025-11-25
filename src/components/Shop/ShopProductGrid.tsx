@@ -1,19 +1,13 @@
 import type { shopProductProps } from "../../data/shopProduct";
 import { AddToCart } from "../ui/addToCart";
 import { Eye, Heart, Star } from "lucide-react";
+import { renderStars } from "../ui/renderStar";
 
 type showProductGridProps = {
     products: shopProductProps[];
 };
 
 export const ShopProductGrid = ({ products }: showProductGridProps) => {
-    const renderStars = (count: number, total: number = 5) => {
-        return Array.from({ length: total }).map((_, index) => (
-            <span className={`${index < count ? "text-[#fdd835]" : "text-[#e1e1e1]"}`}>
-                <Star size={16} fill={index < count ? "#fdd835" : "#e1e1e1"} />
-            </span>
-        ));
-    };
     return (
         <section>
             <div className="grid grid-cols-4 gap-[30px]">

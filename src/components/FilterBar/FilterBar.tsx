@@ -1,5 +1,6 @@
 import { ChevronDown, ChevronUp, X, Star, Search } from "lucide-react";
 import { useState } from "react";
+import { renderStars } from "../ui/renderStar";
 
 interface FilterOption {
     value: string;
@@ -85,14 +86,6 @@ export const FilterBar: React.FC = () => {
 
     const handleColorClick = (value: string) => {
         setSelectedColors((prev) => (prev.includes(value) ? prev.filter((e) => e !== value) : [...prev, value]));
-    };
-
-    const renderStars = (count: number, total: number = 5) => {
-        return Array.from({ length: total }).map((_, index) => (
-            <span className={`${index < count ? "text-[#fdd835]" : "text-[#e1e1e1]"}`}>
-                <Star size={16} fill={index < count ? "#fdd835" : "#e1e1e1"} />
-            </span>
-        ));
     };
 
     const handleStarClick = (value: string) => {
