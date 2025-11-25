@@ -1,21 +1,19 @@
+import type { shopProductProps } from "../../data/shopProduct";
 import { AddToCart } from "../ui/addToCart";
-import { Eye, Heart } from "lucide-react";
-
-type shopProductProps = {
-    id: number;
-    title: string;
-    image: string;
-    star: number;
-    brand?: string;
-    oldPrice?: number;
-    price: number;
-};
+import { Eye, Heart, Star } from "lucide-react";
 
 type showProductGridProps = {
     products: shopProductProps[];
 };
 
 export const ShopProductGrid = ({ products }: showProductGridProps) => {
+    const renderStars = (count: number, total: number = 5) => {
+        return Array.from({ length: total }).map((_, index) => (
+            <span className={`${index < count ? "text-[#fdd835]" : "text-[#e1e1e1]"}`}>
+                <Star size={16} fill={index < count ? "#fdd835" : "#e1e1e1"} />
+            </span>
+        ));
+    };
     return (
         <section>
             <div className="grid grid-cols-4 gap-[30px]">
@@ -24,10 +22,14 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
                         {/* Image */}
                         <div className="relative mb-[15px] mx-[7px] my-[5px]">
                             {/* Sale */}
-                            {product.oldPrice && <div className="absolute top-[20px] left-[10px] text-[#fff] w-[48px] text-center rounded-full px-[8px] py-[3px] bg-[#c62828] text-[12px] uppercase">Sale</div>}
+                            {product.oldPrice && (
+                                <div className="absolute top-[20px] left-[10px] text-[#fff] w-[48px] text-center rounded-full px-[8px] py-[3px] bg-[#c62828] text-[12px] uppercase">
+                                    Sale
+                                </div>
+                            )}
                             {/* Heart */}
                             <div className="absolute right-[5px] top-[5px] opacity-0 scale-0 invisible group-hover:visible group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-linear">
-                              < Heart size={18}/>
+                                <Heart size={18} />
                             </div>
                             <img src={product.image} alt="" className="max-w-[100%] object-cover" />
                             {/* Quick Shop  */}
@@ -42,12 +44,13 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
                             <h3 className="mb-[15px] text-[16px] text-[#222] font-medium text-center">
                                 {product.title}
                             </h3>
-                            <p className="text-[18px] text-[#888888] mb-[3px] text-center">{product.brand}</p>
+                            <p className="text-[18px] text-[#888888] mb-[5px] text-center">{product.brand}</p>
+                            <div className="flex items-center justify-center mb-[7px]">{renderStars(product.star)}</div>
                         </div>
 
                         <div className="flex items-center justify-center gap-2 text-[18px] text-[#444] text-center mb-[15px]">
                             {product.oldPrice && (
-                                <span className="line-through">
+                                <span className="line-through ">
                                     $
                                     {new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(
                                         product.oldPrice
