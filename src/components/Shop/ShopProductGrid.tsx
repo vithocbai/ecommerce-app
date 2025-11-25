@@ -49,17 +49,27 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
                         </div>
 
                         <div className="flex items-center justify-center gap-2 text-[18px] text-[#444] text-center mb-[15px]">
-                            {product.oldPrice && (
-                                <span className="line-through ">
+                            {product.oldPrice ? (
+                                <div>
+                                    <span className="line-through mr-2">
+                                        $
+                                        {new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(
+                                            product.oldPrice
+                                        )}
+                                    </span>
+                                    <span className="text-[#2a74ed]">
+                                        $
+                                        {new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(
+                                            product.price
+                                        )}
+                                    </span>
+                                </div>
+                            ) : (
+                                <span className="">
                                     $
-                                    {new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(
-                                        product.oldPrice
-                                    )}
+                                    {new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(product.price)}
                                 </span>
                             )}
-                            <span className="text-[#2a74ed]">
-                                ${new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(product.price)}
-                            </span>
                         </div>
                         <div className="mx-auto text-center">
                             <AddToCart title="Add to cart" />
