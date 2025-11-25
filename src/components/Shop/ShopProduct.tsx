@@ -1,14 +1,18 @@
 import { Grid3x3, List } from "lucide-react";
-import { ShopProductGrid } from "./ProductList";
+import { ShopProductGrid } from "./ShopProductGrid";
 import { shopProducts } from "../../data/shopProduct";
+import { useState } from "react";
+import { ShopProductList } from "./ShopProductList";
 
 export const ShopProduct = () => {
+    const [showTypeProduct, setShowTypeProduct] = useState("productGrid");
+
     return (
         <section>
             <div className="max-w-[1600px] mx-auto p-[15px]">
                 {/* Controls Product */}
-                <div className="flex items-center justify-between mb-[10px]">
-                    <div className="flex items-center">
+                <div className="flex max-md:block items-center justify-between mb-[10px]">
+                    <div className="flex items-center max-md:mb-2">
                         {/* Dropdown sort*/}
                         <select
                             name=""
@@ -26,10 +30,10 @@ export const ShopProduct = () => {
                         {/* Selected type */}
                         <div className="flex items-center mx-[20px] h-full cursor-pointer">
                             <span className="relative text-[#222] p-[10px] after:absolute after:w-[1px] after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-[50%] after:bg-[#ccc]">
-                                <Grid3x3 size={20} />
+                                <Grid3x3 onClick={() => setShowTypeProduct('productGrid')} size={20} />
                             </span>
                             <span className="text-[#222] p-[10px]">
-                                <List size={20} />
+                                <List onClick={() => setShowTypeProduct('productList')} size={20} />
                             </span>
                         </div>
                     </div>
@@ -49,8 +53,8 @@ export const ShopProduct = () => {
                         </select>
                     </div>
                 </div>
-
-                <ShopProductGrid products={shopProducts}/>
+                {showTypeProduct === 'productList' && <ShopProductList products={shopProducts} />}
+                {showTypeProduct === 'productGrid' && <ShopProductGrid products={shopProducts} />}
             </div>
         </section>
     );
