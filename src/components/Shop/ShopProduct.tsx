@@ -6,6 +6,9 @@ import { ShopProductList } from "./ShopProductList";
 
 export const ShopProduct = () => {
     const [showTypeProduct, setShowTypeProduct] = useState("productGrid");
+    const [limit, setLimit] = useState<number | 'all'>(12);
+    console.log("litmit: ", limit);
+    const visibleProducts = limit === "all" ? shopProducts : shopProducts.slice(0, limit);
 
     return (
         <section>
@@ -30,10 +33,10 @@ export const ShopProduct = () => {
                         {/* Selected type */}
                         <div className="flex items-center mx-[20px] h-full cursor-pointer">
                             <span className="relative text-[#222] p-[10px] after:absolute after:w-[1px] after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-[50%] after:bg-[#ccc]">
-                                <Grid3x3 onClick={() => setShowTypeProduct('productGrid')} size={20} />
+                                <Grid3x3 onClick={() => setShowTypeProduct("productGrid")} size={20} />
                             </span>
                             <span className="text-[#222] p-[10px]">
-                                <List onClick={() => setShowTypeProduct('productList')} size={20} />
+                                <List onClick={() => setShowTypeProduct("productList")} size={20} />
                             </span>
                         </div>
                     </div>
@@ -42,19 +45,19 @@ export const ShopProduct = () => {
                     <div className="flex items-center">
                         <p className="text-[18px] text-[#444] mr-[10px]">Show</p>
                         <select
-                            name=""
-                            id=""
+                            value={limit}
                             className="pl-[18px] pr-[42px] text-[#888] h-[39px] border-[1px] border-[#e1e1e1] max-w-[100%] rounded-[20px]"
+                            onChange={(e) => setLimit(e.target.value === "all" ? "all" : Number(e.target.value))}
                         >
-                            <option value="">12</option>
-                            <option value="">24</option>
-                            <option value="">36</option>
-                            <option value="">All</option>
+                            <option value="8">8</option>
+                            <option value="12">12</option>
+                            <option value="36">36</option>
+                            <option value="all">All</option>
                         </select>
                     </div>
                 </div>
-                {showTypeProduct === 'productList' && <ShopProductList products={shopProducts} />}
-                {showTypeProduct === 'productGrid' && <ShopProductGrid products={shopProducts} />}
+                {showTypeProduct === "productList" && <ShopProductList products={visibleProducts} />}
+                {showTypeProduct === "productGrid" && <ShopProductGrid products={visibleProducts} />}
             </div>
         </section>
     );
