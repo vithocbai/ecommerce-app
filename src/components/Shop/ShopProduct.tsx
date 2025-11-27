@@ -1,15 +1,26 @@
 import { Grid3x3, List } from "lucide-react";
 import { ShopProductGrid } from "./ShopProductGrid";
 import { shopProducts } from "../../data/shopProduct";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ShopProductList } from "./ShopProductList";
 
 export const ShopProduct = () => {
     const [showTypeProduct, setShowTypeProduct] = useState("productGrid");
-    const [limit, setLimit] = useState<number | 'all'>(12);
-    console.log("litmit: ", limit);
-    const visibleProducts = limit === "all" ? shopProducts : shopProducts.slice(0, limit);
+    const [limit, setLimit] = useState<number | "all">(12);
+    const productsRef = useRef<HTMLDivElement | null>(null);
 
+    useEffect(() => {
+        if(productsRef.current) {
+            const top = productsRef.current?.getBoundingClientRect().top + window.scrollY;
+
+            window.scrollTo({
+                top: top - 100,
+                behavior: 'smooth'
+            })
+        }
+    }, [showTypeProduct]);
+
+    const visibleProducts = limit === "all" ? shopProducts : shopProducts.slice(0, limit);
     return (
         <section>
             <div className="max-w-[1600px] mx-auto p-[15px]">
@@ -56,8 +67,10 @@ export const ShopProduct = () => {
                         </select>
                     </div>
                 </div>
-                {showTypeProduct === "productList" && <ShopProductList products={visibleProducts} />}
-                {showTypeProduct === "productGrid" && <ShopProductGrid products={visibleProducts} />}
+                <div ref={productsRef}>
+                    {showTypeProduct === "productList" && <ShopProductList products={visibleProducts} />}
+                    {showTypeProduct === "productGrid" && <ShopProductGrid products={visibleProducts} />}
+                </div>
             </div>
         </section>
     );
