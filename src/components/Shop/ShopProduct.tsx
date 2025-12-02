@@ -43,10 +43,13 @@ export const ShopProduct = () => {
 
                         {/* Selected type */}
                         <div className="flex items-center mx-[20px] h-full cursor-pointer">
-                            <span className="relative text-[#222] p-[10px] after:absolute after:w-[1px] after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-[50%] after:bg-[#ccc]">
+                            <span
+                                className={`relative p-[10px] after:absolute after:w-[1px] after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-[50%] after:bg-[#ccc] 
+                            ${showTypeProduct === "productGrid" ? "text-[#2A74ED]" : "text-[#222]"}`}
+                            >
                                 <Grid3x3 onClick={() => setShowTypeProduct("productGrid")} size={20} />
                             </span>
-                            <span className="text-[#222] p-[10px]">
+                            <span className={`text-[#222] p-[10px] ${showTypeProduct === "productList" ? "text-[#2A74ED]" : "text-[#222]"}` }>
                                 <List onClick={() => setShowTypeProduct("productList")} size={20} />
                             </span>
                         </div>
