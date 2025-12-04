@@ -1,4 +1,4 @@
-import type { shopProductProps } from "../../data/shopProduct";
+import type { ShopProductProps } from "../../data/shopProduct";
 import { AddToCart } from "../ui/addToCart";
 import { Eye, Heart } from "lucide-react";
 import { renderStars } from "../ui/renderStar";
@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Spinner } from "../ui/spinner";
 
 type shopProductListProps = {
-    products: shopProductProps[];
+    products: ShopProductProps[];
 };
 
 export const ShopProductList = ({ products }: shopProductListProps) => {
@@ -40,7 +40,10 @@ export const ShopProductList = ({ products }: shopProductListProps) => {
                                 <div className="absolute right-[5px] top-[5px] opacity-0 scale-0 invisible group-hover:visible group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 ease-linear">
                                     <Heart size={18} />
                                 </div>
-                                <img src={product.image} alt="" className="max-w-[100%] object-cover" />
+                                {product.image.slice(0, 1).map((item) => (
+                                    <img src={item} alt="" className="max-w-[100%] object-cover" />
+                                ))}
+
                                 {/* Quick Shop */}
                                 <div className="absolute left-0 right-0 bottom-0 flex items-center justify-center bg-[#000] rounded-full text-[#fff] px-[10px] py-[7px] opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:bottom-2 transition-all duration-200 ease-linear">
                                     <span>

@@ -12,21 +12,31 @@ import {
     Minus,
     Plus,
     ShoppingBasket,
+    MoveLeft,
+    MoveRight,
 } from "lucide-react";
 import { renderStars } from "../../ui/renderStar";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { AddToCart } from "../../ui/addToCart";
+import type { ShopProductProps } from "../../../data/shopProduct";
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css/navigation";
+// Import Swiper styles
+import "swiper/css";
+import { Navigation } from "swiper/modules";
 
 type Props = {
     isOpen: boolean;
     onClose: () => void;
+    product?: ShopProductProps | null;
 };
 
-export const QuickViewModal = ({ isOpen, onClose }: Props) => {
+export const QuickViewModal = ({ isOpen, onClose, product }: Props) => {
     const [showMoreDetail, setShowMoreDetail] = useState(false);
     const [totalAddCart, setTotalAddCart] = useState(1);
-
     const handleMinus = () => {
         setTotalAddCart((prev) => Math.max(1, prev - 1));
     };
@@ -63,34 +73,75 @@ export const QuickViewModal = ({ isOpen, onClose }: Props) => {
                                 {/* Close Button */}
                                 <div
                                     onClick={() => onClose()}
-                                    className="flexCenter cursor-pointer absolute top-2 left-[-50px] bg-white rounded-full w-[36px] h-[36px]"
+                                    className="flexCenter cursor-pointer absolute z-50 top-2 left-[-50px] bg-black rounded-full w-[36px] h-[36px]"
                                 >
                                     <X size={14} />
                                 </div>
                                 {/* Content */}
                                 <div className="px-[3px]">
                                     <h3 className="block text-[24px] text-[#222] font-medium mb-[12px] leading-7">
-                                        <a href="">Hi-Resolution Bluetooth 4.0 Wireless Speakers</a>
+                                        <a href="">{product?.title}</a>
                                     </h3>
                                     {/* Image */}
-                                    <div>
-                                        <div>
-                                            <img src="/productCard/img2.jpeg" alt="" />
-                                        </div>
-                                        {/* Navigation Arrow */}
-                                        <div></div>
+                                    <div className="relative group/slider">
+                                        {/* Custom navigation buttons */}
+                                        <button className="swiper-button-prev absolute top-[48%] left-[0] z-10 opacity-0 invisible group-hover/slider:visible group-hover/slider:opacity-100 text-[#222] w-[40px] h-[40px] bg-white shadow-lg rounded-full border-[#DEDEDE] border-[1px] hover:border-[#444] flex items-center justify-center">
+                                            <MoveLeft className="!w-[14px] !h-[14px]" />
+                                        </button>
+                                        <button className="swiper-button-next absolute top-[48%] right-[0] z-10 opacity-0 invisible group-hover/slider:visible group-hover/slider:opacity-100  text-[#222] w-[40px] h-[40px] bg-white shadow-lg rounded-full border-[#DEDEDE] border-[1px] hover:border-[#444] flex items-center justify-center">
+                                            <MoveRight className="!w-[14px] !h-[14px]" />
+                                        </button>
+                                        <Swiper
+                                            modules={[Navigation]}
+                                            slidesPerView={1}
+                                            navigation={{
+                                                nextEl: ".swiper-button-next",
+                                                prevEl: ".swiper-button-prev",
+                                            }}
+                                        >
+                                            <div className="w-full h-[360px] ">
+                                                {product?.image.map((item) => (
+                                                    <SwiperSlide>
+                                                        <img src={item} alt="" className="cursor-pointer" />
+                                                    </SwiperSlide>
+                                                ))}
+                                            </div>
+                                        </Swiper>
                                     </div>
                                     {/* Price */}
                                     <div className="text-[#888] text-[20px] mb-[12px]">
-                                        <span>
-                                            <del>$320.00</del>
-                                        </span>
-                                        <span className="pl-4">$80</span>
+                                        {product?.oldPrice ? (
+                                            <div>
+                                                <span>
+                                                    <del>
+                                                        $
+                                                        {new Intl.NumberFormat("en-US", {
+                                                            minimumFractionDigits: 2,
+                                                        }).format(product.oldPrice)}
+                                                    </del>
+                                                </span>
+                                                <span className="pl-4 text-[#2a74ed]">
+                                                    $
+                                                    {new Intl.NumberFormat("en-US", {
+                                                        minimumFractionDigits: 2,
+                                                    }).format(product?.price)}
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <span className="">
+                                                $
+                                                {new Intl.NumberFormat("en-US", {
+                                                    minimumFractionDigits: 2,
+                                                }).format(product?.price ?? 0)}
+                                            </span>
+                                        )}
                                     </div>
                                     {/* Rating */}
                                     <div className="flex items-center gap-[2px] mb-[12px]">
-                                        {renderStars(5)}
-                                        <span className="text-[18px] text-[#222]">(1 customer review)</span>
+                                        {renderStars(product?.star ?? 0)}
+                                        <span className="text-[18px] text-[#222]">
+                                            ({product?.preview} customer review)
+                                        </span>
                                     </div>
                                     {/* View people */}
                                     <p className="flex items-start gap-[2px] mb-[12px] text-[16px]">
