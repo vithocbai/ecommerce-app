@@ -25,6 +25,15 @@ type Props = {
 
 export const QuickViewModal = ({ isOpen, onClose }: Props) => {
     const [showMoreDetail, setShowMoreDetail] = useState(false);
+    const [totalAddCart, setTotalAddCart] = useState(1);
+
+    const handleMinus = () => {
+        setTotalAddCart((prev) => Math.max(1, prev - 1));
+    };
+
+    const handlePlus = () => {
+        setTotalAddCart((prev) => prev + 1);
+    };
 
     return (
         <section>
@@ -98,21 +107,29 @@ export const QuickViewModal = ({ isOpen, onClose }: Props) => {
                                     </p>
                                     {/* Add to Cart */}
                                     <div className="flex items-center mb-[22px]">
-                                        <div className="flex items-center  mr-[20px] h-[38px] ">
-                                            <span className="flexCenter px-[4px] text-[#222] border-[1px] border-[#e1e1e1] border-r-[0] h-full">
+                                        <div className="flex items-center  mr-[20px] h-[38px] cursor-pointer">
+                                            <span
+                                                onClick={handleMinus}
+                                                className="flexCenter px-[4px] text-[#222] border-[1px] border-[#e1e1e1] border-r-[0] h-full"
+                                            >
                                                 <Minus strokeWidth={1.5} size={18} />
                                             </span>
-                                            <div className="flexCenter w-[45px] h-full border-[1px] border-[#e1e1e1] ">
-                                                4
+                                            <div className="flexCenter w-[45px] h-full border-[1px] border-[#e1e1e1] select-none">
+                                                {totalAddCart}
                                             </div>
-                                            <span className="flexCenter px-[4px] text-[#222] border-[1px] border-[#e1e1e1] border-l-[0] h-full">
+                                            <span
+                                                onClick={handlePlus}
+                                                className="flexCenter px-[4px] text-[#222] border-[1px] border-[#e1e1e1] border-l-[0] h-full"
+                                            >
                                                 <Plus strokeWidth={1.5} size={18} />
                                             </span>
                                         </div>
-                                        <AddToCart
-                                            title="Add to card"
-                                            icon={<ShoppingBasket strokeWidth={2.5} size={18} />}
-                                        />
+                                        <div className="select-none">
+                                            <AddToCart
+                                                title="Add to card"
+                                                icon={<ShoppingBasket strokeWidth={2.5} size={18} />}
+                                            />
+                                        </div>
                                     </div>
                                     {/* Reaload */}
                                     <div className="flex items-center gap-[2px] mb-[10px] cursor-pointer">
@@ -165,12 +182,12 @@ export const QuickViewModal = ({ isOpen, onClose }: Props) => {
                                         </div>
                                         <AnimatePresence>
                                             {showMoreDetail && (
-                                                <motion.div 
-                                                    initial={{height: 0,opacity: 0}}
-                                                    animate={{height: 'auto' ,opacity: 1}}
-                                                    exit={{opacity: 0}}
-                                                    transition={{duration: 0.5, ease: "easeIn"}}
-                                                    style={{ overflow: "hidden"}}
+                                                <motion.div
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: "auto", opacity: 1 }}
+                                                    exit={{ opacity: 0 }}
+                                                    transition={{ duration: 0.5, ease: "easeIn" }}
+                                                    style={{ overflow: "hidden" }}
                                                 >
                                                     <h2 className="my-[8px] text-[24px] font-medium">Overview</h2>
                                                     <h2 className="my-[8px] text-[24px] font-medium leading-7">
