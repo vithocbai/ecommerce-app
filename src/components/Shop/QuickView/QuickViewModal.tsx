@@ -16,7 +16,7 @@ import {
     MoveRight,
 } from "lucide-react";
 import { renderStars } from "../../ui/renderStar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { AddToCart } from "../../ui/addToCart";
 import type { ShopProductProps } from "../../../data/shopProduct";
@@ -68,12 +68,12 @@ export const QuickViewModal = ({ isOpen, onClose, product }: Props) => {
                                 animate={{ x: "0%" }}
                                 exit={{ x: "100%" }}
                                 transition={{ duration: 0.2, ease: "linear" }}
-                                className="fixed top-0 right-0 z-[50] w-[400px] h-screen bg-white p-[15px] overflow-y-auto overflow-x-hidden"
+                                className="fixed top-0 right-0 z-[50] w-[400px] h-screen bg-white overflow-y-auto p-[15px]"
                             >
                                 {/* Close Button */}
                                 <div
                                     onClick={() => onClose()}
-                                    className="flexCenter cursor-pointer absolute z-50 top-2 left-[-50px] bg-black rounded-full w-[36px] h-[36px]"
+                                    className="flexCenter cursor-pointer fixed top-[15px] right-[415px] z-[60] bg-white rounded-full w-[36px] h-[36px] shadow-md hover:shadow-lg transition-shadow"
                                 >
                                     <X size={14} />
                                 </div>
