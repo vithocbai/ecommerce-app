@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { LoginForm } from "../ContentSidebar/Auth/LoginForm";
 import { Compare } from "../ContentSidebar/Compare/Compare";
 import { WishList } from "../ContentSidebar/WishList/WishLish";
+import { Cart } from "../ContentSidebar/Cart/Cart";
+
 
 type SidebarProps = {
     open: boolean;
     close: () => void;
-    type: string;
+    type?: string;
 };
 
 export const Sidebar = ({ open, close, type }: SidebarProps) => {
@@ -31,6 +33,8 @@ export const Sidebar = ({ open, close, type }: SidebarProps) => {
                 return <WishList />;
             case "SIGNIN":
                 return <LoginForm />;
+            case "ADDTOCART":
+                return <Cart/>
             default:
                 return "No content";
         }

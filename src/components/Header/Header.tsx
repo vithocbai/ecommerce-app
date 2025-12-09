@@ -126,7 +126,7 @@ function Header() {
                         <span className="text-[#000] ml-[7px] text-[15px] font-medium">Sign In</span>
                     </div>
 
-                    <button className="flexCenter gap-2 min-w-[130px] text-[15px] bg-[#2A74ED] py-[10px] rounded-[99px] text-white">
+                    <button onClick={() => handleOpenSidebar("ADDTOCART")} className="flexCenter gap-2 min-w-[130px] text-[15px] bg-[#2A74ED] py-[10px] rounded-[99px] text-white">
                         <ShoppingBasket className="w-[20px] h-[20px]" />
                         <span>Cart $0.00</span>
                     </button>
