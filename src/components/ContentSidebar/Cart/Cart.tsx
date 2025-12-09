@@ -3,7 +3,13 @@ import { HeaderSidebar } from "../../ui/HeaderSidebar";
 import { useCart } from "../../../context/CartContext";
 
 export const Cart = () => {
-    const {cartItems, removeTocart} = useCart()
+    const { cartItems, removeTocart } = useCart();
+
+    // Tính tổng tiền
+    const handleTotalPrice = () => {
+        const totalPrice = cartItems.reduce((total, num) => total + num.price * num.quantity, 0);
+        return totalPrice;
+    };
 
     return (
         <section className="px-[30px] py-5">
@@ -15,7 +21,10 @@ export const Cart = () => {
                             return (
                                 <li className="group relative py-5 px-3 border-b-[1px] border-[#e1e1e1] last:border-b-0 hover:bg-[#f7f7f7]">
                                     {/* Close */}
-                                    <div onClick={() => removeTocart(product)} className="absolute top-1 right-[-10px] group-hover:right-[6px] opacity-0 group-hover:opacity-100 transform duration-300  cursor-pointer ">
+                                    <div
+                                        onClick={() => removeTocart(product)}
+                                        className="absolute top-1 right-[-10px] group-hover:right-[6px] opacity-0 group-hover:opacity-100 transform duration-300  cursor-pointer "
+                                    >
                                         <X strokeWidth={1.2} size={20} className="text-[#929090]" />
                                     </div>
                                     <div className="flex">
@@ -54,7 +63,12 @@ export const Cart = () => {
                         {/* Subtotal */}
                         <div className="flex items-center justify-between py-[14px] text-[#222]  border-y-[1px] border-[#e1e1e1]">
                             <div className="uppercase text-[14px]">Subtotal:</div>
-                            <span>$ 1,936.50</span>
+                            <span>
+                                $
+                                {new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(
+                                    handleTotalPrice()
+                                )}
+                            </span>
                         </div>
                         {/* Action */}
                         <div className="pt-[20px]">

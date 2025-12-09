@@ -7,7 +7,6 @@ import { Spinner } from "../ui/spinner";
 import { QuickViewModal } from "./QuickView/QuickViewModal";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { useCart } from "../../context/CartContext";
-import { div } from "framer-motion/client";
 
 type showProductGridProps = {
     products: ShopProductProps[];
