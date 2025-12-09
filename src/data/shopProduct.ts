@@ -7,6 +7,7 @@ export type ShopProductProps = {
     oldPrice?: number;
     price: number;
     preview?: number;
+    sku?: string;
 };
 
 export const shopProducts: ShopProductProps[] = [
@@ -18,6 +19,7 @@ export const shopProducts: ShopProductProps[] = [
         brand: "Brand 7",
         price: 805,
         preview: 3,
+        sku: '1231-5'
     },
     {
         id: 2,
@@ -27,6 +29,7 @@ export const shopProducts: ShopProductProps[] = [
         brand: "Brand 5",
         price: 1300,
         preview: 12,
+        sku: '1231-5'
     },
     {
         id: 3,
@@ -35,6 +38,7 @@ export const shopProducts: ShopProductProps[] = [
         title: "Hi-Resolution Bluetooth 4.0 Wireless Speakers",
         price: 320,
         preview: 5,
+        sku: '1231-5'
     },
     {
         id: 4,
@@ -44,6 +48,7 @@ export const shopProducts: ShopProductProps[] = [
         brand: "Brand 6",
         price: 540,
         preview: 9,
+        sku: '1231-5'
     },
     {
         id: 5,
@@ -54,6 +59,7 @@ export const shopProducts: ShopProductProps[] = [
         oldPrice: 300,
         price: 175,
         preview: 12,
+        sku: '1231-5'
     },
     {
         id: 6,
@@ -63,6 +69,7 @@ export const shopProducts: ShopProductProps[] = [
         brand: "Brand 3",
         price: 520,
         preview: 32,
+        sku: '1231-5'
     },
     {
         id: 7,
@@ -72,6 +79,7 @@ export const shopProducts: ShopProductProps[] = [
         oldPrice: 300.0,
         price: 200.5,
         preview: 12,
+        sku: '1231-5'
     },
     {
         id: 8,
@@ -82,6 +90,7 @@ export const shopProducts: ShopProductProps[] = [
         oldPrice: 500.0,
         price: 435.5,
         preview: 11,
+        sku: '1231-5'
     },
     {
         id: 9,
@@ -91,6 +100,7 @@ export const shopProducts: ShopProductProps[] = [
         oldPrice: 300.0,
         price: 275.5,
         preview: 78,
+        sku: '1231-5'
     },
     {
         id: 10,
@@ -99,6 +109,7 @@ export const shopProducts: ShopProductProps[] = [
         title: "SmartThing Indoor 1080p Bluetooth Headphones",
         price: 149.0,
         preview: 32,
+        sku: '1231-5'
     },
     {
         id: 11,
@@ -108,6 +119,7 @@ export const shopProducts: ShopProductProps[] = [
         brand: "Brand 5",
         price: 800.0,
         preview: 54,
+        sku: '1231-5'
     },
     {
         id: 12,
@@ -116,5 +128,6 @@ export const shopProducts: ShopProductProps[] = [
         title: "Special Editions Wireless Controller Lunar White",
         price: 639.0,
         preview: 78,
+        sku: '1231-5'
     },
 ];

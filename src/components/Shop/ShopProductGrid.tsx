@@ -1,10 +1,12 @@
 import type { ShopProductProps } from "../../data/shopProduct";
 import { AddToCart } from "../ui/addToCart";
-import { Eye, Heart} from "lucide-react";
+import { Eye, Heart } from "lucide-react";
 import { renderStars } from "../ui/renderStar";
 import { useEffect, useState } from "react";
 import { Spinner } from "../ui/spinner";
 import { QuickViewModal } from "./QuickView/QuickViewModal";
+import { Sidebar } from "../Sidebar/Sidebar";
+import { useCart } from "../../context/CartContext";
 
 type showProductGridProps = {
     products: ShopProductProps[];
@@ -13,7 +15,12 @@ type showProductGridProps = {
 export const ShopProductGrid = ({ products }: showProductGridProps) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [quickViewProduct, setQuickViewProduct] = useState<ShopProductProps | null>(null);
+    const [sidebarType, setSidebarType] = useState<string>("ADDTOCART");
     const [isOpenModel, setIsOpenModel] = useState(false);
+    const [isOpenCart, setIsOpenCart] = useState(false);
+
+    // Context
+    const { addToCart } = useCart();
 
     // Loading khi chạy
     useEffect(() => {
@@ -28,8 +35,19 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
         setIsOpenModel(true);
     };
 
-    const closeQuickView  = () => {
+    const closeQuickView = () => {
         setIsOpenModel(false);
+    };
+
+    const handleOpenAddToCart = (product: ShopProductProps) => {
+        setTimeout(() => {
+            setIsOpenCart(true);
+            addToCart(product);
+        }, 1000);
+    };
+
+    const closeAddToCart = () => {
+        setIsOpenCart(false);
     };
 
     return (
@@ -106,7 +124,7 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
                                         </span>
                                     )}
                                 </div>
-                                <div className="flex justify-center">
+                                <div onClick={() => handleOpenAddToCart(product)} className="flex justify-center">
                                     <AddToCart title="Add to cart" />
                                 </div>
                             </div>
@@ -115,6 +133,9 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
 
                     {/* QuickViewModal */}
                     <QuickViewModal product={quickViewProduct} isOpen={isOpenModel} onClose={closeQuickView} />
+
+                    {/* SideBar Cart */}
+                    <Sidebar open={isOpenCart} close={closeAddToCart} type={sidebarType} />
                 </div>
             )}
         </section>

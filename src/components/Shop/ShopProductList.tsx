@@ -4,6 +4,7 @@ import { Eye, Heart } from "lucide-react";
 import { renderStars } from "../ui/renderStar";
 import { useEffect, useState } from "react";
 import { Spinner } from "../ui/spinner";
+import { QuickViewModal } from "./QuickView/QuickViewModal";
 
 type shopProductListProps = {
     products: ShopProductProps[];
@@ -11,12 +12,25 @@ type shopProductListProps = {
 
 export const ShopProductList = ({ products }: shopProductListProps) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isOpenModel, setIsOpenModel] = useState(false);
+    const [quickViewProduct, setQuickViewProduct] = useState<ShopProductProps | null>(null)
+
     useEffect(() => {
         setTimeout(() => {
             products;
             setIsLoading(false);
         }, 1000);
     }, []);
+
+    const hanldeQuickView = (product: ShopProductProps) => {
+        setQuickViewProduct(product)
+        setIsOpenModel(true)
+        
+    }
+
+    const closeQuickView = () => {
+        setIsOpenModel(false)
+    }
 
     return (
         <section>
@@ -25,7 +39,8 @@ export const ShopProductList = ({ products }: shopProductListProps) => {
                     <Spinner size="sm" color="text-green-500" />
                 </div>
             ) : (
-                <div className="grid grid-cols-2 gap-[30px]">
+                <div>
+                    <div className="grid grid-cols-2 gap-[30px]">
                     {products.map((product) => (
                         <div className="group flex gap-[15px] border-[1px] border-[#E5E5E5] p-[5px] pb-[25px] rounded-[20px] hover:cursor-pointer">
                             {/* Image */}
@@ -45,7 +60,7 @@ export const ShopProductList = ({ products }: shopProductListProps) => {
                                 ))}
 
                                 {/* Quick Shop */}
-                                <div className="absolute left-0 right-0 bottom-0 flex items-center justify-center bg-[#000] rounded-full text-[#fff] px-[10px] py-[7px] opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:bottom-2 transition-all duration-200 ease-linear">
+                                <div onClick={() => hanldeQuickView(product)} className="absolute left-0 right-0 bottom-0 flex items-center justify-center bg-[#000] rounded-full text-[#fff] px-[10px] py-[7px] opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:bottom-2 transition-all duration-200 ease-linear">
                                     <span>
                                         <Eye />
                                     </span>
@@ -91,6 +106,10 @@ export const ShopProductList = ({ products }: shopProductListProps) => {
                             </div>
                         </div>
                     ))}
+                </div>
+                 
+                 {/* Quick view */}
+                 <QuickViewModal isOpen={isOpenModel} onClose={closeQuickView} product={quickViewProduct}/>
                 </div>
             )}
         </section>
