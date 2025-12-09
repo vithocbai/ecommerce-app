@@ -7,6 +7,7 @@ import { Spinner } from "../ui/spinner";
 import { QuickViewModal } from "./QuickView/QuickViewModal";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { useCart } from "../../context/CartContext";
+import { div } from "framer-motion/client";
 
 type showProductGridProps = {
     products: ShopProductProps[];
@@ -18,6 +19,7 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
     const [sidebarType, setSidebarType] = useState<string>("ADDTOCART");
     const [isOpenModel, setIsOpenModel] = useState(false);
     const [isOpenCart, setIsOpenCart] = useState(false);
+    const [loadingProductId, setLoadingProductId] = useState<number | null>(null);
 
     // Context
     const { addToCart } = useCart();
@@ -40,9 +42,12 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
     };
 
     const handleOpenAddToCart = (product: ShopProductProps) => {
+        setLoadingProductId(product.id);
+
         setTimeout(() => {
             setIsOpenCart(true);
             addToCart(product);
+            setLoadingProductId(null);
         }, 1000);
     };
 
@@ -125,7 +130,13 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
                                     )}
                                 </div>
                                 <div onClick={() => handleOpenAddToCart(product)} className="flex justify-center">
-                                    <AddToCart title="Add to cart" />
+                                    {loadingProductId == product.id ? (
+                                        <div className="w-[140px] flex items-center justify-center px-[30px] py-[10px] font-bold text-[16px] bg-[#2A74ED] text-[#fff] rounded-full hover:bg-[#000] transition-all duration-200 ease-linear">
+                                            <Spinner size="sm" color="text-white" />
+                                        </div>
+                                    ) : (
+                                        <AddToCart title="Add to cart" />
+                                    )}
                                 </div>
                             </div>
                         ))}
