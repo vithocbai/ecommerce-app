@@ -5,20 +5,23 @@ import "./index.css";
 import "./styles/utilities.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Shop from "./pages/Shop.tsx";
+import { CartProvider } from "./context/CartContext.tsx";
 
 const router = createBrowserRouter([
     {
-        path: '',
-        element: <App />
+        path: "",
+        element: <App />,
     },
     {
-        path: '/shop',
-        element: <Shop />
-    }
-])
+        path: "/shop",
+        element: <Shop />,
+    },
+]);
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
-        <RouterProvider router={router}/>
+        <CartProvider>
+            <RouterProvider router={router} />
+        </CartProvider>
     </StrictMode>
 );
