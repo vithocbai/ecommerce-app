@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
 import { LoginForm } from "../ContentSidebar/Auth/LoginForm";
 import { Compare } from "../ContentSidebar/Compare/Compare";
 import { WishList } from "../ContentSidebar/WishList/WishLish";
 import { Cart } from "../ContentSidebar/Cart/Cart";
-
+import { AnimatePresence, motion } from "framer-motion";
 
 type SidebarProps = {
     open: boolean;
@@ -12,19 +11,6 @@ type SidebarProps = {
 };
 
 export const Sidebar = ({ open, close, type }: SidebarProps) => {
-    const [isVisible, setIsVisible] = useState(false);
-
-    // Handle visibility with delay for exit animation
-    useEffect(() => {
-        if (open) {
-            setIsVisible(true);
-        } else {
-            // Delay unmount to allow exit animation
-            const timer = setTimeout(() => setIsVisible(false), 300);
-            return () => clearTimeout(timer);
-        }
-    }, [open]);
-
     const renderContent = () => {
         switch (type) {
             case "COMPARE":
@@ -34,35 +20,37 @@ export const Sidebar = ({ open, close, type }: SidebarProps) => {
             case "SIGNIN":
                 return <LoginForm />;
             case "ADDTOCART":
-                return <Cart/>
+                return <Cart />;
             default:
                 return "No content";
         }
     };
 
-    if (!isVisible) return null;
-
     return (
-        <section className="fixed inset-0 z-[60] overflow-hidden">
-            <div className={open ? "pointer-events-auto" : "pointer-events-none"}>
-                {/* Overlay */}
-                <div
-                    className={`fixed inset-0 h-screen bg-black transition-opacity duration-200 ${
-                        open ? "opacity-30 cursor-pointer" : "opacity-0"
-                    }`}
-                    onClick={close}
-                />
+        <AnimatePresence>
+            {open && (
+                <section className="fixed inset-0 z-[50] overflow-hidden">
+                    {/* Overlay */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={close}
+                        className="fixed inset-0 h-screen z-[40] bg-[rgba(0,0,0,0.4)]"
+                    />
 
-                {/* Sidebar */}
-                <aside
-                    style={{ width: 370 }}
-                    className={`fixed right-0 top-0 h-screen bg-white overflow-y-auto overflow-x-hidden transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-                        open ? "translate-x-0" : "translate-x-full"
-                    }`}
-                >
-                    {renderContent()}
-                </aside>
-            </div>
-        </section>
+                    {/* Sidebar */}
+                    <motion.div
+                        initial={{ x: "100%" }}
+                        animate={{ x: "0" }}
+                        exit={{ x: "100%" }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="fixed w-[370px] z-[50] right-0 top-0 bottom-0 h-screen bg-white "
+                    >
+                        {renderContent()}
+                    </motion.div>
+                </section>
+            )}
+        </AnimatePresence>
     );
 };
