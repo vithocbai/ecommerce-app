@@ -15,11 +15,12 @@ type showProductGridProps = {
 
 export const ShopProductGrid = ({ products }: showProductGridProps) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [loadingProductId, setLoadingProductId] = useState<number | null>(null);
+
     const [quickViewProduct, setQuickViewProduct] = useState<ShopProductProps | null>(null);
     const [sidebarType, setSidebarType] = useState<string>("ADDTOCART");
     const [isOpenModel, setIsOpenModel] = useState(false);
-    const [isOpenCart, setIsOpenCart] = useState(false);
-    const [loadingProductId, setLoadingProductId] = useState<number | null>(null);
+    const [isOpenAddToCart, setIsOpenAddToCart] = useState(false);
 
     // Context
     const { addToCart } = useCart();
@@ -45,14 +46,14 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
         setLoadingProductId(product.id);
 
         setTimeout(() => {
-            setIsOpenCart(true);
+            setIsOpenAddToCart(true);
             addToCart(product);
             setLoadingProductId(null);
         }, 1000);
     };
 
     const closeAddToCart = () => {
-        setIsOpenCart(false);
+        setIsOpenAddToCart(false);
     };
 
     return (
@@ -131,7 +132,7 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
                                 </div>
                                 <div onClick={() => handleOpenAddToCart(product)} className="flex justify-center">
                                     {loadingProductId == product.id ? (
-                                        <div className="w-[140px] flex items-center justify-center px-[30px] py-[10px] font-bold text-[16px] bg-[#2A74ED] text-[#fff] rounded-full hover:bg-[#000] transition-all duration-200 ease-linear">
+                                        <div className="w-[140px] flex items-center justify-center px-[30px] py-[10px] font-bold text-[16px] bg-[#000] text-[#fff] rounded-full transition-all duration-200 ease-linear">
                                             <Spinner size="sm" color="text-white" />
                                         </div>
                                     ) : (
@@ -146,7 +147,7 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
                     <QuickViewModal product={quickViewProduct} isOpen={isOpenModel} onClose={closeQuickView} />
 
                     {/* SideBar Cart */}
-                    <Sidebar open={isOpenCart} close={closeAddToCart} type={sidebarType} />
+                    <Sidebar open={isOpenAddToCart} close={closeAddToCart} type={sidebarType} />
                 </div>
             )}
         </section>
