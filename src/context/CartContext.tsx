@@ -11,6 +11,7 @@ type CartProviderProps = {
 type CartContextType = {
     cartItems: CartItem[];
     addToCart: (product: ShopProductProps) => void;
+    removeTocart: (product: ShopProductProps) => void;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -21,7 +22,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     // Thêm sản phẩm vào giỏ hàng
     const addToCart = (product: ShopProductProps) => {
         setCartItems((prev) => {
-            const existing = prev.find((item) => item.id == product.id);
+            const existing = prev.find((item) => item.id === product.id);
             if (existing) {
                 // Nếu sản phẩm đã có trong giỏ, tăng số lượng
                 return prev.map((item) => (item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item));
@@ -31,7 +32,13 @@ export const CartProvider = ({ children }: CartProviderProps) => {
             }
         });
     };
-    return <CartContext.Provider value={{ cartItems, addToCart }}>{children}</CartContext.Provider>;
+
+    // Xóa sản phẩm khỏi giỏ hàng
+    const removeTocart = (product: ShopProductProps) => {
+        setCartItems((prev) => prev.filter((item) => item.id !== product.id));
+    };
+    
+    return <CartContext.Provider value={{ cartItems, addToCart, removeTocart }}>{children}</CartContext.Provider>;
 };
 
 // Hook để sử dụng Cart Context
