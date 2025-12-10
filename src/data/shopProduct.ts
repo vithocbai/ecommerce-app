@@ -8,6 +8,7 @@ export type ShopProductProps = {
     price: number;
     preview?: number;
     sku?: string;
+    categoryId: number;
 };
 
 export const shopProducts: ShopProductProps[] = [
@@ -19,115 +20,127 @@ export const shopProducts: ShopProductProps[] = [
         brand: "Brand 7",
         price: 805,
         preview: 3,
-        sku: '1231-5'
+        sku: "1231-5",
+        categoryId: 1,
     },
     {
         id: 2,
-        image: ["shopProduct/img2.jpeg","shopProduct/img3.jpeg"],
+        image: ["shopProduct/img2.jpeg", "shopProduct/img3.jpeg"],
         star: 5,
         title: "Google – Nest Hello Smart Wi-Fi Video Doorbell",
         brand: "Brand 5",
         price: 1300,
         preview: 12,
-        sku: '1231-5'
+        sku: "1231-5",
+        categoryId: 2,
     },
     {
         id: 3,
-        image: ["shopProduct/img3.jpeg", "shopProduct/img4.jpeg",],
+        image: ["shopProduct/img3.jpeg", "shopProduct/img4.jpeg"],
         star: 5,
         title: "Hi-Resolution Bluetooth 4.0 Wireless Speakers",
         price: 320,
         preview: 5,
-        sku: '1231-5'
+        sku: "1231-5",
+        categoryId: 1,
     },
     {
         id: 4,
-        image: ["shopProduct/img4.jpeg", "shopProduct/img3.jpeg",],
+        image: ["shopProduct/img4.jpeg", "shopProduct/img3.jpeg"],
         star: 5,
         title: "Indoor/Outdoor Wire Free 1080p Security Camera",
         brand: "Brand 6",
         price: 540,
         preview: 9,
-        sku: '1231-5'
+        sku: "1231-5",
+        categoryId: 2,
     },
     {
         id: 5,
-        image: ["shopProduct/img5.jpeg", "shopProduct/img3.jpeg",],
+        image: ["shopProduct/img5.jpeg", "shopProduct/img3.jpeg"],
         star: 5,
         title: "Linksys – Velop AC2200 Band Mesh Wi-Fi System",
         brand: "Brand 4",
         oldPrice: 300,
         price: 175,
         preview: 12,
-        sku: '1231-5'
+        sku: "1231-5",
+        categoryId: 1,
     },
     {
         id: 6,
-        image: ["shopProduct/img6.jpeg", "shopProduct/img3.jpeg",],
+        image: ["shopProduct/img6.jpeg", "shopProduct/img3.jpeg"],
         star: 5,
         title: "Nest Learning Thermostat 3rd Gen in Stainless Steel",
         brand: "Brand 3",
         price: 520,
         preview: 32,
-        sku: '1231-5'
+        sku: "1231-5",
+        categoryId: 3,
     },
     {
         id: 7,
-        image: ["shopProduct/img7.jpeg", "shopProduct/img3.jpeg",],
+        image: ["shopProduct/img7.jpeg", "shopProduct/img3.jpeg"],
         star: 5,
         title: "Nest Mini Smart Speaker with Google Assistant",
         oldPrice: 300.0,
         price: 200.5,
         preview: 12,
-        sku: '1231-5'
+        sku: "1231-5",
+        categoryId: 3,
     },
     {
         id: 8,
-        image: ["shopProduct/img8.jpeg", "shopProduct/img3.jpeg",],
+        image: ["shopProduct/img8.jpeg", "shopProduct/img3.jpeg"],
         star: 5,
         title: "Nest Mini Smart Speaker with Google Assistant",
         brand: "Brand 2",
         oldPrice: 500.0,
         price: 435.5,
         preview: 11,
-        sku: '1231-5'
+        sku: "1231-5",
+        categoryId: 2,
     },
     {
         id: 9,
-        image: ["shopProduct/img9.jpeg", "shopProduct/img3.jpeg",],
+        image: ["shopProduct/img9.jpeg", "shopProduct/img3.jpeg"],
         star: 4,
         title: "Olufsen 17 Wireless Bluetooth Portable Speaker",
         oldPrice: 300.0,
         price: 275.5,
         preview: 78,
-        sku: '1231-5'
+        sku: "1231-5",
+        categoryId: 4,
     },
     {
         id: 10,
-        image: ["shopProduct/img10.jpeg", "shopProduct/img3.jpeg",],
+        image: ["shopProduct/img10.jpeg", "shopProduct/img3.jpeg"],
         star: 5,
         title: "SmartThing Indoor 1080p Bluetooth Headphones",
         price: 149.0,
         preview: 32,
-        sku: '1231-5'
+        sku: "1231-5",
+        categoryId: 4,
     },
     {
         id: 11,
-        image: ["shopProduct/img11.jpeg", "shopProduct/img3.jpeg",],
+        image: ["shopProduct/img11.jpeg", "shopProduct/img3.jpeg"],
         star: 5,
         title: "Google – Nest Hello Smart Wi-Fi Video Doorbell",
         brand: "Brand 5",
         price: 800.0,
         preview: 54,
-        sku: '1231-5'
+        sku: "1231-5",
+        categoryId: 2,
     },
     {
         id: 12,
-        image: ["shopProduct/img12.jpeg", "shopProduct/img3.jpeg",],
+        image: ["shopProduct/img12.jpeg", "shopProduct/img3.jpeg"],
         star: 5,
         title: "Special Editions Wireless Controller Lunar White",
         price: 639.0,
         preview: 78,
-        sku: '1231-5'
+        sku: "1231-5",
+        categoryId: 4,
     },
 ];

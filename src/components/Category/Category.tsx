@@ -3,11 +3,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
-import { sampleCategory } from "../../data/sampleCategory";
-
+import { getCategoriesWithProductCount } from "../../utils/categoryUtils";
 
 const CategoriesSection = () => {
-    const loopCategories = [...sampleCategory, ...sampleCategory];
+    const categories = getCategoriesWithProductCount();
+    const loopCategories = [...categories, ...categories];
 
     return (
         <section className="relative w-full mt-[30px]">
