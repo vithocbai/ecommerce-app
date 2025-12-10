@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import "./styles/utilities.css";
+import './styles/scrollbar.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Shop from "./pages/Shop.tsx";
 import { CartProvider } from "./context/CartContext.tsx";

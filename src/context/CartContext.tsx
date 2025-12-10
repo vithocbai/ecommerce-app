@@ -1,4 +1,4 @@
-import { Children, createContext, useContext, useState, type ReactNode } from "react";
+import { Children, createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import type { ShopProductProps } from "../data/shopProduct";
 
 export type CartItem = ShopProductProps & {
@@ -17,7 +17,10 @@ type CartContextType = {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: CartProviderProps) => {
-    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+        const saved = localStorage.getItem("cartItems")
+        return saved ? JSON.parse(saved): []
+    });
 
     // Thêm sản phẩm vào giỏ hàng
     const addToCart = (product: ShopProductProps) => {
@@ -38,6 +41,11 @@ export const CartProvider = ({ children }: CartProviderProps) => {
         setCartItems((prev) => prev.filter((item) => item.id !== product.id));
     };
     
+    // Mỗi lần cartItems thay đổi -> lưu vào localStorage
+    useEffect(() => {
+        localStorage.setItem("cartItems", JSON.stringify(cartItems))
+    }, [cartItems])
+
     return <CartContext.Provider value={{ cartItems, addToCart, removeTocart }}>{children}</CartContext.Provider>;
 };
 
