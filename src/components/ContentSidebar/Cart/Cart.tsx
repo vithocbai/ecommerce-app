@@ -26,7 +26,7 @@ export const Cart = () => {
     };
 
     return (
-        <section className="px-[30px] py-5 pr-[10px] h-full flex flex-col">
+        <section className="px-[30px] py-5 pr-[10px] h-full flex flex-col max-md:px-[20px]">
             <HeaderSidebar title="CART" icon={<ShoppingBasket strokeWidth={1.2} className="w-7 h-7" />} />
             {cartItems.length > 0 ? (
                 <>

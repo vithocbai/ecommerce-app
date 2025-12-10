@@ -3,6 +3,7 @@ import { Compare } from "../ContentSidebar/Compare/Compare";
 import { WishList } from "../ContentSidebar/WishList/WishLish";
 import { Cart } from "../ContentSidebar/Cart/Cart";
 import { AnimatePresence, motion } from "framer-motion";
+import { X } from "lucide-react";
 
 type SidebarProps = {
     open: boolean;
@@ -30,6 +31,13 @@ export const Sidebar = ({ open, close, type }: SidebarProps) => {
         <AnimatePresence>
             {open && (
                 <section className="fixed inset-0 z-[50] overflow-hidden">
+                    {/* Close */}
+                    <div
+                        onClick={close}
+                        className="absolute z-[60] top-4 right-[380px] max-md:left-3 w-8 h-8 bg-white rounded-full flexCenter cursor-pointer"
+                    >
+                        <X strokeWidth={1.5} size={20} className="text-[#222] text-center" />
+                    </div>
                     {/* Overlay */}
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -45,7 +53,7 @@ export const Sidebar = ({ open, close, type }: SidebarProps) => {
                         animate={{ x: "0" }}
                         exit={{ x: "100%" }}
                         transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="fixed w-[370px] z-[50] right-0 top-0 bottom-0 h-screen bg-white "
+                        className="fixed w-[370px] max-md:w-[86%] z-[50] right-0 top-0 bottom-0 h-screen bg-white "
                     >
                         {renderContent()}
                     </motion.div>

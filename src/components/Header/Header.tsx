@@ -136,7 +136,7 @@ function Header() {
                 <Sidebar open={sidebarOpen} close={() => setSidebarOpen(false)} type={sidebarType} />
 
                 {/* ShoppingCard Tablet */}
-                <button className="lg:hidden flexCenter rounded-[99px] text-white w-[40px] h-[40px] bg-[#2A74ED]">
+                <button onClick={() => handleOpenSidebar('ADDTOCART')} className="lg:hidden flexCenter rounded-[99px] text-white w-[40px] h-[40px] bg-[#2A74ED]">
                     <ShoppingBasket className="w-[20px] h-[20px]" />
                 </button>
 
