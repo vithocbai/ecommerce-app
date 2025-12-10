@@ -1,14 +1,28 @@
 import { ShoppingBasket, X } from "lucide-react";
 import { HeaderSidebar } from "../../ui/HeaderSidebar";
 import { useCart } from "../../../context/CartContext";
+import { useState } from "react";
+import type { ShopProductProps } from "../../../data/shopProduct";
+import { Spinner } from "../../ui/spinner";
 
 export const Cart = () => {
+    const [removeProductId, setRemoveProductId] = useState<number | null>(null);
+
     const { cartItems, removeTocart } = useCart();
-    
+
     // Tính tổng tiền
     const handleTotalPrice = () => {
         const totalPrice = cartItems.reduce((total, num) => total + num.price * num.quantity, 0);
         return totalPrice;
+    };
+
+    const handleRemove = (product: ShopProductProps) => {
+        setRemoveProductId(product.id);
+
+        setTimeout(() => {
+            removeTocart(product);
+            setRemoveProductId(null);
+        }, 1000);
     };
 
     return (
@@ -21,13 +35,21 @@ export const Cart = () => {
                         <ul>
                             {cartItems.map((product) => {
                                 return (
-                                    <li 
+                                    <li
                                         key={product.sku}
-                                        className="group relative py-5 px-3 border-b-[1px] border-[#e1e1e1] last:border-b-0 hover:bg-[#f7f7f7]"
+                                        className={`group relative py-5 px-3 border-b-[1px] border-[#e1e1e1] last:border-b-0 hover:bg-[#f7f7f7] transform duration-150
+                                            ${removeProductId === product.id ? 'opacity-15' : 'opacity-100'}`
+                                        }
                                     >
+                                        {/* Loading spinner */}
+                                        {removeProductId === product.id && (
+                                            <div className="absolute inset-0 flexCenter">
+                                                <Spinner size="sm" />
+                                            </div>
+                                        )}
                                         {/* Close */}
                                         <div
-                                            onClick={() => removeTocart(product)}
+                                            onClick={() => handleRemove(product)}
                                             className="absolute top-1 right-[-10px] group-hover:right-[6px] opacity-0 group-hover:opacity-100 transform duration-300 cursor-pointer"
                                         >
                                             <X strokeWidth={1.2} size={20} className="text-[#929090]" />
@@ -65,7 +87,7 @@ export const Cart = () => {
                             })}
                         </ul>
                     </div>
-                    
+
                     {/* Fixed Footer */}
                     <div className="pt-[15px] flex-shrink-0">
                         {/* Subtotal */}
@@ -99,4 +121,4 @@ export const Cart = () => {
             )}
         </section>
     );
-}
+};
