@@ -7,6 +7,8 @@ import { Spinner } from "../ui/spinner";
 import { QuickViewModal } from "./QuickView/QuickViewModal";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { useCart } from "../../context/CartContext";
+import { createSlug } from "../ui/createSlug";
+import { useNavigate } from "react-router-dom";
 
 type showProductGridProps = {
     products: ShopProductProps[];
@@ -23,7 +25,7 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
 
     // Context
     const { addToCart } = useCart();
-
+    const navigate = useNavigate()
     // Loading khi chạy
     useEffect(() => {
         setTimeout(() => {
@@ -55,6 +57,11 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
         setIsOpenAddToCart(false);
     };
 
+    const handleNavigateToDetail = (product: ShopProductProps) => {
+        const slug = createSlug(product.title)
+        navigate(`/product/${slug}`, { state: { product } });
+    }
+
     return (
         <section>
             {isLoading ? (
@@ -80,7 +87,7 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
                                     </div>
                                     {/* Image */}
                                     {product.image.slice(0, 1).map((item) => (
-                                        <img src={item} alt="" className="max-w-[100%] object-cover" />
+                                        <img onClick={() => handleNavigateToDetail(product)} src={item} alt="" className="max-w-[100%] object-cover" />
                                     ))}
 
                                     {/* Quick Shop  */}

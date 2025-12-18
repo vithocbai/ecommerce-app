@@ -7,6 +7,7 @@ import './styles/scrollbar.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Shop from "./pages/Shop.tsx";
 import { CartProvider } from "./context/CartContext.tsx";
+import { ProductDetail } from "./components/ProductDetail/ProductDetail.tsx";
 
 const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     {
         path: "/shop",
         element: <Shop />,
+    },
+    {
+        path: "/product/:slug",
+        element: <ProductDetail />,
     },
 ]);
 
