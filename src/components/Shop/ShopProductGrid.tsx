@@ -25,7 +25,7 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
 
     // Context
     const { addToCart } = useCart();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     // Loading khi chạy
     useEffect(() => {
         setTimeout(() => {
@@ -58,9 +58,9 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
     };
 
     const handleNavigateToDetail = (product: ShopProductProps) => {
-        const slug = createSlug(product.title)
+        const slug = createSlug(product.title);
         navigate(`/product/${slug}`, { state: { product } });
-    }
+    };
 
     return (
         <section>
@@ -87,7 +87,12 @@ export const ShopProductGrid = ({ products }: showProductGridProps) => {
                                     </div>
                                     {/* Image */}
                                     {product.image.slice(0, 1).map((item) => (
-                                        <img onClick={() => handleNavigateToDetail(product)} src={item} alt="" className="max-w-[100%] object-cover" />
+                                        <img
+                                            onClick={() => handleNavigateToDetail(product)}
+                                            src={item}
+                                            alt=""
+                                            className="max-w-[100%] object-cover"
+                                        />
                                     ))}
 
                                     {/* Quick Shop  */}
