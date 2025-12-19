@@ -7,6 +7,8 @@ import { Spinner } from "../ui/spinner";
 import { QuickViewModal } from "./QuickView/QuickViewModal";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { useCart } from "../../context/CartContext";
+import { useNavigate } from "react-router-dom";
+import { createSlug } from "../ui/createSlug";
 
 type shopProductListProps = {
     products: ShopProductProps[];
@@ -22,6 +24,7 @@ export const ShopProductList = ({ products }: shopProductListProps) => {
     const [sidebarType, setSidebarType] = useState("ADDTOCART");
     // Context
     const { addToCart } = useCart();
+    const navigate = useNavigate();
 
     useEffect(() => {
         setTimeout(() => {
@@ -54,6 +57,11 @@ export const ShopProductList = ({ products }: shopProductListProps) => {
         setIsOpenAddToCart(false);
     };
 
+    const handleNavigateToDetail = (product: ShopProductProps) => {
+        const slug = createSlug(product.title);
+        navigate(`/product/${slug}`, { state: { product } });
+    };
+
     return (
         <section>
             {isLoading ? (
@@ -78,7 +86,12 @@ export const ShopProductList = ({ products }: shopProductListProps) => {
                                         <Heart size={18} />
                                     </div>
                                     {product.image.slice(0, 1).map((item) => (
-                                        <img src={item} alt="" className="max-w-[100%] object-cover" />
+                                        <img
+                                            onClick={() => handleNavigateToDetail(product)}
+                                            src={item}
+                                            alt=""
+                                            className="max-w-[100%] object-cover"
+                                        />
                                     ))}
 
                                     {/* Quick Shop */}
