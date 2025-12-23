@@ -58,7 +58,7 @@ export const Cart = () => {
                                             {product?.image.slice(0, 1).map((item, idx) => (
                                                 <img
                                                     key={idx}
-                                                    src={item}
+                                                    src={`/${item}`}
                                                     alt=""
                                                     className="w-[70px] h-[70px] object-cover mr-5 cursor-pointer"
                                                 />
