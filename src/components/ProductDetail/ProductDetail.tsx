@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Footer } from "../Footer/Footer";
 import Header from "../Header/Header";
 import {
@@ -17,14 +17,16 @@ import {
 } from "lucide-react";
 import { sampleCategory } from "../../data/sampleCategory";
 import { renderStars } from "../ui/renderStar";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Spinner } from "../ui/spinner";
-import { shopProducts } from "../../data/shopProduct";
+import { shopProducts, type ShopProductProps } from "../../data/shopProduct";
+import { createSlug } from "../ui/createSlug";
 
 export const ProductDetail = () => {
     const location = useLocation();
     const product = location.state.product;
     const [totalAddCart, setTotalAddCart] = useState(1);
+    const navigate = useNavigate();
 
     // Tìm category name dựa vào categoryId
     const categoryIdName = sampleCategory.find((cat) => cat.id === product.categoryId)?.name || "";
@@ -91,14 +93,25 @@ export const ProductDetail = () => {
         return acc;
     }, {});
 
+    // Hiển thị ngẫu nhiên 5 sản phẩm
+    const productRandom = useMemo(() => {
+        return [...shopProducts].sort(() => Math.random() - 0.5).slice(0, 5);
+    }, []);
+
+    // Hàm chuyển chi tiết sản phẩm
+    const handleNavigateToDetail = (product: ShopProductProps) => {
+        const slug = createSlug(product.title);
+        navigate(`/product/${slug}`, { state: { product } });
+    };
+
     return (
         <section>
             {/* Header */}
             <Header />
 
-            <div className="max-w-[1600px] mx-auto">
+            <div className="max-w-[1600px] mx-auto px-[15px]">
                 {/* Breadcrumb */}
-                <nav className="flex items-center my-[15px] px-[15px] pt-[10px] text-[14px] text-[#666]">
+                <nav className="flex items-center my-[15px]  pt-[10px] text-[14px] text-[#666]">
                     <ul className="flex items-center">
                         <li>
                             <Link to="/">Home</Link>
@@ -116,7 +129,7 @@ export const ProductDetail = () => {
                 {/* Nội dung */}
                 <div className="w-full flex ">
                     {/* Chi tiết sản phẩm  */}
-                    <div className="w-[76%] flex p-[15px]">
+                    <div className="w-[76%] flex p-[15px] pl-0">
                         {/* Quản lý ảnh */}
                         <div className="w-[49%] overflow-hidden ">
                             {/* Ảnh chính hiển thị và zoom*/}
@@ -198,9 +211,10 @@ export const ProductDetail = () => {
                                 ))}
                             </div>
                         </div>
+
                         {/* Nội dung ảnh*/}
                         <div className="w-[51%]">
-                            <div className="w-full mx-[30px]">
+                            <div className="w-full px-[30px]">
                                 <h1 className="text-[28px] font-medium text-[#222] mb-3 leading-tight">
                                     {product.title}
                                 </h1>
@@ -232,7 +246,7 @@ export const ProductDetail = () => {
                                     <span>{product.preview || 19} people are viewing this product right now</span>
                                 </div>
 
-                                <p className="text-[#666] leading-7 mb-8 text-[18px] border-b border-gray-100 pb-8">
+                                <p className="text-[#666] leading-7 mb-8 text-[18px] border-b border-gray-100 pb-8 w-[100%]">
                                     This Bluetooth speaker delivers big sound, making it then only music system you’ll
                                     need in or out of the house. Prem materials such as anodized aluminum & durable
                                     polymers withstand the rigor of an active lifestyle.
@@ -296,9 +310,9 @@ export const ProductDetail = () => {
                         </div>
                     </div>
                     {/* Sidebar Right */}
-                    <div className="w-[24%] p-[15px]">
+                    <div className="w-[24%] p-[15px] pr-0">
                         {/* Danh mục sản phẩm và số lượng*/}
-                        <div className="p-[35px] border border-[#E5E5E5] rounded-[16px]">
+                        <div className="p-[35px] border border-[#E5E5E5] rounded-[16px] mb-5">
                             <h3 className="text-[18px] text-[#222] font-medium pb-[18px] mb-[25px] border-b border-[#E5E5E5]">
                                 Product Categories
                             </h3>
@@ -315,6 +329,56 @@ export const ProductDetail = () => {
                                         <span className="text-[16px]">({categoryCount[categories.id || 0]})</span>
                                     </li>
                                 ))}
+                            </ul>
+                        </div>
+                        {/* Sản phẩm */}
+                        <div className="p-[35px] border border-[#E5E5E5] rounded-[16px]">
+                            <h3 className="text-[18px] text-[#222] font-medium pb-[18px] mb-[25px] border-b border-[#E5E5E5]">
+                                Products
+                            </h3>
+                            <ul>
+                                {productRandom.map((product) => {
+                                    return (
+                                        <div className="flex items-center mb-5 last:mb-0 cursor-pointer">
+                                            {product.image.slice(0, 1).map((imgSrc) => (
+                                                <img
+                                                    className="w-[70px] h-[70px] object-cover mr-5"
+                                                    src={`/${imgSrc}`}
+                                                    alt=""
+                                                    onClick={() => handleNavigateToDetail(product)}
+                                                />
+                                            ))}
+                                            <div className="text-[#888] text-[16px]">
+                                                <h4 className="text-[#222] line-clamp-1">{product.title}</h4>
+                                                {product.oldPrice ? (
+                                                    <div className="flex gap-2">
+                                                        <span className="text-[14px] line-through">
+                                                            $
+                                                            {new Intl.NumberFormat("en-US", {
+                                                                minimumFractionDigits: 2,
+                                                            }).format(product.oldPrice)}
+                                                        </span>
+                                                        <span className="text-[14px] text-[#2a74ed]">
+                                                            $
+                                                            {new Intl.NumberFormat("en-US", {
+                                                                minimumFractionDigits: 2,
+                                                            }).format(product.price)}
+                                                        </span>
+                                                    </div>
+                                                ) : (
+                                                    <div>
+                                                        <span className="text-[14px] text-[#888]">
+                                                            $
+                                                            {new Intl.NumberFormat("en-US", {
+                                                                minimumFractionDigits: 2,
+                                                            }).format(product.price)}
+                                                        </span>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
                             </ul>
                         </div>
                     </div>
