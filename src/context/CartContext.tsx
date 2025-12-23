@@ -10,7 +10,7 @@ type CartProviderProps = {
 };
 type CartContextType = {
     cartItems: CartItem[];
-    addToCart: (product: ShopProductProps) => void;
+    addToCart: (product: ShopProductProps, quantity?: number) => void;
     removeTocart: (product: ShopProductProps) => void;
 };
 
@@ -18,20 +18,23 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: CartProviderProps) => {
     const [cartItems, setCartItems] = useState<CartItem[]>(() => {
-        const saved = localStorage.getItem("cartItems")
-        return saved ? JSON.parse(saved): []
+        const saved = localStorage.getItem("cartItems");
+        return saved ? JSON.parse(saved) : [];
     });
 
     // Thêm sản phẩm vào giỏ hàng
-    const addToCart = (product: ShopProductProps) => {
+    const addToCart = (product: ShopProductProps, quantity = 1) => {
+        if (quantity < 1) return;
         setCartItems((prev) => {
             const existing = prev.find((item) => item.id === product.id);
             if (existing) {
                 // Nếu sản phẩm đã có trong giỏ, tăng số lượng
-                return prev.map((item) => (item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item));
+                return prev.map((item) =>
+                    item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
+                );
             } else {
                 // // Nếu chưa có, thêm mới với quantity = 1
-                return [...prev, { ...product, quantity: 1 }];
+                return [...prev, { ...product, quantity }];
             }
         });
     };
@@ -40,11 +43,11 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     const removeTocart = (product: ShopProductProps) => {
         setCartItems((prev) => prev.filter((item) => item.id !== product.id));
     };
-    
+
     // Mỗi lần cartItems thay đổi -> lưu vào localStorage
     useEffect(() => {
-        localStorage.setItem("cartItems", JSON.stringify(cartItems))
-    }, [cartItems])
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    }, [cartItems]);
 
     return <CartContext.Provider value={{ cartItems, addToCart, removeTocart }}>{children}</CartContext.Provider>;
 };
