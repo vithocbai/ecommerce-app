@@ -7,6 +7,9 @@ export default {
             backgroundImage: {
                 "hero-banner": "url('/banner/banner.jpeg')",
             },
+            fontFamily: {
+                barlow: ['Barlow', 'sans-serif'],
+              },
         },
     },
     plugins: [],

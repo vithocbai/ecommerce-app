@@ -4,6 +4,7 @@ import Header from "../Header/Header";
 import {
     ChevronLeft,
     ChevronRight,
+    Eye,
     Facebook,
     Heart,
     Linkedin,
@@ -11,6 +12,7 @@ import {
     PhoneOutgoing,
     Plus,
     RefreshCcw,
+    Share2,
     ShoppingBasket,
     Twitter,
 } from "lucide-react";
@@ -89,7 +91,7 @@ export const ProductDetail = () => {
             <Header />
 
             {/* Breadcrumb */}
-            <nav className="flex items-center  my-[15px] px-[15px] text-[13px] text-[#666]">
+            <nav className="flex items-center  my-[15px] px-[15px] pt-[10px] text-[14px] text-[#666]">
                 <ul className="flex items-center">
                     <li>
                         <Link to="/">Home</Link>
@@ -116,7 +118,7 @@ export const ProductDetail = () => {
                             ref={imageContainerRef}
                             onMouseMove={handleMouseMove}
                             onMouseLeave={handleMouseLeve}
-                            className="group relative mb-2 overflow-hidden border border-[#E5E5E5]"
+                            className="group relative mb-2 overflow-hidden border border-[#E5E5E5] rounded-lg"
                             style={{ maxHeight: "500px" }}
                         >
                             {/* Xử lý next và prev */}
@@ -185,94 +187,95 @@ export const ProductDetail = () => {
                         </div>
                     </div>
                     {/* Nội dung ảnh*/}
-                    <div className="w-[51%] mx-[30px]">
-                        <h1>{product.title}</h1>
-                        <div>
-                            <span>{renderStars(product.star)}</span> <span>(1 customer review)</span>
-                        </div>
-                        <div>
-                            {product.oldPrice ? (
-                                <div>
-                                    <span>
-                                        $
-                                        {new Intl.NumberFormat("en-US", {
-                                            minimumFractionDigits: 2,
-                                        }).format(product.oldPrice)}
-                                    </span>
-                                    <span>
+                    <div className="w-[51%] ">
+                        <div className="w-full mx-[30px]">
+                            <h1 className="text-[28px] font-medium text-[#222] mb-3 leading-tight">{product.title}</h1>
+
+                            <div className="flex items-center gap-2 mb-4">
+                                <span className="flex text-yellow-400 text-sm">{renderStars(product.star)}</span>
+                                <span className="text-[#888] text-[18px] font-barlow">(1 customer review)</span>
+                            </div>
+
+                            <div className="text-[24px] font-semibold text-[#888] mb-4">
+                                {product.oldPrice && (
+                                    <span className="line-through text-[#ccc] mr-3 text-[20px]">
                                         $
                                         {new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(
-                                            product.price
+                                            product.oldPrice
                                         )}
                                     </span>
-                                </div>
-                            ) : (
+                                )}
                                 <span>
                                     $
                                     {new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(product.price)}
                                 </span>
-                            )}
-                        </div>
-                        <p>{product.preview} people are viewing this product right now</p>
-                        <p>
-                            This Bluetooth speaker delivers big sound, making it then only music system you’ll need in
-                            or out of the house. Prem materials such as anodized aluminum & durable polymers withstand
-                            the rigor of an active lifestyle.
-                        </p>
-
-                        {/* Add Cart */}
-                        <div>
-                            <div className="flex items-center mr-[20px] h-[38px] cursor-pointer">
-                                <span onClick={handleMinus} className="flexCenter px-[4px] text-[#222]  h-full">
-                                    <Minus strokeWidth={1.5} size={20} />
-                                </span>
-                                <div className="flexCenter w-[20px] h-full select-none">{totalAddCart}</div>
-                                <span onClick={handlePlus} className="flexCenter px-[4px] text-[#222] h-full">
-                                    <Plus strokeWidth={1.5} size={20} />
-                                </span>
                             </div>
-                            <div className="w-[280px] h-[53px]">
-                                <AddToCart title="Add to card" icon={<ShoppingBasket strokeWidth={2.5} size={18} />} />
-                            </div>
-                        </div>
 
-                        {/* Heart */}
-                        <div className="flex items-center gap-[2px] mb-[10px] cursor-pointer">
-                            <Heart size={20} strokeWidth={1.5} />
-                            <p className="pl-[5px]">Add to wishlist</p>
-                        </div>
-                        {/* Reaload */}
-                        <div className="flex items-center gap-[2px] mb-[10px] cursor-pointer">
-                            <RefreshCcw size={20} strokeWidth={1.5} />
-                            <p className="pl-[5px]">Add to compare</p>
-                        </div>
-                        {/* Skud */}
-                        <div className="text-[16px] text-[#888] mb-[12px]">
-                            <span className="text-[#222] uppercase">sku: </span> {product.sku}
-                        </div>
-                        {/* Category */}
-                        <div className="text-[16px] text-[#888] mb-[12px]">
-                            <span className="text-[#222] ">Category: </span> {categoryIdName}
-                        </div>
-                        {/* Tags */}
-                        <div className="text-[16px] text-[#888] mb-[12px]">
-                            <span className="text-[#222] ">Tags: </span> Headphones, Speaker
-                        </div>
-                        {/* Share */}
-                        <div className="flex items-center gap-1 text-[16px] text-[#888] mb-[12px]">
-                            <span className="text-[#222] mr-1">Share:</span>
-                            <span>
-                                <Twitter size={16} />
-                            </span>
-                            <span>
-                                <Facebook size={16} />
-                            </span>
-                            <span>
-                                <Linkedin size={16} />
-                            </span>
-                            <span>
-                                <PhoneOutgoing size={16} />
-                            </span>
+                            <div className="flex items-center gap-2 text-[#222] text-[16px] mb-6">
+                                <Eye size={16} />
+                                <span>{product.preview || 19} people are viewing this product right now</span>
+                            </div>
+
+                            <p className="text-[#666] leading-7 mb-8 text-[18px] border-b border-gray-100 pb-8">
+                                This Bluetooth speaker delivers big sound, making it then only music system you’ll need
+                                in or out of the house. Prem materials such as anodized aluminum & durable polymers
+                                withstand the rigor of an active lifestyle.
+                            </p>
+
+                            <div className="flex items-center gap-5 mb-6">
+                                <div className="flex items-center border border-gray-200 rounded-full h-[45px] w-[120px] px-2">
+                                    <button
+                                        onClick={handleMinus}
+                                        className="w-10 h-full flex items-center justify-center hover:text-blue-600"
+                                    >
+                                        <Minus size={16} />
+                                    </button>
+                                    <div className="flex-1 text-center font-medium select-none">{totalAddCart}</div>
+                                    <button
+                                        onClick={handlePlus}
+                                        className="w-10 h-full flex items-center justify-center hover:text-blue-600"
+                                    >
+                                        <Plus size={16} />
+                                    </button>
+                                </div>
+                                <button className="flex-1 max-w-[200px] h-[45px] bg-[#2f79f7] hover:bg-[#1b61d6] text-white rounded-full font-medium flex items-center justify-center gap-2 transition-colors">
+                                    <ShoppingBasket size={18} /> Add To Cart
+                                </button>
+                            </div>
+
+                            <div className="flex flex-col gap-3 mb-6 text-[17px] text-[#444]">
+                                <div className="flex items-center gap-2 cursor-pointer hover:text-blue-600">
+                                    <Heart size={18} /> <span>Add to wishlist</span>
+                                </div>
+                                <div className="flex items-center gap-2 cursor-pointer hover:text-blue-600">
+                                    <RefreshCcw size={18} /> <span>Add to compare</span>
+                                </div>
+                            </div>
+
+                            <div className="border-t border-gray-100 pt-6 text-[15px] space-y-2">
+                                <div>
+                                    <span className="font-medium mr-2 uppercase text-xs tracking-wider">SKU:</span>
+                                    <span className="text-[#888]">{product.sku || "N/A"}</span>
+                                </div>
+                                <div>
+                                    <span className="font-medium mr-2">Category:</span>
+                                    <span className="text-[#888]">{categoryIdName}</span>
+                                </div>
+                                <div>
+                                    <span className="font-medium mr-2">Tags:</span>
+                                    <span className="text-[#888]">Headphone, Speaker</span>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center mt-6 gap-4">
+                                <span className="font-medium mr-1">Share:</span>
+                                <div className="flex gap-4 text-[#888]">
+                                    <Twitter size={18} className="hover:text-blue-400 cursor-pointer" />
+                                    <Facebook size={18} className="hover:text-blue-700 cursor-pointer" />
+                                    <Linkedin size={18} className="hover:text-blue-600 cursor-pointer" />
+                                    <Share2 size={18} className="hover:text-gray-900 cursor-pointer" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
