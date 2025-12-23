@@ -21,12 +21,15 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Spinner } from "../ui/spinner";
 import { shopProducts, type ShopProductProps } from "../../data/shopProduct";
 import { createSlug } from "../ui/createSlug";
+import { useCart } from "../../context/CartContext";
+import { Sidebar } from "../Sidebar/Sidebar";
 
 export const ProductDetail = () => {
     const location = useLocation();
     const product = location.state.product;
     const [totalAddCart, setTotalAddCart] = useState(1);
     const navigate = useNavigate();
+    const { addToCart } = useCart();
 
     // Tìm category name dựa vào categoryId
     const categoryIdName = sampleCategory.find((cat) => cat.id === product.categoryId)?.name || "";
@@ -40,6 +43,10 @@ export const ProductDetail = () => {
 
     // ref để lấy khung kích thước ảnh phục vụ cho tính toán zoom
     const imageContainerRef = useRef<HTMLDivElement>(null);
+
+    // Thêm sản phẩm vào cart
+    const [isOpenAddToCart, setIsOpenAddToCart] = useState(false);
+    const [sidebarType, setSidebarType] = useState<string>("ADDTOCART");
 
     // Load trang mặc định hiển thị ảnh
     useEffect(() => {
@@ -102,6 +109,16 @@ export const ProductDetail = () => {
     const handleNavigateToDetail = (product: ShopProductProps) => {
         const slug = createSlug(product.title);
         navigate(`/product/${slug}`, { state: { product } });
+    };
+
+    // Hàm xử lý mở Sibar Cart
+    const handleOpenAddToCart = (product: ShopProductProps) => {
+        setIsOpenAddToCart(true);
+        addToCart(product, totalAddCart);
+    };
+
+    const handleCloseAddToCart = () => {
+        setIsOpenAddToCart(false);
     };
 
     return (
@@ -268,7 +285,10 @@ export const ProductDetail = () => {
                                             <Plus size={16} />
                                         </button>
                                     </div>
-                                    <button className="flex-1 max-w-[200px] h-[45px] bg-[#2f79f7] hover:bg-[#1b61d6] text-white rounded-full font-medium flex items-center justify-center gap-2 transition-colors">
+                                    <button
+                                        onClick={() => handleOpenAddToCart(product)}
+                                        className="flex-1 max-w-[200px] h-[45px] bg-[#2f79f7] hover:bg-[#1b61d6] text-white rounded-full font-medium flex items-center justify-center gap-2 transition-colors"
+                                    >
                                         <ShoppingBasket size={18} /> Add To Cart
                                     </button>
                                 </div>
@@ -387,6 +407,9 @@ export const ProductDetail = () => {
 
             {/* Footer */}
             <Footer />
+
+            {/* SideBar Cart */}
+            <Sidebar open={isOpenAddToCart} close={handleCloseAddToCart} type={sidebarType} />
         </section>
     );
 };
