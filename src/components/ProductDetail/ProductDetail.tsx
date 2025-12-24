@@ -129,7 +129,7 @@ export const ProductDetail = () => {
             <div className="max-w-[1600px] mx-auto px-[15px]">
                 {/* Breadcrumb */}
                 <nav className="flex items-center my-[15px]  pt-[10px] text-[14px] text-[#666]">
-                    <ul className="flex items-center">
+                    <ul className="flex flex-wrap items-center">
                         <li>
                             <Link to="/">Home</Link>
                         </li>
@@ -144,18 +144,17 @@ export const ProductDetail = () => {
                     </ul>
                 </nav>
                 {/* Nội dung */}
-                <div className="w-full flex ">
+                <div className="w-full flex max-lg:block">
                     {/* Chi tiết sản phẩm  */}
-                    <div className="w-[76%] flex p-[15px] pl-0">
+                    <div className="w-[76%] max-lg:w-full flex max-lg:block p-[15px] max-lg:p-0 pl-0">
                         {/* Quản lý ảnh */}
-                        <div className="w-[49%] overflow-hidden ">
+                        <div className="w-[49%] max-lg:w-full overflow-hidden ">
                             {/* Ảnh chính hiển thị và zoom*/}
                             <div
                                 ref={imageContainerRef}
                                 onMouseMove={handleMouseMove}
                                 onMouseLeave={handleMouseLeve}
-                                className="group relative mb-2 overflow-hidden border border-[#E5E5E5] rounded-lg"
-                                style={{ maxHeight: "500px" }}
+                                className="group relative mb-2 overflow-hidden border border-[#E5E5E5] rounded-lg max-h-[500px] max-lg:max-h-[800px]"
                             >
                                 {/* Xử lý next và prev */}
                                 <div className="absolute flex top-1/2 justify-between w-full">
@@ -212,7 +211,7 @@ export const ProductDetail = () => {
                             <div className="flex gap-2">
                                 {product.image.map((item: string, index: number) => (
                                     <div
-                                        className={`border border-[#E5E5E5] rounded-md ${
+                                        className={`border border-[#E5E5E5] rounded-md max-w-[100px] max-h-[100px] max-lg:max-w-[24%] max-lg:max-h-[24%]  ${
                                             activeImg === index
                                                 ? "border-blue-500 ring-1 ring-blue-500 opacity-100"
                                                 : "border-gray-200 hover:border-gray-400 opacity-70 hover:opacity-100"
@@ -220,7 +219,7 @@ export const ProductDetail = () => {
                                     >
                                         <img
                                             onClick={() => setActiveImg(index)}
-                                            className="w-[100px] h-[100px] object-cover "
+                                            className="w-full h-full object-cover "
                                             key={index}
                                             src={`/${item}`}
                                         />
@@ -230,9 +229,9 @@ export const ProductDetail = () => {
                         </div>
 
                         {/* Nội dung ảnh*/}
-                        <div className="w-[51%]">
-                            <div className="w-full px-[30px]">
-                                <h1 className="text-[28px] font-medium text-[#222] mb-3 leading-tight">
+                        <div className="w-[51%] max-lg:w-full ">
+                            <div className="w-full px-[30px] max-lg:px-0">
+                                <h1 className="text-[28px] font-medium text-[#222] mb-3 leading-tight max-lg:mt-[25px]">
                                     {product.title}
                                 </h1>
 
@@ -304,7 +303,7 @@ export const ProductDetail = () => {
 
                                 <div className="border-t border-gray-100 pt-6 text-[15px] space-y-2">
                                     <div>
-                                        <span className="font-medium mr-2 uppercase text-xs tracking-wider">SKU:</span>
+                                        <span className="font-medium mr-2 uppercase text-sm tracking-wider">SKU:</span>
                                         <span className="text-[#888]">{product.sku || "N/A"}</span>
                                     </div>
                                     <div>
@@ -317,20 +316,20 @@ export const ProductDetail = () => {
                                     </div>
                                 </div>
 
-                                <div className="flex items-center mt-6 gap-4">
+                                <div className="flex items-center mt-4 gap-4">
                                     <span className="font-medium mr-1">Share:</span>
                                     <div className="flex gap-4 text-[#888]">
-                                        <Twitter size={18} className="hover:text-blue-400 cursor-pointer" />
-                                        <Facebook size={18} className="hover:text-blue-700 cursor-pointer" />
-                                        <Linkedin size={18} className="hover:text-blue-600 cursor-pointer" />
-                                        <Share2 size={18} className="hover:text-gray-900 cursor-pointer" />
+                                        <Twitter size={24} className="hover:text-blue-400 cursor-pointer" />
+                                        <Facebook size={24} className="hover:text-blue-700 cursor-pointer" />
+                                        <Linkedin size={24} className="hover:text-blue-600 cursor-pointer" />
+                                        <Share2 size={24} className="hover:text-gray-900 cursor-pointer" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {/* Sidebar Right */}
-                    <div className="w-[24%] p-[15px] pr-0">
+                    <div className="w-[24%] p-[15px] pr-0 max-lg:w-full max-lg:px-0 max-lg:pt-8">
                         {/* Danh mục sản phẩm và số lượng*/}
                         <div className="p-[35px] border border-[#E5E5E5] rounded-[16px] mb-5">
                             <h3 className="text-[18px] text-[#222] font-medium pb-[18px] mb-[25px] border-b border-[#E5E5E5]">
@@ -371,8 +370,8 @@ export const ProductDetail = () => {
                                             <div className="text-[#888] text-[16px]">
                                                 <h4 className="text-[#222] line-clamp-1">{product.title}</h4>
                                                 {product.oldPrice ? (
-                                                    <div className="flex gap-2">
-                                                        <span className="text-[14px] line-through">
+                                                    <div className="flex flex-wrap ">
+                                                        <span className="text-[14px] line-through mr-2">
                                                             $
                                                             {new Intl.NumberFormat("en-US", {
                                                                 minimumFractionDigits: 2,
