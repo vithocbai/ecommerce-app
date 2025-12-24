@@ -27,6 +27,9 @@ import "swiper/css/navigation";
 // Import Swiper styles
 import "swiper/css";
 import { Navigation } from "swiper/modules";
+import { useCart } from "../../../context/CartContext";
+import { Sidebar } from "../../Sidebar/Sidebar";
+import { Spinner } from "../../ui/spinner";
 
 type Props = {
     isOpen: boolean;
@@ -37,12 +40,35 @@ type Props = {
 export const QuickViewModal = ({ isOpen, onClose, product }: Props) => {
     const [showMoreDetail, setShowMoreDetail] = useState(false);
     const [totalAddCart, setTotalAddCart] = useState(1);
+    const [openAddTocart, setOpenAddToCart] = useState(false);
+    const [sidebarType, setSidebarType] = useState<string>("ADDTOCART");
+    const [loadingAddToCart, setLoadingAddToCart] = useState(false);
+
+    const { addToCart } = useCart();
+
+    // -- Tính toán số lượng sản phẩm ---
     const handleMinus = () => {
         setTotalAddCart((prev) => Math.max(1, prev - 1));
     };
 
     const handlePlus = () => {
         setTotalAddCart((prev) => prev + 1);
+    };
+
+    // --- Xử lý mở Cart ---
+    const handleOpenAddToCart = (product: ShopProductProps) => {
+        setLoadingAddToCart(true);
+
+        setTimeout(() => {
+            setLoadingAddToCart(false);
+            onClose();
+            setOpenAddToCart(true);
+            addToCart(product, totalAddCart);
+        }, 2000);
+    };
+
+    const handleCloseAddToCart = () => {
+        setOpenAddToCart(false);
     };
 
     return (
@@ -175,12 +201,20 @@ export const QuickViewModal = ({ isOpen, onClose, product }: Props) => {
                                                 <Plus strokeWidth={1.5} size={18} />
                                             </span>
                                         </div>
-                                        <div className="select-none">
-                                            <AddToCart
-                                                title="Add to card"
-                                                icon={<ShoppingBasket strokeWidth={2.5} size={18} />}
-                                            />
-                                        </div>
+                                        {product && (
+                                            <div onClick={() => handleOpenAddToCart(product)} className="select-none">
+                                                {loadingAddToCart ? (
+                                                    <div className="w-[140px] flex items-center justify-center px-[30px] py-[10px] font-bold text-[16px] bg-[#000] text-[#fff] rounded-full transition-all duration-200 ease-linear">
+                                                        <Spinner size="sm" color="text-white" />
+                                                    </div>
+                                                ) : (
+                                                    <AddToCart
+                                                        title="Add to card"
+                                                        icon={<ShoppingBasket strokeWidth={2.5} size={18} />}
+                                                    />
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
                                     {/* Reaload */}
                                     <div className="flex items-center gap-[2px] mb-[10px] cursor-pointer">
@@ -278,6 +312,9 @@ export const QuickViewModal = ({ isOpen, onClose, product }: Props) => {
                     </div>
                 )}
             </AnimatePresence>
+
+            {/* Cart */}
+            <Sidebar open={openAddTocart} close={() => handleCloseAddToCart()} type={sidebarType} />
         </section>
     );
 };
