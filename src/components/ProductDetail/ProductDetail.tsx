@@ -126,6 +126,7 @@ export const ProductDetail = () => {
             {/* Header */}
             <Header />
 
+            {/* Product Details */}
             <div className="max-w-[1600px] mx-auto px-[15px]">
                 {/* Breadcrumb */}
                 <nav className="flex items-center my-[15px]  pt-[10px] text-[14px] text-[#666]">
@@ -351,7 +352,7 @@ export const ProductDetail = () => {
                             </ul>
                         </div>
                         {/* Sản phẩm */}
-                        <div className="p-[35px] border border-[#E5E5E5] rounded-[16px]">
+                        <div className="p-[35px] border border-[#E5E5E5] rounded-[16px] mb-12">
                             <h3 className="text-[18px] text-[#222] font-medium pb-[18px] mb-[25px] border-b border-[#E5E5E5]">
                                 Products
                             </h3>
@@ -399,6 +400,21 @@ export const ProductDetail = () => {
                                     );
                                 })}
                             </ul>
+                        </div>
+                        {/* Banner */}
+                        <div className="group relative overflow-hidden">
+                            <div className="absolute z-50 left-1/2 translate-x-[-50%] p-[40px] w-full text-center">
+                                <p className="text-[18px] text-[#777] ">Most Powerful</p>
+                                <h3 className="text-[36px] text-[#222] font-semibold mb-[10px]">Powerbank</h3>
+                                <button className="text-[16px] text-white font-medium bg-[#2a74ed] hover:bg-[#222] transition duration-300 ease-linear rounded-full px-8 py-2">
+                                    Shop Now
+                                </button>
+                            </div>
+                            <img
+                                className="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-300 ease-linear"
+                                src="/productDetail/Banner.jpeg"
+                                alt=""
+                            />
                         </div>
                     </div>
                 </div>
