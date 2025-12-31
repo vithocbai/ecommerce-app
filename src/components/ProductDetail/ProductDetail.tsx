@@ -23,6 +23,7 @@ import { type ShopProductProps } from "../../data/shopProduct";
 import { useCart } from "../../context/CartContext";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { ProductDetailSideBar } from "./ProductDetailSideBar";
+import { ProductTab } from "./ProductTab";
 
 export const ProductDetail = () => {
     const location = useLocation();
@@ -107,214 +108,233 @@ export const ProductDetail = () => {
             {/* Header */}
             <Header />
 
-            {/* Product Details */}
-            <div className="max-w-[1600px] mx-auto px-[15px]">
-                {/* Breadcrumb */}
-                <nav className="flex items-center my-[15px]  pt-[10px] text-[14px] text-[#666]">
-                    <ul className="flex flex-wrap items-center">
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <ChevronRight size={14} />
-                        </li>
-                        <li>{categoryIdName}</li>
-                        <li>
-                            <ChevronRight size={14} />
-                        </li>
-                        <li>{product.title}</li>
-                    </ul>
-                </nav>
-                {/* Nội dung */}
-                <div className="w-full flex max-lg:block">
-                    {/* Chi tiết sản phẩm  */}
-                    <div className="w-[76%] max-lg:w-full flex max-lg:block p-[15px] max-lg:p-0 pl-0">
-                        {/* Quản lý ảnh */}
-                        <div className="w-[49%] max-lg:w-full overflow-hidden ">
-                            {/* Ảnh chính hiển thị và zoom*/}
-                            <div
-                                ref={imageContainerRef}
-                                onMouseMove={handleMouseMove}
-                                onMouseLeave={handleMouseLeve}
-                                className="group relative mb-2 overflow-hidden border border-[#E5E5E5] rounded-lg max-h-[500px] max-lg:max-h-[800px]"
-                            >
-                                {/* Xử lý next và prev */}
-                                <div className="absolute flex top-1/2 justify-between w-full">
-                                    <button
-                                        onClick={handlePrevImage}
-                                        onMouseMove={(e) => e.stopPropagation()}
-                                        onMouseEnter={() => setIsHovering(false)}
-                                        className="absolute left-1 w-10 h-10 bg-white rounded-full shadow flex items-center justify-center text-gray-600 z-20 transition-all invisible group-hover:visible"
-                                    >
-                                        <ChevronLeft size={30} strokeWidth={1.2} />
-                                    </button>
-                                    <button
-                                        onClick={handleNextImage}
-                                        onMouseMove={(e) => e.stopPropagation()}
-                                        onMouseEnter={() => setIsHovering(false)}
-                                        className="absolute right-1 w-10 h-10 bg-white rounded-full shadow flex items-center justify-center text-gray-600 z-20 transition-all invisible group-hover:visible"
-                                    >
-                                        <ChevronRight size={30} strokeWidth={1.2} />
-                                    </button>
-                                </div>
+            {/* Breadcrumb */}
+            <nav className="max-w-[1600px] px-[15px]  flex items-center my-[15px]  pt-[10px] text-[14px] text-[#666]">
+                <ul className="flex flex-wrap items-center">
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li>
+                        <ChevronRight size={14} />
+                    </li>
+                    <li>{categoryIdName}</li>
+                    <li>
+                        <ChevronRight size={14} />
+                    </li>
+                    <li>{product.title}</li>
+                </ul>
+            </nav>
 
-                                {/* Sale */}
-                                {product.oldPrice && (
-                                    <div className="absolute top-[20px] left-[10px] z-50 text-[#fff] w-[58px] text-center rounded-full px-[8px] py-[3px] bg-[#c62828] text-[14px] uppercase">
-                                        Sale
-                                    </div>
-                                )}
-                                {/* Track chưa tất cả các ảnh */}
-                                <div
-                                    className="flex items-center transition-transform duration-500 ease-out will-change-transform"
-                                    style={{ transform: `translateX(-${activeImg * 100}%)` }}
-                                >
-                                    {images.map((imgSrc: string, index: number) => (
-                                        <div className="min-w-full h-full flex">
-                                            <img
-                                                className="w-full h-auto rounded-md cursor-pointer"
-                                                alt={`${product.title} - ${index}`}
-                                                src={`/${imgSrc}`}
-                                                style={
-                                                    // Chỉ áp dụng Zoom cho ảnh đang active để tối ưu hiệu năng
-                                                    index === activeImg
-                                                        ? {
-                                                              ...zoomStyle,
-                                                              transform: isHovering ? "scale(1.8)" : "scale(1)",
-                                                          }
-                                                        : {}
-                                                }
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                            {/* Ảnh nhỏ (thumbnails) */}
-                            <div className="flex gap-2">
-                                {product.image.map((item: string, index: number) => (
+            {/* Content */}
+            <div className="flex flex-wrap max-w-[1600px] mx-auto px-[15px]">
+                <div className="w-[76%] max-lg:w-full">
+                    {/* Product Details */}
+                    <div>
+                        {/* Nội dung */}
+                        <div className="w-full flex max-lg:block">
+                            {/* Chi tiết sản phẩm  */}
+                            <div className="flex max-lg:block p-[15px] max-lg:p-0 pl-0 min-h-[900px] max-lg:min-h-min">
+                                {/* Quản lý ảnh */}
+                                <div className="w-[49%] max-lg:w-full overflow-hidden ">
+                                    {/* Ảnh chính hiển thị và zoom*/}
                                     <div
-                                        className={`border border-[#E5E5E5] rounded-md max-w-[100px] max-h-[100px] max-lg:max-w-[24%] max-lg:max-h-[24%]  ${
-                                            activeImg === index
-                                                ? "border-blue-500 ring-1 ring-blue-500 opacity-100"
-                                                : "border-gray-200 hover:border-gray-400 opacity-70 hover:opacity-100"
-                                        }`}
+                                        ref={imageContainerRef}
+                                        onMouseMove={handleMouseMove}
+                                        onMouseLeave={handleMouseLeve}
+                                        className="group relative mb-2 overflow-hidden border border-[#E5E5E5] rounded-lg max-h-[500px] max-lg:max-h-[800px]"
                                     >
-                                        <img
-                                            onClick={() => setActiveImg(index)}
-                                            className="w-full h-full object-cover "
-                                            key={index}
-                                            src={`/${item}`}
-                                        />
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                                        {/* Xử lý next và prev */}
+                                        <div className="absolute flex top-1/2 justify-between w-full">
+                                            <button
+                                                onClick={handlePrevImage}
+                                                onMouseMove={(e) => e.stopPropagation()}
+                                                onMouseEnter={() => setIsHovering(false)}
+                                                className="absolute left-1 w-10 h-10 bg-white rounded-full shadow flex items-center justify-center text-gray-600 z-20 transition-all invisible group-hover:visible"
+                                            >
+                                                <ChevronLeft size={30} strokeWidth={1.2} />
+                                            </button>
+                                            <button
+                                                onClick={handleNextImage}
+                                                onMouseMove={(e) => e.stopPropagation()}
+                                                onMouseEnter={() => setIsHovering(false)}
+                                                className="absolute right-1 w-10 h-10 bg-white rounded-full shadow flex items-center justify-center text-gray-600 z-20 transition-all invisible group-hover:visible"
+                                            >
+                                                <ChevronRight size={30} strokeWidth={1.2} />
+                                            </button>
+                                        </div>
 
-                        {/* Nội dung ảnh*/}
-                        <div className="w-[51%] max-lg:w-full ">
-                            <div className="w-full px-[30px] max-lg:px-0">
-                                <h1 className="text-[28px] font-medium text-[#222] mb-3 leading-tight max-lg:mt-[25px]">
-                                    {product.title}
-                                </h1>
-
-                                <div className="flex items-center gap-2 mb-4">
-                                    <span className="flex text-yellow-400 text-sm">{renderStars(product.star)}</span>
-                                    <span className="text-[#888] text-[18px] font-barlow">(1 customer review)</span>
-                                </div>
-
-                                <div className="text-[24px] font-semibold text-[#888] mb-4">
-                                    {product.oldPrice && (
-                                        <span className="line-through text-[#ccc] mr-3 text-[20px]">
-                                            $
-                                            {new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(
-                                                product.oldPrice
-                                            )}
-                                        </span>
-                                    )}
-                                    <span>
-                                        $
-                                        {new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(
-                                            product.price
+                                        {/* Sale */}
+                                        {product.oldPrice && (
+                                            <div className="absolute top-[20px] left-[10px] z-50 text-[#fff] w-[58px] text-center rounded-full px-[8px] py-[3px] bg-[#c62828] text-[14px] uppercase">
+                                                Sale
+                                            </div>
                                         )}
-                                    </span>
-                                </div>
-
-                                <div className="flex items-center gap-2 text-[#222] text-[16px] mb-6">
-                                    <Eye size={16} />
-                                    <span>{product.preview || 19} people are viewing this product right now</span>
-                                </div>
-
-                                <p className="text-[#666] leading-7 mb-8 text-[18px] border-b border-gray-100 pb-8 w-[100%]">
-                                    This Bluetooth speaker delivers big sound, making it then only music system you’ll
-                                    need in or out of the house. Prem materials such as anodized aluminum & durable
-                                    polymers withstand the rigor of an active lifestyle.
-                                </p>
-
-                                <div className="flex items-center gap-5 mb-6">
-                                    <div className="flex items-center border border-gray-200 rounded-full h-[45px] w-[120px] px-2">
-                                        <button
-                                            onClick={handleMinus}
-                                            className="w-10 h-full flex items-center justify-center hover:text-blue-600"
+                                        {/* Track chưa tất cả các ảnh */}
+                                        <div
+                                            className="flex items-center transition-transform duration-500 ease-out will-change-transform"
+                                            style={{ transform: `translateX(-${activeImg * 100}%)` }}
                                         >
-                                            <Minus size={16} />
-                                        </button>
-                                        <div className="flex-1 text-center font-medium select-none">{totalAddCart}</div>
-                                        <button
-                                            onClick={handlePlus}
-                                            className="w-10 h-full flex items-center justify-center hover:text-blue-600"
-                                        >
-                                            <Plus size={16} />
-                                        </button>
+                                            {images.map((imgSrc: string, index: number) => (
+                                                <div className="min-w-full h-full flex">
+                                                    <img
+                                                        className="w-full h-auto rounded-md cursor-pointer"
+                                                        alt={`${product.title} - ${index}`}
+                                                        src={`/${imgSrc}`}
+                                                        style={
+                                                            // Chỉ áp dụng Zoom cho ảnh đang active để tối ưu hiệu năng
+                                                            index === activeImg
+                                                                ? {
+                                                                      ...zoomStyle,
+                                                                      transform: isHovering ? "scale(1.8)" : "scale(1)",
+                                                                  }
+                                                                : {}
+                                                        }
+                                                    />
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
-                                    <button
-                                        onClick={() => handleOpenAddToCart(product)}
-                                        className="flex-1 max-w-[200px] h-[45px] bg-[#2f79f7] hover:bg-[#1b61d6] text-white rounded-full font-medium flex items-center justify-center gap-2 transition-colors"
-                                    >
-                                        <ShoppingBasket size={18} /> Add To Cart
-                                    </button>
+                                    {/* Ảnh nhỏ (thumbnails) */}
+                                    <div className="flex gap-2">
+                                        {product.image.map((item: string, index: number) => (
+                                            <div
+                                                className={`border border-[#E5E5E5] rounded-md max-w-[100px] max-h-[100px] max-lg:max-w-[24%] max-lg:max-h-[24%]  ${
+                                                    activeImg === index
+                                                        ? "border-blue-500 ring-1 ring-blue-500 opacity-100"
+                                                        : "border-gray-200 hover:border-gray-400 opacity-70 hover:opacity-100"
+                                                }`}
+                                            >
+                                                <img
+                                                    onClick={() => setActiveImg(index)}
+                                                    className="w-full h-full object-cover "
+                                                    key={index}
+                                                    src={`/${item}`}
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
 
-                                <div className="flex flex-col gap-3 mb-6 text-[17px] text-[#444]">
-                                    <div className="flex items-center gap-2 cursor-pointer hover:text-blue-600">
-                                        <Heart size={18} /> <span>Add to wishlist</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 cursor-pointer hover:text-blue-600">
-                                        <RefreshCcw size={18} /> <span>Add to compare</span>
-                                    </div>
-                                </div>
+                                {/* Nội dung ảnh*/}
+                                <div className="w-[51%] max-lg:w-full ">
+                                    <div className="w-full px-[30px] max-lg:px-0">
+                                        <h1 className="text-[28px] font-medium text-[#222] mb-3 leading-tight max-lg:mt-[25px]">
+                                            {product.title}
+                                        </h1>
 
-                                <div className="border-t border-gray-100 pt-6 text-[15px] space-y-2">
-                                    <div>
-                                        <span className="font-medium mr-2 uppercase text-sm tracking-wider">SKU:</span>
-                                        <span className="text-[#888]">{product.sku || "N/A"}</span>
-                                    </div>
-                                    <div>
-                                        <span className="font-medium mr-2">Category:</span>
-                                        <span className="text-[#888]">{categoryIdName}</span>
-                                    </div>
-                                    <div>
-                                        <span className="font-medium mr-2">Tags:</span>
-                                        <span className="text-[#888]">Headphone, Speaker</span>
-                                    </div>
-                                </div>
+                                        <div className="flex items-center gap-2 mb-4">
+                                            <span className="flex text-yellow-400 text-sm">
+                                                {renderStars(product.star)}
+                                            </span>
+                                            <span className="text-[#888] text-[18px] font-barlow">
+                                                (1 customer review)
+                                            </span>
+                                        </div>
 
-                                <div className="flex items-center mt-4 gap-4">
-                                    <span className="font-medium mr-1">Share:</span>
-                                    <div className="flex gap-4 text-[#888]">
-                                        <Twitter size={24} className="hover:text-blue-400 cursor-pointer" />
-                                        <Facebook size={24} className="hover:text-blue-700 cursor-pointer" />
-                                        <Linkedin size={24} className="hover:text-blue-600 cursor-pointer" />
-                                        <Share2 size={24} className="hover:text-gray-900 cursor-pointer" />
+                                        <div className="text-[24px] font-semibold text-[#888] mb-4">
+                                            {product.oldPrice && (
+                                                <span className="line-through text-[#ccc] mr-3 text-[20px]">
+                                                    $
+                                                    {new Intl.NumberFormat("en-US", {
+                                                        minimumFractionDigits: 2,
+                                                    }).format(product.oldPrice)}
+                                                </span>
+                                            )}
+                                            <span>
+                                                $
+                                                {new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(
+                                                    product.price
+                                                )}
+                                            </span>
+                                        </div>
+
+                                        <div className="flex items-center gap-2 text-[#222] text-[16px] mb-6">
+                                            <Eye size={16} />
+                                            <span>
+                                                {product.preview || 19} people are viewing this product right now
+                                            </span>
+                                        </div>
+
+                                        <p className="text-[#666] leading-7 mb-8 text-[18px] border-b border-gray-100 pb-8 w-[100%]">
+                                            This Bluetooth speaker delivers big sound, making it then only music system
+                                            you’ll need in or out of the house. Prem materials such as anodized aluminum
+                                            & durable polymers withstand the rigor of an active lifestyle.
+                                        </p>
+
+                                        <div className="flex items-center gap-5 mb-6">
+                                            <div className="flex items-center border border-gray-200 rounded-full h-[45px] w-[120px] px-2">
+                                                <button
+                                                    onClick={handleMinus}
+                                                    className="w-10 h-full flex items-center justify-center hover:text-blue-600"
+                                                >
+                                                    <Minus size={16} />
+                                                </button>
+                                                <div className="flex-1 text-center font-medium select-none">
+                                                    {totalAddCart}
+                                                </div>
+                                                <button
+                                                    onClick={handlePlus}
+                                                    className="w-10 h-full flex items-center justify-center hover:text-blue-600"
+                                                >
+                                                    <Plus size={16} />
+                                                </button>
+                                            </div>
+                                            <button
+                                                onClick={() => handleOpenAddToCart(product)}
+                                                className="flex-1 max-w-[200px] h-[45px] bg-[#2f79f7] hover:bg-[#1b61d6] text-white rounded-full font-medium flex items-center justify-center gap-2 transition-colors"
+                                            >
+                                                <ShoppingBasket size={18} /> Add To Cart
+                                            </button>
+                                        </div>
+
+                                        <div className="flex flex-col gap-3 mb-6 text-[17px] text-[#444]">
+                                            <div className="flex items-center gap-2 cursor-pointer hover:text-blue-600">
+                                                <Heart size={18} /> <span>Add to wishlist</span>
+                                            </div>
+                                            <div className="flex items-center gap-2 cursor-pointer hover:text-blue-600">
+                                                <RefreshCcw size={18} /> <span>Add to compare</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="border-t border-gray-100 pt-6 text-[15px] space-y-2">
+                                            <div>
+                                                <span className="font-medium mr-2 uppercase text-sm tracking-wider">
+                                                    SKU:
+                                                </span>
+                                                <span className="text-[#888]">{product.sku || "N/A"}</span>
+                                            </div>
+                                            <div>
+                                                <span className="font-medium mr-2">Category:</span>
+                                                <span className="text-[#888]">{categoryIdName}</span>
+                                            </div>
+                                            <div>
+                                                <span className="font-medium mr-2">Tags:</span>
+                                                <span className="text-[#888]">Headphone, Speaker</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-center mt-4 gap-4">
+                                            <span className="font-medium mr-1">Share:</span>
+                                            <div className="flex gap-4 text-[#888]">
+                                                <Twitter size={24} className="hover:text-blue-400 cursor-pointer" />
+                                                <Facebook size={24} className="hover:text-blue-700 cursor-pointer" />
+                                                <Linkedin size={24} className="hover:text-blue-600 cursor-pointer" />
+                                                <Share2 size={24} className="hover:text-gray-900 cursor-pointer" />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {/* Sidebar Right */}
-                    <div className="w-[24%] p-[15px] pr-0 max-lg:w-full max-lg:px-0 max-lg:pt-8">
-                        <ProductDetailSideBar products={product} />
-                        {/* hello */}
-                    </div>
+
+                    {/* Product Tab */}
+                    <ProductTab />
+                </div>
+
+                {/* Sidebar Right */}
+                <div className="w-[24%] p-[15px] pr-0 max-lg:w-full max-lg:px-0 max-lg:pt-8">
+                    <ProductDetailSideBar products={product} />
                 </div>
             </div>
 
