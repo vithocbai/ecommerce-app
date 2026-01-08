@@ -5,25 +5,64 @@ import { Star } from "lucide-react";
 export const ProductTab = () => {
     // Hiển thị Tab
     const [showProductTabs, setShowProductTabs] = useState("description");
+
+    // Validate
+    const [rating, setRating] = useState<number>(0);
+    const [review, setReview] = useState<string>("");
+    const [inputName, setInputName] = useState<string>("");
+    const [inputEmail, setInputEmail] = useState<string>("");
+    const [errors, setErrors] = useState<any>({});
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const newErrors: any = {};
+        if (!rating) {
+            confirm("rating không được để trống");
+        }
+        if (!review.trim()) {
+            newErrors.review = "Renew không được bỏ trống";
+        }
+
+        if (!inputName.trim()) {
+            newErrors.inputName = "Name không được bỏ trống";
+        }
+        if (!inputEmail.trim()) {
+            newErrors.inputEmail = "Email không được bỏ trống";
+        }
+        setErrors(newErrors);
+    };
+
+    const clearError = (field: string) => {
+        setErrors((prev: any) => {
+            const newErrors = { ...prev };
+            delete newErrors[field];
+            return newErrors;
+        });
+    };
+
     return (
         <section>
-            <div className="p-[15px]">
-                <div className="flex items-center border-b border-[#E5E5E5] pb-[15px] text-[20px]">
+            <div className="p-[15px] max-md:p-0 max-md:pt-[20px]">
+                <div className="flex items-center w-[100%] overflow-x-scroll border-b border-[#E5E5E5] pb-[15px] text-[20px]">
                     <button
                         onClick={() => setShowProductTabs("description")}
                         className={`${
-                            showProductTabs === "description" ? "text-white  bg-[#3078EA]" : "bg-white text-[#999]"
-                        } px-[25px] mr-5 rounded-full`}
+                            showProductTabs === "description" ? "text-white bg-[#3078EA]" : "bg-white text-[#999]"
+                        } px-6 py-2 mr-5 rounded-fullmax-md:px-3 max-md:py-1 max-md:mr-2
+  `}
                     >
-                        <span className="block  px-5 font-medium py-[11px]">Description</span>
+                        <span className="block font-medium text-base max-md:text-sm">Description</span>
                     </button>
+
                     <button
                         onClick={() => setShowProductTabs("reviews")}
                         className={`${
-                            showProductTabs === "reviews" ? "text-white  bg-[#3078EA]" : "bg-white text-[#999]"
-                        } px-[25px] mx-5 rounded-full`}
+                            showProductTabs === "reviews" ? "text-white bg-[#3078EA]" : "bg-white text-[#999]"
+                        } px-6 py-2 mx-5 rounded-full max-md:px-3 max-md:py-1 max-md:mx-2
+  `}
                     >
-                        <span className="block  px-5 font-medium py-[11px]">Reviews(1)</span>
+                        <span className="block font-medium text-base max-md:text-sm">Reviews(1)</span>
                     </button>
                 </div>
 
@@ -154,7 +193,7 @@ export const ProductTab = () => {
                         </div>
 
                         {/* Right Side: Add a Review Form */}
-                        <form target="_self" className="w-1/2 max-lg:w-full pl-[15px]">
+                        <form onSubmit={handleSubmit} target="_self" className="w-1/2 max-lg:w-full pl-[15px]">
                             <div className="text-[#222] text-[14px] mb-[14px] pb-[14px] uppercase font-medium border-b-[1px] boder-[#e1e1e1] ">
                                 Be the first to review “Google – Nest Hello Smart Wi-Fi Video Doorbell”
                             </div>
@@ -168,20 +207,25 @@ export const ProductTab = () => {
                                 <div className="flex items-center gap-[15px] cursor-pointer">
                                     {[1, 2, 3, 4, 5].map((starGroup) => {
                                         return (
-                                            <div>
-                                                <span
-                                                    className={`flex items-center text-[#e1e1e1] hover:text-[#fdd835] transition-colors`}
-                                                >
+                                            <div key={starGroup} onClick={() => setRating(starGroup)}>
+                                                <span className={`flex items-center transition-colors`}>
                                                     {Array.from({ length: starGroup }).map((_, i) => (
-                                                        <Star key={i} size={16} fill="currentColor" />
+                                                        <Star
+                                                            key={i}
+                                                            size={16}
+                                                            fill="currentColor"
+                                                            className={`${
+                                                                rating === starGroup
+                                                                    ? "text-[#fdd835]"
+                                                                    : "text-[#e1e1e1]"
+                                                            } `}
+                                                        />
                                                     ))}
                                                 </span>
                                             </div>
                                         );
                                     })}
                                 </div>
-
-                                {/* {errors.rating && <p className="text-red-500 text-sm mt-1">{errors.rating}</p>} */}
                             </div>
                             {/* Your Review Textarea */}
                             <div className="mb-4">
@@ -190,9 +234,16 @@ export const ProductTab = () => {
                                 </label>
                                 <textarea
                                     id="review"
+                                    value={review}
+                                    onChange={(e) => {
+                                        setReview(e.target.value);
+                                        clearError("review");
+                                    }}
                                     rows={6}
+                                    placeholder=""
                                     className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:border-blue-500 transition-colors"
                                 ></textarea>
+                                {errors.review && <p className="text-red-500 text-sm mt-1">{errors.review}</p>}
                             </div>
 
                             {/* Name Input */}
@@ -203,8 +254,14 @@ export const ProductTab = () => {
                                 <input
                                     type="text"
                                     id="name"
+                                    value={inputName}
+                                    onChange={(e) => {
+                                        setInputName(e.target.value);
+                                        clearError("inputName");
+                                    }}
                                     className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:border-blue-500 h-[36px]"
                                 />
+                                {errors.inputName && <p className="text-red-500 text-sm mt-1">{errors.inputName}</p>}
                             </div>
 
                             {/* Email Input */}
@@ -215,8 +272,14 @@ export const ProductTab = () => {
                                 <input
                                     type="email"
                                     id="email"
+                                    value={inputEmail}
+                                    onChange={(e) => {
+                                        setInputEmail(e.target.value);
+                                        clearError("inputEmail");
+                                    }}
                                     className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:border-blue-500 h-[36px]"
                                 />
+                                {errors.inputEmail && <p className="text-red-500 text-sm mt-1">{errors.inputEmail}</p>}
                             </div>
 
                             {/* Checkbox Save Name */}
@@ -232,7 +295,10 @@ export const ProductTab = () => {
                             </div>
 
                             {/* Submit Button */}
-                            <button className="bg-black text-white px-8 py-2 rounded-full font-medium hover:bg-[#3078EA] transition-colors">
+                            <button
+                                type="submit"
+                                className="bg-black text-white px-8 py-2 rounded-full font-medium hover:bg-[#3078EA] transition-colors"
+                            >
                                 Submit
                             </button>
                         </form>
