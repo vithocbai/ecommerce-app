@@ -4,10 +4,11 @@ import { useCart } from "../../../context/CartContext";
 import { useState } from "react";
 import type { ShopProductProps } from "../../../data/shopProduct";
 import { Spinner } from "../../ui/spinner";
+import { useNavigate } from "react-router-dom";
 
 export const Cart = () => {
     const [removeProductId, setRemoveProductId] = useState<number | null>(null);
-
+    const navigate = useNavigate();
     const { cartItems, removeTocart } = useCart();
 
     // Tính tổng tiền
@@ -38,8 +39,7 @@ export const Cart = () => {
                                     <li
                                         key={product.sku}
                                         className={`group relative py-5 px-3 border-b-[1px] border-[#e1e1e1] last:border-b-0 hover:bg-[#f7f7f7] transform duration-150
-                                            ${removeProductId === product.id ? 'opacity-15' : 'opacity-100'}`
-                                        }
+                                            ${removeProductId === product.id ? "opacity-15" : "opacity-100"}`}
                                     >
                                         {/* Loading spinner */}
                                         {removeProductId === product.id && (
@@ -102,8 +102,11 @@ export const Cart = () => {
                         </div>
                         {/* Action */}
                         <div className="pt-[20px]">
-                            <button className="block text-center text-[#222] font-bold rounded-full mx-auto w-full h-[45px] bg-[#f2f2f2]">
-                                <a href="">View Cart</a>
+                            <button
+                                onClick={() => navigate("/checkout")}
+                                className="block text-center text-[#222] font-bold rounded-full mx-auto w-full h-[45px] bg-[#f2f2f2]"
+                            >
+                                View Cart
                             </button>
                             <button className="block text-center text-white rounded-full mt-[9px] mx-auto w-full h-[45px] bg-[#2a74ed] hover:bg-black duration-300">
                                 <a href="">Checkout</a>
@@ -115,7 +118,7 @@ export const Cart = () => {
                 <div className="flex-1 flex flex-col items-center justify-center">
                     <p className="text-center mb-[20px]">No products in the cart.</p>
                     <button className="block text-center text-white rounded-full mx-auto w-[170px] h-[37px] bg-[#2a74ed] hover:bg-black duration-300">
-                        <a href="">Return To Shop</a>
+                        <a href="#!">Return To Shop</a>
                     </button>
                 </div>
             )}
