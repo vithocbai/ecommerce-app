@@ -1,10 +1,17 @@
-import { Outlet,useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Footer } from "../Footer/Footer";
 import Header from "../Header/Header";
+import { useEffect, useState } from "react";
 
 export const CheckoutLayout = () => {
     const location = useLocation();
     const navigate = useNavigate();
+
+    const CHECKOUT_DURATION = 5 * 100;
+    const STORAGE_KEY = "checkout_expires_at";
+
+    // Đồng hồ đếm ngược
+    const [timeLeft, setTimeLeft] = useState(0);
 
     const stepMap = [
         { id: 1, label: "Shopping cart", path: "/checkout" },
@@ -13,6 +20,31 @@ export const CheckoutLayout = () => {
     ];
 
     const currentStep = stepMap.find((step) => step.path === location.pathname)?.id || 1;
+
+    useEffect(() => {
+        const now = Date.now();
+        const storePriseAt = localStorage.getItem(STORAGE_KEY);
+        if (!storePriseAt) {
+            localStorage.setItem(STORAGE_KEY, (now + CHECKOUT_DURATION * 1000).toString());
+            return;
+        }
+
+        if (now >= Number(storePriseAt)) {
+            localStorage.removeItem(STORAGE_KEY);
+        }
+    }, []);
+
+    useEffect(() => {
+        const interVal = setInterval(() => {
+            const expriseAt = Number(localStorage.getItem(STORAGE_KEY));
+            const diff = Math.max(0, Math.floor((expriseAt - Date.now()) / 1000));
+            setTimeLeft(diff);
+            if (diff === 0) {
+                localStorage.removeItem(STORAGE_KEY);
+            }
+        }, 1000);
+        return () => clearInterval(interVal);
+    }, [navigate]);
 
     return (
         <section>
@@ -36,7 +68,7 @@ export const CheckoutLayout = () => {
                                 >
                                     {step.id}
                                 </span>
-                                <div>{step.label}</div>
+                                <div className={`${isActive ? "text-[#222]" : "text-[#9a9a9a]"}`}>{step.label}</div>
                                 {index < stepMap.length - 1 && (
                                     <span className="min-w-[120px] border-b-[1px] border-[#e1e1e1] mx-[20px]"></span>
                                 )}
@@ -44,11 +76,22 @@ export const CheckoutLayout = () => {
                         );
                     })}
                 </ul>
+
+                {timeLeft > 0 ? (
+                    <p className="text-center pt-[23px]">
+                        🔥Hurry up, these products are limited, checkout within {Math.floor(timeLeft / 60)}:
+                        {(timeLeft % 60).toString().padStart(2, "0")}
+                    </p>
+                ) : (
+                    <p className="text-center pt-[23px]">
+                        You are out of time! Checkout now to avoid losing your order!
+                    </p>
+                )}
             </div>
-            
+
             {/* Step content */}
             <Outlet />
-            
+
             <Footer />
         </section>
     );
