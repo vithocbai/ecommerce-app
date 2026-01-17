@@ -12,6 +12,8 @@ type CartContextType = {
     cartItems: CartItem[];
     addToCart: (product: ShopProductProps, quantity?: number) => void;
     removeTocart: (product: ShopProductProps) => void;
+    removeToCartAll: () => void;
+    subTotal: number;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -44,12 +46,24 @@ export const CartProvider = ({ children }: CartProviderProps) => {
         setCartItems((prev) => prev.filter((item) => item.id !== product.id));
     };
 
+    // Xóa tất cả sản phẩm khỏi giỏ hàng
+    const removeToCartAll = () => {
+        setCartItems([]);
+    };
+
+    // Tính tổng sản phẩm
+    const subTotal = cartItems.reduce((total, item) => {
+        return total + item.quantity * item.price;
+    }, 0);
+
     // Mỗi lần cartItems thay đổi -> lưu vào localStorage
     useEffect(() => {
         localStorage.setItem("cartItems", JSON.stringify(cartItems));
     }, [cartItems]);
 
-    return <CartContext.Provider value={{ cartItems, addToCart, removeTocart }}>{children}</CartContext.Provider>;
+    return (
+        <CartContext.Provider value={{ cartItems, addToCart, subTotal, removeTocart, removeToCartAll }}>{children}</CartContext.Provider>
+    );
 };
 
 // Hook để sử dụng Cart Context
