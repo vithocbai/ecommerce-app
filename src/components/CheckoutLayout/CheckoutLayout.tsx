@@ -50,43 +50,45 @@ export const CheckoutLayout = () => {
         <section>
             <Header />
             {/* Cart Step */}
-            <div className="bg-[#fafafa] py-[28px] mb-[26px]">
-                <ul className="flex justify-center">
-                    {stepMap.map((step, index) => {
-                        const isActive = step.id === currentStep;
-                        // const isCompleted = step.id < currentStep;
+            <div className="bg-[#fafafa]">
+                <div className=" max-w-[1600px] mx-auto  py-[28px] mb-[26px]">
+                    <ul className="flex justify-center">
+                        {stepMap.map((step, index) => {
+                            const isActive = step.id === currentStep;
+                            // const isCompleted = step.id < currentStep;
 
-                        return (
-                            <li
-                                onClick={() => navigate(`${step.path}`)}
-                                key={index}
-                                className={`flex items-center text-[#9a9a9a] uppercase`}
-                            >
-                                <span
-                                    className={`w-[30px] h-[30px] border-[1px] border-[#e1e1e1] text-center text-[18px] mr-[7px] rounded-full
-                                    ${isActive ? "text-[#fff] bg-black" : "text-[#9a9a9a] bg-transparent"}`}
+                            return (
+                                <li
+                                    onClick={() => navigate(`${step.path}`)}
+                                    key={index}
+                                    className={`flex items-center text-[#9a9a9a] uppercase`}
                                 >
-                                    {step.id}
-                                </span>
-                                <div className={`${isActive ? "text-[#222]" : "text-[#9a9a9a]"}`}>{step.label}</div>
-                                {index < stepMap.length - 1 && (
-                                    <span className="min-w-[120px] border-b-[1px] border-[#e1e1e1] mx-[20px]"></span>
-                                )}
-                            </li>
-                        );
-                    })}
-                </ul>
+                                    <span
+                                        className={`w-[30px] h-[30px] border-[1px] border-[#e1e1e1] text-center text-[18px] mr-[7px] rounded-full
+                                    ${isActive ? "text-[#fff] bg-black" : "text-[#9a9a9a] bg-transparent"}`}
+                                    >
+                                        {step.id}
+                                    </span>
+                                    <div className={`text-[21px] ${isActive ? "text-[#222]" : "text-[#9a9a9a]"}`}>{step.label}</div>
+                                    {index < stepMap.length - 1 && (
+                                        <span className="min-w-[120px] border-b-[1px] border-[#e1e1e1] mx-[20px]"></span>
+                                    )}
+                                </li>
+                            );
+                        })}
+                    </ul>
 
-                {timeLeft > 0 ? (
-                    <p className="text-center pt-[23px]">
-                        🔥Hurry up, these products are limited, checkout within {Math.floor(timeLeft / 60)}:
-                        {(timeLeft % 60).toString().padStart(2, "0")}
-                    </p>
-                ) : (
-                    <p className="text-center pt-[23px]">
-                        You are out of time! Checkout now to avoid losing your order!
-                    </p>
-                )}
+                    {timeLeft > 0 ? (
+                        <p className="text-center pt-[26px]">
+                            🔥Hurry up, these products are limited, checkout within {Math.floor(timeLeft / 60)}:
+                            {(timeLeft % 60).toString().padStart(2, "0")}
+                        </p>
+                    ) : (
+                        <p className="text-center pt-[23px]">
+                            You are out of time! Checkout now to avoid losing your order!
+                        </p>
+                    )}
+                </div>
             </div>
 
             {/* Step content */}
