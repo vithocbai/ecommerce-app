@@ -48,7 +48,10 @@ export const CartProvider = ({ children }: CartProviderProps) => {
 
     // Xóa tất cả sản phẩm khỏi giỏ hàng
     const removeToCartAll = () => {
-        setCartItems([]);
+        const isConfirm = window.confirm("Bạn có chắc muốn xóa tất cả sản phẩm")
+        if(isConfirm) {
+            setCartItems([]);
+        }
     };
 
     // Tính tổng sản phẩm
