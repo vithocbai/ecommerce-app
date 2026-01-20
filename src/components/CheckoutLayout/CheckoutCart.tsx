@@ -1,4 +1,4 @@
-import { Star, Trash2 } from "lucide-react";
+import { Star, Trash2, X } from "lucide-react";
 import { useCart } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
 
@@ -20,7 +20,8 @@ export const CheckoutCart = () => {
             <div className="flex max-lg:flex-col max-lg:gap-8">
                 <div className="w-[60%] max-lg:w-full">
                     {/* Xem thông tin sản phẩm */}
-                    <table className="w-full">
+                    {/* Destop and table */}
+                    <table className="max-lg:hidden w-full">
                         <thead className="w-full">
                             <tr className="text-[#222] text-[14px] font-medium border-b border-[#e1e1e1]">
                                 <th className="max-w-[280px] box-border text-left py-[14px] pr-[10px]">Product</th>
@@ -70,8 +71,54 @@ export const CheckoutCart = () => {
                             })}
                         </tbody>
                     </table>
+                    {/* Mobile */}
+                    <table className="lg:hidden">
+                        <tbody>
+                        {cartItems.map((product) => {
+                                return (
+                                    <tr>
+                                        <td className="align-top pt-[18px]">
+                                            <div className="max-w-[200px] w-[55px] h-[55px] object-cover mr-4">
+                                                <img
+                                                    className=""
+                                                    src={`/${product.image[0]}`}
+                                                    alt=""
+                                                />
+                                            </div>
+                                        </td>
+                                        <td className="text-[#888] text-[18px] text-left px-[4px] pt-[18px] pb-[12px]">
+                                            <div className="w-full text-[#222]">
+                                                <h3 className="w-full text-[20px] hover:text-[#2a74ed] font-medium">
+                                                    {product.title}
+                                                </h3>
+                                                
+                                            </div>
+                                            <div className="flex items-center pt-[7px] mt-[7px] border-t border-dashed border-t-[#e1e1e1]">
+                                                <div className="text-[#222] text-[18px]">{product.quantity}</div> 
+                                                <span className="text-[#222]"><X size={12}/></span>
+                                                 $
+                                                {new Intl.NumberFormat("en-US", {
+                                                    minimumFractionDigits: 2,
+                                                }).format(product.price)}
+                                            </div>
+                                            <div className="text-[#888] text-[18px] pt-[7px] mt-[5px] border-y border-dashed border-y-[#e1e1e1]">
+                                                <span className="text-[#222]">Subtotal: </span>
+                                                $
+                                                {new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(
+                                                    product.quantity * product.price
+                                                )}
+                                            </div>
+                                            <span onClick={() => (removeTocart(product))} className="block text-[17px] text-[#222] underline cursor-pointer hover:opacity-60 pt-[5px]">
+                                                Remove
+                                            </span>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
                     {/* Phần Coupon và Clear Cart */}
-                    <div className="w-full flex gap-2 pt-[18px] border-t border-[#e1e1e1] ">
+                    <div className="w-full flex max-md:flex-col gap-2 pt-[18px] border-t border-[#e1e1e1] ">
                         <div className="flex justify-between w-full">
                             <input
                                 type="text"
@@ -82,10 +129,10 @@ export const CheckoutCart = () => {
                                 OK
                             </button>
                         </div>
-                        <div className="w-full flex justify-end">
+                        <div className="w-full flex justify-end ">
                             <button
                                 onClick={() => removeToCartAll()}
-                                className=" flex items-center gap-2 px-[30px] rounded-full border border-[#e1e1e1] text-[#222] font-semibold hover:text-red-500 transition-colors mt-4 md:mt-0 "
+                                className=" flex items-center max-lg:justify-center gap-2 h-[38px] px-[30px] rounded-full border border-[#e1e1e1] text-[#222] font-semibold hover:text-red-500 transition-colors mt-4 md:mt-0 max-lg:w-full "
                             >
                                 <Trash2 size={16} />
                                 Clear shopping cart
