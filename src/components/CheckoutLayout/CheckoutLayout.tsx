@@ -46,6 +46,13 @@ export const CheckoutLayout = () => {
         return () => clearInterval(interVal);
     }, [navigate]);
 
+    useEffect(() => {   
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
+    },[location.pathname])
+
     return (
         <section>
             <Header />
