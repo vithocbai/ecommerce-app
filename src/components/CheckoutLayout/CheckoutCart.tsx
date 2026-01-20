@@ -22,54 +22,70 @@ export const CheckoutCart = () => {
                     {/* Xem thông tin sản phẩm */}
                     {/* Destop and table */}
                     <table className="max-lg:hidden w-full">
-                        <thead className="w-full">
-                            <tr className="text-[#222] text-[14px] font-medium border-b border-[#e1e1e1]">
-                                <th className="max-w-[280px] box-border text-left py-[14px] pr-[10px]">Product</th>
-                                <th className="py-[14px] px-[10px]">Price</th>
-                                <th className="py-[14px] px-[10px]">SKU</th>
-                                <th className="py-[14px] px-[10px]">Quantity</th>
-                                <th className="py-[14px] pl-[10px] text-right">Subtotal</th>
+                        <thead>
+                            <tr className="text-[#222] text-[14px] font-semibold border-b border-[#e1e1e1]">
+                                <th className="w-[45%] text-left py-4 pr-4">Product</th>
+                                <th className="py-4 text-center">Price</th>
+                                <th className="py-4 text-center">SKU</th>
+                                <th className="py-4 text-center">Quantity</th>
+                                <th className="py-4 text-right pl-4">Subtotal</th>
                             </tr>
                         </thead>
-                        <tbody className="[&>tr>td]:align-top [&>tr>td]:px-[12px] [&>tr>td]:py-[18px] [&>tr>td]:last:pr-0">
-                            {cartItems.map((product) => {
-                                return (
-                                    <tr>
-                                        <td className="max-w-[200px]">
-                                            <div className="flex items-start">
-                                                <img
-                                                    className="w-[80px] h-[80px] object-cover my-5 mr-4"
-                                                    src={`/${product.image[0]}`}
-                                                    alt=""
-                                                />
-                                                <div className="w-full text-[#222]">
-                                                    <h3 className="w-full text-[20px] hover:text-[#2a74ed] font-medium mb-1">
-                                                        {product.title}
-                                                    </h3>
-                                                    <span onClick={() => (removeTocart(product))} className="text-[17px] underline cursor-pointer hover:opacity-60">
-                                                        Remove
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className="text-[#888] text-[18px] text-center">
-                                            $
-                                            {new Intl.NumberFormat("en-US", {
-                                                minimumFractionDigits: 2,
-                                            }).format(product.price)}
-                                        </td>
-                                        <td className="text-[#444] text-[18px] text-center">{product.sku}</td>
-                                        <td className="text-[#444] text-[18px] text-center">{product.quantity}</td>
-                                        <td className="text-[#888] text-[18px] text-right">
-                                            $
-                                            {new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(
-                                                product.quantity * product.price
-                                            )}
-                                        </td>
-                                    </tr>
-                                );
-                            })}
+
+                        <tbody className="[&>tr>td]:align-top [&>tr>td]:py-6 border-b border-[#e1e1e1]">
+                            {cartItems.map((product) => (
+                                <tr key={product.sku}>
+                                {/* Product */}
+                                <td className="pr-6">
+                                    <div className="flex items-start gap-4">
+                                    <img
+                                        className="w-[80px] h-[80px] object-cover rounded-md"
+                                        src={`/${product.image[0]}`}
+                                        alt=""
+                                    />
+                                    <div>
+                                        <h3 className="text-[18px] font-medium text-[#222] mb-2 hover:text-[#2a74ed]">
+                                        {product.title}
+                                        </h3>
+                                        <button
+                                        onClick={() => removeTocart(product)}
+                                        className="text-[14px] text-[#666] underline hover:text-red-500"
+                                        >
+                                        Remove
+                                        </button>
+                                    </div>
+                                    </div>
+                                </td>
+
+                                {/* Price */}
+                                <td className="text-[#666] text-[16px] text-center">
+                                    $
+                                    {new Intl.NumberFormat("en-US", {
+                                    minimumFractionDigits: 2,
+                                    }).format(product.price)}
+                                </td>
+
+                                {/* SKU */}
+                                <td className="text-[#444] text-[15px] text-center">
+                                    {product.sku}
+                                </td>
+
+                                {/* Quantity */}
+                                <td className="text-[#444] text-[16px] text-center">
+                                    {product.quantity}
+                                </td>
+
+                                {/* Subtotal */}
+                                <td className="text-[#222] text-[16px] text-right font-medium">
+                                    $
+                                    {new Intl.NumberFormat("en-US", {
+                                    minimumFractionDigits: 2,
+                                    }).format(product.quantity * product.price)}
+                                </td>
+                                </tr>
+                            ))}
                         </tbody>
+
                     </table>
                     {/* Mobile */}
                     <table className="lg:hidden">
